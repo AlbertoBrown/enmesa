@@ -1,0 +1,8 @@
+# Archivos temporales
+tmpclaude-*
+*.tmp
+*.temp
+
+# Sistema
+.DS_Store
+Thumbs.db

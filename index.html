@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Entre Encinas — Carta</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- BARRA VERDE CON LOGO Y PASTILLAS -->
+  <header class="top-bar">
+    <div class="top-bar-inner">
+      <div class="top-bar-logo-wrap">
+        <img class="top-bar-logo" src="Fotos/Logo_EntreEncinas.png" alt="Entre Encinas" />
+      </div>
+      <nav class="cat-nav">
+        <button class="cat-pill active" data-target="entradas">Entradas</button>
+        <button class="cat-pill" data-target="principales">Platos principales</button>
+        <button class="cat-pill" data-target="bebidas">Bebidas</button>
+        <button class="cat-pill" data-target="postres">Postres</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- CONTENIDO -->
+  <main class="menu-content">
+
+    <!-- ══ ENTRADAS ══ -->
+    <section id="entradas" class="menu-section active">
+      <h2 class="section-title">Entradas</h2>
+      <ul class="dish-list">
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Jamón Ibérico de Bellota</span>
+            <span class="dish-sub">Loncheado al momento · D.O. Guijuelo</span>
+          </div>
+          <span class="dish-price">18,50 €</span>
+        </li>
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Tabla de Quesos Artesanos</span>
+            <span class="dish-sub">Curados, semicurados y cremosos · mermelada artesana</span>
+          </div>
+          <span class="dish-price">14,00 €</span>
+        </li>
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Paté de la Casa</span>
+            <span class="dish-sub">Con reducción de Oporto · tostadas crujientes</span>
+          </div>
+          <span class="dish-price">9,50 €</span>
+        </li>
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Ensaladilla Rusa</span>
+            <span class="dish-sub">Atún de almadraba · mayonesa casera</span>
+          </div>
+          <span class="dish-price">8,50 €</span>
+        </li>
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Papas Arrugadas con Mojo</span>
+            <span class="dish-sub">Mojo rojo picón y mojo verde</span>
+          </div>
+          <span class="dish-price">7,50 €</span>
+        </li>
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Croquetas de la Abuela</span>
+            <span class="dish-sub">Bechamel de jamón ibérico · ocho unidades</span>
+          </div>
+          <span class="dish-price">9,00 €</span>
+        </li>
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Pan con Tomate y Anchoas</span>
+            <span class="dish-sub">Pan de masa madre · anchoas del Cantábrico</span>
+          </div>
+          <span class="dish-price">8,00 €</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ══ PLATOS PRINCIPALES ══ -->
+    <section id="principales" class="menu-section">
+      <h2 class="section-title">Platos Principales</h2>
+      <ul class="dish-list">
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Huevos Rotos con Jamón</span>
+            <span class="dish-sub">Huevos de corral · patatas fritas · jamón ibérico</span>
+          </div>
+          <div class="price-dual">
+            <span class="price-unit"><span class="price-label">Tapa</span><span class="dish-price">8,00 €</span></span>
+            <span class="price-unit"><span class="price-label">Plato</span><span class="dish-price">14,00 €</span></span>
+          </div>
+        </li>
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Bacalao Dorado</span>
+            <span class="dish-sub">Patata paja · huevo revuelto · aceitunas negras</span>
+          </div>
+          <div class="price-dual">
+            <span class="price-unit"><span class="price-label">Tapa</span><span class="dish-price">10,00 €</span></span>
+            <span class="price-unit"><span class="price-label">Plato</span><span class="dish-price">17,50 €</span></span>
+          </div>
+        </li>
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Bacalao a la Nata</span>
+            <span class="dish-sub">Bacalao · nata · patatas · queso gratinado</span>
+          </div>
+          <div class="price-dual">
+            <span class="price-unit"><span class="price-label">Tapa</span><span class="dish-price">10,50 €</span></span>
+            <span class="price-unit"><span class="price-label">Plato</span><span class="dish-price">18,00 €</span></span>
+          </div>
+        </li>
+
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Solomillo al Ajo Tostado</span>
+            <span class="dish-sub">Salsa de ajo tostado · guarnición de temporada</span>
+          </div>
+          <div class="price-dual">
+            <span class="price-unit"><span class="price-label">Tapa</span><span class="dish-price">14,00 €</span></span>
+            <span class="price-unit"><span class="price-label">Plato</span><span class="dish-price">24,00 €</span></span>
+          </div>
+        </li>
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Solomillo a la Pimienta</span>
+            <span class="dish-sub">Salsa de pimienta verde · patatas asadas</span>
+          </div>
+          <div class="price-dual">
+            <span class="price-unit"><span class="price-label">Tapa</span><span class="dish-price">14,00 €</span></span>
+            <span class="price-unit"><span class="price-label">Plato</span><span class="dish-price">24,00 €</span></span>
+          </div>
+        </li>
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Solomillo al Roquefort</span>
+            <span class="dish-sub">Crema de queso Roquefort · nueces caramelizadas</span>
+          </div>
+          <div class="price-dual">
+            <span class="price-unit"><span class="price-label">Tapa</span><span class="dish-price">15,00 €</span></span>
+            <span class="price-unit"><span class="price-label">Plato</span><span class="dish-price">25,00 €</span></span>
+          </div>
+        </li>
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Entrecot a la Brasa</span>
+            <span class="dish-sub">Entrecot de añojo · sal gruesa · chimichurri de la casa</span>
+          </div>
+          <div class="price-dual">
+            <span class="price-unit"><span class="price-label">Tapa</span><span class="dish-price">13,00 €</span></span>
+            <span class="price-unit"><span class="price-label">Plato</span><span class="dish-price">22,00 €</span></span>
+          </div>
+        </li>
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Chuletón de Buey</span>
+            <span class="dish-sub">Madurado 30 días · sal en escamas · pimientos del piquillo</span>
+          </div>
+          <div class="price-dual">
+            <span class="price-unit"><span class="price-label">Tapa</span><span class="dish-price">22,00 €</span></span>
+            <span class="price-unit"><span class="price-label">Plato</span><span class="dish-price">38,00 €</span></span>
+          </div>
+        </li>
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Lagarto Ibérico a la Brasa</span>
+            <span class="dish-sub">Brasa de encina · alioli de ajo negro</span>
+          </div>
+          <div class="price-dual">
+            <span class="price-unit"><span class="price-label">Tapa</span><span class="dish-price">11,50 €</span></span>
+            <span class="price-unit"><span class="price-label">Plato</span><span class="dish-price">19,50 €</span></span>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ══ BEBIDAS ══ -->
+    <section id="bebidas" class="menu-section">
+      <h2 class="section-title">Bebidas</h2>
+
+      <p class="drinks-label">Refrescos</p>
+      <ul class="dish-list">
+        <li class="dish">
+          <div class="dish-info"><span class="dish-name">Coca-Cola</span></div>
+          <span class="dish-price">2,50 €</span>
+        </li>
+        <li class="dish">
+          <div class="dish-info"><span class="dish-name">Coca-Cola Light</span></div>
+          <span class="dish-price">2,50 €</span>
+        </li>
+        <li class="dish">
+          <div class="dish-info"><span class="dish-name">Fanta Naranja</span></div>
+          <span class="dish-price">2,50 €</span>
+        </li>
+        <li class="dish">
+          <div class="dish-info"><span class="dish-name">Fanta Limón</span></div>
+          <span class="dish-price">2,50 €</span>
+        </li>
+        <li class="dish">
+          <div class="dish-info"><span class="dish-name">Nestea Maracuyá</span></div>
+          <span class="dish-price">2,80 €</span>
+        </li>
+        <li class="dish">
+          <div class="dish-info"><span class="dish-name">Nestea Original</span></div>
+          <span class="dish-price">2,80 €</span>
+        </li>
+      </ul>
+
+      <p class="drinks-label">Cervezas</p>
+      <ul class="dish-list">
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Victoria — Caña</span>
+            <span class="dish-sub">Barril · 20 cl</span>
+          </div>
+          <span class="dish-price">2,00 €</span>
+        </li>
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Victoria — Tercio</span>
+            <span class="dish-sub">Botella · 33 cl</span>
+          </div>
+          <span class="dish-price">2,80 €</span>
+        </li>
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Victoria — Pinta de Barril</span>
+            <span class="dish-sub">Barril · 50 cl</span>
+          </div>
+          <span class="dish-price">4,50 €</span>
+        </li>
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Mahou Clásica</span>
+            <span class="dish-sub">Botella · 33 cl</span>
+          </div>
+          <span class="dish-price">2,80 €</span>
+        </li>
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Estrella Galicia</span>
+            <span class="dish-sub">Botella · 33 cl</span>
+          </div>
+          <span class="dish-price">3,00 €</span>
+        </li>
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Voll-Damm</span>
+            <span class="dish-sub">Doble Malta · botella 33 cl</span>
+          </div>
+          <span class="dish-price">3,50 €</span>
+        </li>
+      </ul>
+
+      <p class="drinks-label">Vinos &amp; Generosos</p>
+      <ul class="dish-list">
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Palacios Remondo</span>
+            <span class="dish-sub">D.O.Ca. Rioja · Tinto Crianza</span>
+          </div>
+          <div class="price-dual">
+            <span class="price-unit"><span class="price-label">Copa</span><span class="dish-price">4,50 €</span></span>
+            <span class="price-unit"><span class="price-label">Botella</span><span class="dish-price">18,00 €</span></span>
+          </div>
+        </li>
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Albur de Marqués de Palacio</span>
+            <span class="dish-sub">D.O.Ca. Rioja · Blanco en Barrica</span>
+          </div>
+          <div class="price-dual">
+            <span class="price-unit"><span class="price-label">Copa</span><span class="dish-price">4,00 €</span></span>
+            <span class="price-unit"><span class="price-label">Botella</span><span class="dish-price">16,00 €</span></span>
+          </div>
+        </li>
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Porto Cruz</span>
+            <span class="dish-sub">Oporto Tinto · D.O.C. Porto</span>
+          </div>
+          <div class="price-dual">
+            <span class="price-unit"><span class="price-label">Copa</span><span class="dish-price">5,00 €</span></span>
+            <span class="price-unit"><span class="price-label">Botella</span><span class="dish-price">18,00 €</span></span>
+          </div>
+        </li>
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Faustino I Gran Reserva</span>
+            <span class="dish-sub">D.O.Ca. Rioja · Tempranillo · Graciano</span>
+          </div>
+          <div class="price-dual">
+            <span class="price-unit"><span class="price-label">Copa</span><span class="dish-price">6,00 €</span></span>
+            <span class="price-unit"><span class="price-label">Botella</span><span class="dish-price">28,00 €</span></span>
+          </div>
+        </li>
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Vino de la Casa</span>
+            <span class="dish-sub">Tinto · Blanco · Rosado</span>
+          </div>
+          <div class="price-dual">
+            <span class="price-unit"><span class="price-label">Copa</span><span class="dish-price">3,50 €</span></span>
+            <span class="price-unit"><span class="price-label">Botella</span><span class="dish-price">12,00 €</span></span>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ══ POSTRES ══ -->
+    <section id="postres" class="menu-section">
+      <h2 class="section-title">Postres</h2>
+      <ul class="dish-list">
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Coulant de Chocolate</span>
+            <span class="dish-sub">Corazón fundente · helado de vainilla · frambuesas</span>
+          </div>
+          <span class="dish-price">7,50 €</span>
+        </li>
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Tarta de Queso al Horno</span>
+            <span class="dish-sub">Receta vasca · mermelada de frutos rojos</span>
+          </div>
+          <span class="dish-price">6,50 €</span>
+        </li>
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Flan Casero</span>
+            <span class="dish-sub">Caramelo tostado · nata montada</span>
+          </div>
+          <span class="dish-price">5,50 €</span>
+        </li>
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Arroz con Leche</span>
+            <span class="dish-sub">Receta asturiana · canela · azúcar tostada</span>
+          </div>
+          <span class="dish-price">5,50 €</span>
+        </li>
+        <li class="dish">
+          <div class="dish-info">
+            <span class="dish-name">Crema Catalana</span>
+            <span class="dish-sub">Costra de azúcar quemado · naranja confitada</span>
+          </div>
+          <span class="dish-price">6,00 €</span>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <script>
+    const pills = document.querySelectorAll('.cat-pill');
+    const sections = document.querySelectorAll('.menu-section');
+
+    pills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        pills.forEach(p => p.classList.remove('active'));
+        sections.forEach(s => s.classList.remove('active'));
+        pill.classList.add('active');
+        document.getElementById(pill.dataset.target).classList.add('active');
+        document.querySelector('.menu-content').scrollTop = 0;
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>enmesa. — Mesa #12</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="cliente.css" />
+</head>
+<body>
+
+  <!-- NOTIFICACIONES -->
+  <div class="notification-container" id="notifications"></div>
+
+  <!-- HEADER BLANCO CON LOGO -->
+  <header class="top-bar">
+    <div class="top-bar-inner">
+      <a href="landing.html" class="top-bar-logo-wrap">
+        <img class="top-bar-logo" src="Fotos/Logo3.png" alt="enmesa." />
+      </a>
+      <span class="mesa-info"><i class="fas fa-utensils"></i> Mesa #12</span>
+    </div>
+  </header>
+  
+  <!-- TABS DE CATEGORÍAS -->
+  <nav class="cat-nav">
+    <button class="cat-pill active" data-target="entradas">Entradas</button>
+    <button class="cat-pill" data-target="principales">Principales</button>
+    <button class="cat-pill" data-target="bebidas">Bebidas</button>
+    <button class="cat-pill" data-target="postres">Postres</button>
+    <button class="cat-pill" data-target="pedidos">Mis Pedidos</button>
+  </nav>
+
+  <!-- CONTENIDO -->
+  <main class="menu-content">
+
+    <!-- ══ MIS PEDIDOS ══ -->
+    <section id="pedidos" class="menu-section">
+      <h2 class="section-title">Estado de tus Pedidos</h2>
+      
+      <div id="active-orders">
+        <!-- Los pedidos activos aparecerán aquí -->
+        <div class="cart-empty" id="no-orders">
+          <i class="fas fa-clipboard-list"></i>
+          <p>Aún no tienes pedidos activos</p>
+          <p style="font-size: 0.8rem; margin-top: 8px;">Explora el menú para realizar tu primer pedido</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ ENTRADAS ══ -->
+    <section id="entradas" class="menu-section active">
+      <h2 class="section-title">Entradas</h2>
+      <ul class="dish-list">
+        <li class="dish" data-id="1" data-name="Jamón Ibérico de Bellota" data-price="18.50">
+          <div class="dish-info">
+            <span class="dish-name">Jamón Ibérico de Bellota</span>
+            <span class="dish-sub">Loncheado al momento · D.O. Guijuelo</span>
+          </div>
+          <span class="dish-price">18,50 €</span>
+          <div class="qty-controls">
+            <button class="qty-btn minus" disabled><i class="fas fa-minus"></i></button>
+            <span class="qty-value">0</span>
+            <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+          </div>
+        </li>
+        <li class="dish" data-id="2" data-name="Tabla de Quesos Artesanos" data-price="14.00">
+          <div class="dish-info">
+            <span class="dish-name">Tabla de Quesos Artesanos</span>
+            <span class="dish-sub">Curados, semicurados y cremosos · mermelada artesana</span>
+          </div>
+          <span class="dish-price">14,00 €</span>
+          <div class="qty-controls">
+            <button class="qty-btn minus" disabled><i class="fas fa-minus"></i></button>
+            <span class="qty-value">0</span>
+            <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+          </div>
+        </li>
+        <li class="dish" data-id="3" data-name="Paté de la Casa" data-price="9.50">
+          <div class="dish-info">
+            <span class="dish-name">Paté de la Casa</span>
+            <span class="dish-sub">Con reducción de Oporto · tostadas crujientes</span>
+          </div>
+          <span class="dish-price">9,50 €</span>
+          <div class="qty-controls">
+            <button class="qty-btn minus" disabled><i class="fas fa-minus"></i></button>
+            <span class="qty-value">0</span>
+            <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+          </div>
+        </li>
+        <li class="dish" data-id="4" data-name="Croquetas de la Abuela" data-price="9.00">
+          <div class="dish-info">
+            <span class="dish-name">Croquetas de la Abuela</span>
+            <span class="dish-sub">Bechamel de jamón ibérico · ocho unidades</span>
+          </div>
+          <span class="dish-price">9,00 €</span>
+          <div class="qty-controls">
+            <button class="qty-btn minus" disabled><i class="fas fa-minus"></i></button>
+            <span class="qty-value">0</span>
+            <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+          </div>
+        </li>
+        <li class="dish out-of-stock" data-id="5" data-name="Ensaladilla Rusa" data-price="8.50">
+          <div class="dish-info">
+            <span class="dish-name">Ensaladilla Rusa</span>
+            <span class="dish-sub">Atún de almadraba · mayonesa casera</span>
+            <span class="out-of-stock-badge"><i class="fas fa-exclamation-circle"></i> Agotado</span>
+          </div>
+          <span class="dish-price">8,50 €</span>
+        </li>
+        <li class="dish" data-id="6" data-name="Papas Arrugadas con Mojo" data-price="7.50">
+          <div class="dish-info">
+            <span class="dish-name">Papas Arrugadas con Mojo</span>
+            <span class="dish-sub">Mojo rojo picón y mojo verde</span>
+          </div>
+          <span class="dish-price">7,50 €</span>
+          <div class="qty-controls">
+            <button class="qty-btn minus" disabled><i class="fas fa-minus"></i></button>
+            <span class="qty-value">0</span>
+            <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ══ PLATOS PRINCIPALES ══ -->
+    <section id="principales" class="menu-section">
+      <h2 class="section-title">Platos Principales</h2>
+      <ul class="dish-list">
+        <li class="dish" data-id="10" data-name="Huevos Rotos con Jamón" data-price="14.00">
+          <div class="dish-info">
+            <span class="dish-name">Huevos Rotos con Jamón</span>
+            <span class="dish-sub">Huevos de corral · patatas fritas · jamón ibérico</span>
+          </div>
+          <span class="dish-price">14,00 €</span>
+          <div class="qty-controls">
+            <button class="qty-btn minus" disabled><i class="fas fa-minus"></i></button>
+            <span class="qty-value">0</span>
+            <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+          </div>
+        </li>
+        <li class="dish" data-id="11" data-name="Bacalao Dorado" data-price="17.50">
+          <div class="dish-info">
+            <span class="dish-name">Bacalao Dorado</span>
+            <span class="dish-sub">Patata paja · huevo revuelto · aceitunas negras</span>
+          </div>
+          <span class="dish-price">17,50 €</span>
+          <div class="qty-controls">
+            <button class="qty-btn minus" disabled><i class="fas fa-minus"></i></button>
+            <span class="qty-value">0</span>
+            <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+          </div>
+        </li>
+        <li class="dish" data-id="12" data-name="Solomillo al Ajo Tostado" data-price="24.00">
+          <div class="dish-info">
+            <span class="dish-name">Solomillo al Ajo Tostado</span>
+            <span class="dish-sub">Salsa de ajo tostado · guarnición de temporada</span>
+          </div>
+          <span class="dish-price">24,00 €</span>
+          <div class="qty-controls">
+            <button class="qty-btn minus" disabled><i class="fas fa-minus"></i></button>
+            <span class="qty-value">0</span>
+            <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+          </div>
+        </li>
+        <li class="dish" data-id="13" data-name="Entrecot a la Brasa" data-price="22.00">
+          <div class="dish-info">
+            <span class="dish-name">Entrecot a la Brasa</span>
+            <span class="dish-sub">Entrecot de añojo · sal gruesa · chimichurri</span>
+          </div>
+          <span class="dish-price">22,00 €</span>
+          <div class="qty-controls">
+            <button class="qty-btn minus" disabled><i class="fas fa-minus"></i></button>
+            <span class="qty-value">0</span>
+            <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+          </div>
+        </li>
+        <li class="dish" data-id="14" data-name="Chuletón de Buey" data-price="38.00">
+          <div class="dish-info">
+            <span class="dish-name">Chuletón de Buey</span>
+            <span class="dish-sub">Madurado 30 días · sal en escamas · pimientos</span>
+          </div>
+          <span class="dish-price">38,00 €</span>
+          <div class="qty-controls">
+            <button class="qty-btn minus" disabled><i class="fas fa-minus"></i></button>
+            <span class="qty-value">0</span>
+            <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ══ BEBIDAS ══ -->
+    <section id="bebidas" class="menu-section">
+      <h2 class="section-title">Bebidas</h2>
+
+      <p class="drinks-label">Refrescos</p>
+      <ul class="dish-list">
+        <li class="dish" data-id="20" data-name="Coca-Cola" data-price="2.50">
+          <div class="dish-info"><span class="dish-name">Coca-Cola</span></div>
+          <span class="dish-price">2,50 €</span>
+          <div class="qty-controls">
+            <button class="qty-btn minus" disabled><i class="fas fa-minus"></i></button>
+            <span class="qty-value">0</span>
+            <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+          </div>
+        </li>
+        <li class="dish" data-id="21" data-name="Fanta Naranja" data-price="2.50">
+          <div class="dish-info"><span class="dish-name">Fanta Naranja</span></div>
+          <span class="dish-price">2,50 €</span>
+          <div class="qty-controls">
+            <button class="qty-btn minus" disabled><i class="fas fa-minus"></i></button>
+            <span class="qty-value">0</span>
+            <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+          </div>
+        </li>
+        <li class="dish" data-id="22" data-name="Agua Mineral" data-price="2.00">
+          <div class="dish-info"><span class="dish-name">Agua Mineral</span><span class="dish-sub">50cl</span></div>
+          <span class="dish-price">2,00 €</span>
+          <div class="qty-controls">
+            <button class="qty-btn minus" disabled><i class="fas fa-minus"></i></button>
+            <span class="qty-value">0</span>
+            <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+          </div>
+        </li>
+      </ul>
+
+      <p class="drinks-label">Cervezas</p>
+      <ul class="dish-list">
+        <li class="dish" data-id="25" data-name="Victoria Caña" data-price="2.00">
+          <div class="dish-info">
+            <span class="dish-name">Victoria — Caña</span>
+            <span class="dish-sub">Barril · 20 cl</span>
+          </div>
+          <span class="dish-price">2,00 €</span>
+          <div class="qty-controls">
+            <button class="qty-btn minus" disabled><i class="fas fa-minus"></i></button>
+            <span class="qty-value">0</span>
+            <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+          </div>
+        </li>
+        <li class="dish" data-id="26" data-name="Victoria Tercio" data-price="2.80">
+          <div class="dish-info">
+            <span class="dish-name">Victoria — Tercio</span>
+            <span class="dish-sub">Botella · 33 cl</span>
+          </div>
+          <span class="dish-price">2,80 €</span>
+          <div class="qty-controls">
+            <button class="qty-btn minus" disabled><i class="fas fa-minus"></i></button>
+            <span class="qty-value">0</span>
+            <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+          </div>
+        </li>
+      </ul>
+
+      <p class="drinks-label">Vinos</p>
+      <ul class="dish-list">
+        <li class="dish" data-id="30" data-name="Vino de la Casa (Copa)" data-price="3.50">
+          <div class="dish-info">
+            <span class="dish-name">Vino de la Casa — Copa</span>
+            <span class="dish-sub">Tinto · Blanco · Rosado</span>
+          </div>
+          <span class="dish-price">3,50 €</span>
+          <div class="qty-controls">
+            <button class="qty-btn minus" disabled><i class="fas fa-minus"></i></button>
+            <span class="qty-value">0</span>
+            <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+          </div>
+        </li>
+        <li class="dish" data-id="31" data-name="Vino de la Casa (Botella)" data-price="12.00">
+          <div class="dish-info">
+            <span class="dish-name">Vino de la Casa — Botella</span>
+            <span class="dish-sub">Tinto · Blanco · Rosado</span>
+          </div>
+          <span class="dish-price">12,00 €</span>
+          <div class="qty-controls">
+            <button class="qty-btn minus" disabled><i class="fas fa-minus"></i></button>
+            <span class="qty-value">0</span>
+            <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ══ POSTRES ══ -->
+    <section id="postres" class="menu-section">
+      <h2 class="section-title">Postres</h2>
+      <ul class="dish-list">
+        <li class="dish" data-id="40" data-name="Coulant de Chocolate" data-price="7.50">
+          <div class="dish-info">
+            <span class="dish-name">Coulant de Chocolate</span>
+            <span class="dish-sub">Corazón fundente · helado de vainilla · frambuesas</span>
+          </div>
+          <span class="dish-price">7,50 €</span>
+          <div class="qty-controls">
+            <button class="qty-btn minus" disabled><i class="fas fa-minus"></i></button>
+            <span class="qty-value">0</span>
+            <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+          </div>
+        </li>
+        <li class="dish" data-id="41" data-name="Tarta de Queso" data-price="6.50">
+          <div class="dish-info">
+            <span class="dish-name">Tarta de Queso al Horno</span>
+            <span class="dish-sub">Receta vasca · mermelada de frutos rojos</span>
+          </div>
+          <span class="dish-price">6,50 €</span>
+          <div class="qty-controls">
+            <button class="qty-btn minus" disabled><i class="fas fa-minus"></i></button>
+            <span class="qty-value">0</span>
+            <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+          </div>
+        </li>
+        <li class="dish" data-id="42" data-name="Flan Casero" data-price="5.50">
+          <div class="dish-info">
+            <span class="dish-name">Flan Casero</span>
+            <span class="dish-sub">Caramelo tostado · nata montada</span>
+          </div>
+          <span class="dish-price">5,50 €</span>
+          <div class="qty-controls">
+            <button class="qty-btn minus" disabled><i class="fas fa-minus"></i></button>
+            <span class="qty-value">0</span>
+            <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+          </div>
+        </li>
+        <li class="dish" data-id="43" data-name="Crema Catalana" data-price="6.00">
+          <div class="dish-info">
+            <span class="dish-name">Crema Catalana</span>
+            <span class="dish-sub">Costra de azúcar quemado · naranja confitada</span>
+          </div>
+          <span class="dish-price">6,00 €</span>
+          <div class="qty-controls">
+            <button class="qty-btn minus" disabled><i class="fas fa-minus"></i></button>
+            <span class="qty-value">0</span>
+            <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- BARRA INFERIOR -->
+  <div class="bottom-bar">
+    <button class="voice-btn" id="voiceBtn" title="Pedir por voz">
+      <i class="fas fa-microphone"></i>
+    </button>
+    <button class="cart-btn" id="cartBtn">
+      <i class="fas fa-shopping-cart"></i>
+      <span>Ver Pedido</span>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+
+  <!-- MODAL CARRITO -->
+  <div class="modal-overlay" id="cartModal">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title">Tu Pedido</span>
+        <button class="modal-close" id="closeCart">&times;</button>
+      </div>
+      <div class="modal-body" id="cartBody">
+        <div class="cart-empty">
+          <i class="fas fa-shopping-basket"></i>
+          <p>Tu carrito está vacío</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="time-estimate" id="timeEstimate">
+          <i class="fas fa-clock"></i>
+          <span>Tiempo estimado: <strong>15-20 min</strong></span>
+        </div>
+        <div class="cart-total">
+          <span>Total</span>
+          <span id="cartTotal">0,00 €</span>
+        </div>
+        <button class="confirm-order-btn" id="confirmOrder" disabled>
+          <i class="fas fa-check"></i> Confirmar Pedido
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL VOZ -->
+  <div class="voice-modal" id="voiceModal">
+    <div class="voice-content">
+      <div class="voice-icon">
+        <i class="fas fa-microphone"></i>
+      </div>
+      <p class="voice-text">Escuchando...</p>
+      <p class="voice-transcript" id="voiceTranscript">Di lo que quieres pedir</p>
+      <button class="voice-cancel" id="voiceCancel">Cancelar</button>
+    </div>
+  </div>
+
+  <script>
+    // ════════════════════════════════════════════════════════════════════════
+    // ESTADO DE LA APLICACIÓN
+    // ════════════════════════════════════════════════════════════════════════
+    
+    const cart = {};
+    const orders = [];
+    let orderCounter = 1;
+    
+    // ════════════════════════════════════════════════════════════════════════
+    // ELEMENTOS DOM
+    // ════════════════════════════════════════════════════════════════════════
+    
+    const pills = document.querySelectorAll('.cat-pill');
+    const sections = document.querySelectorAll('.menu-section');
+    const cartBtn = document.getElementById('cartBtn');
+    const cartModal = document.getElementById('cartModal');
+    const closeCart = document.getElementById('closeCart');
+    const cartBody = document.getElementById('cartBody');
+    const cartCount = document.getElementById('cartCount');
+    const cartTotal = document.getElementById('cartTotal');
+    const confirmOrder = document.getElementById('confirmOrder');
+    const voiceBtn = document.getElementById('voiceBtn');
+    const voiceModal = document.getElementById('voiceModal');
+    const voiceCancel = document.getElementById('voiceCancel');
+    const voiceTranscript = document.getElementById('voiceTranscript');
+    const notificationsContainer = document.getElementById('notifications');
+    const activeOrdersContainer = document.getElementById('active-orders');
+    const noOrdersMsg = document.getElementById('no-orders');
+    
+    // ════════════════════════════════════════════════════════════════════════
+    // NAVEGACIÓN POR CATEGORÍAS
+    // ════════════════════════════════════════════════════════════════════════
+    
+    pills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        pills.forEach(p => p.classList.remove('active'));
+        sections.forEach(s => s.classList.remove('active'));
+        pill.classList.add('active');
+        document.getElementById(pill.dataset.target).classList.add('active');
+        document.querySelector('.menu-content').scrollTop = 0;
+      });
+    });
+    
+    // ════════════════════════════════════════════════════════════════════════
+    // CONTROL DE CANTIDADES
+    // ════════════════════════════════════════════════════════════════════════
+    
+    document.querySelectorAll('.dish:not(.out-of-stock)').forEach(dish => {
+      const plusBtn = dish.querySelector('.qty-btn.plus');
+      const minusBtn = dish.querySelector('.qty-btn.minus');
+      const qtyValue = dish.querySelector('.qty-value');
+      
+      if (!plusBtn || !minusBtn || !qtyValue) return;
+      
+      const id = dish.dataset.id;
+      const name = dish.dataset.name;
+      const price = parseFloat(dish.dataset.price);
+      
+      plusBtn.addEventListener('click', () => {
+        if (!cart[id]) {
+          cart[id] = { name, price, qty: 0 };
+        }
+        cart[id].qty++;
+        qtyValue.textContent = cart[id].qty;
+        minusBtn.disabled = false;
+        updateCart();
+      });
+      
+      minusBtn.addEventListener('click', () => {
+        if (cart[id] && cart[id].qty > 0) {
+          cart[id].qty--;
+          qtyValue.textContent = cart[id].qty;
+          if (cart[id].qty === 0) {
+            delete cart[id];
+            minusBtn.disabled = true;
+          }
+          updateCart();
+        }
+      });
+    });
+    
+    // ════════════════════════════════════════════════════════════════════════
+    // CARRITO
+    // ════════════════════════════════════════════════════════════════════════
+    
+    function updateCart() {
+      let total = 0;
+      let count = 0;
+      
+      Object.values(cart).forEach(item => {
+        total += item.price * item.qty;
+        count += item.qty;
+      });
+      
+      cartCount.textContent = count;
+      cartTotal.textContent = total.toFixed(2).replace('.', ',') + ' €';
+      confirmOrder.disabled = count === 0;
+      
+      // Actualizar tiempo estimado basado en cantidad
+      const timeEstimate = document.getElementById('timeEstimate');
+      if (count === 0) {
+        timeEstimate.innerHTML = '<i class="fas fa-clock"></i><span>Agrega productos a tu pedido</span>';
+      } else if (count <= 3) {
+        timeEstimate.innerHTML = '<i class="fas fa-clock"></i><span>Tiempo estimado: <strong>10-15 min</strong></span>';
+      } else if (count <= 6) {
+        timeEstimate.innerHTML = '<i class="fas fa-clock"></i><span>Tiempo estimado: <strong>15-25 min</strong></span>';
+      } else {
+        timeEstimate.innerHTML = '<i class="fas fa-clock"></i><span>Tiempo estimado: <strong>25-35 min</strong></span>';
+      }
+      
+      renderCartItems();
+    }
+    
+    function renderCartItems() {
+      const items = Object.entries(cart).filter(([_, item]) => item.qty > 0);
+      
+      if (items.length === 0) {
+        cartBody.innerHTML = `
+          <div class="cart-empty">
+            <i class="fas fa-shopping-basket"></i>
+            <p>Tu carrito está vacío</p>
+          </div>
+        `;
+        return;
+      }
+      
+      cartBody.innerHTML = items.map(([id, item]) => `
+        <div class="cart-item" data-id="${id}">
+          <div class="qty-controls" style="margin-right: 10px;">
+            <button class="qty-btn minus cart-minus" data-id="${id}"><i class="fas fa-minus"></i></button>
+            <span class="qty-value">${item.qty}</span>
+            <button class="qty-btn plus cart-plus" data-id="${id}"><i class="fas fa-plus"></i></button>
+          </div>
+          <div class="cart-item-info">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-price">${item.price.toFixed(2).replace('.', ',')} € c/u</div>
+          </div>
+          <span class="cart-item-total">${(item.price * item.qty).toFixed(2).replace('.', ',')} €</span>
+          <button class="remove-item" data-id="${id}"><i class="fas fa-trash"></i></button>
+        </div>
+      `).join('');
+      
+      // Event listeners para controles del carrito
+      cartBody.querySelectorAll('.cart-plus').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.id;
+          cart[id].qty++;
+          syncDishQty(id);
+          updateCart();
+        });
+      });
+      
+      cartBody.querySelectorAll('.cart-minus').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.id;
+          if (cart[id].qty > 1) {
+            cart[id].qty--;
+          } else {
+            delete cart[id];
+          }
+          syncDishQty(id);
+          updateCart();
+        });
+      });
+      
+      cartBody.querySelectorAll('.remove-item').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.id;
+          delete cart[id];
+          syncDishQty(id);
+          updateCart();
+        });
+      });
+    }
+    
+    function syncDishQty(id) {
+      const dish = document.querySelector(`.dish[data-id="${id}"]`);
+      if (dish) {
+        const qtyValue = dish.querySelector('.qty-value');
+        const minusBtn = dish.querySelector('.qty-btn.minus');
+        if (qtyValue) {
+          qtyValue.textContent = cart[id] ? cart[id].qty : 0;
+        }
+        if (minusBtn) {
+          minusBtn.disabled = !cart[id] || cart[id].qty === 0;
+        }
+      }
+    }
+    
+    // Modal carrito
+    cartBtn.addEventListener('click', () => {
+      cartModal.classList.add('active');
+    });
+    
+    closeCart.addEventListener('click', () => {
+      cartModal.classList.remove('active');
+    });
+    
+    cartModal.addEventListener('click', (e) => {
+      if (e.target === cartModal) {
+        cartModal.classList.remove('active');
+      }
+    });
+    
+    // ════════════════════════════════════════════════════════════════════════
+    // CONFIRMAR PEDIDO
+    // ════════════════════════════════════════════════════════════════════════
+    
+    confirmOrder.addEventListener('click', () => {
+      const items = Object.entries(cart).filter(([_, item]) => item.qty > 0);
+      if (items.length === 0) return;
+      
+      const orderNumber = `#${String(orderCounter++).padStart(3, '0')}`;
+      const total = Object.values(cart).reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const itemCount = Object.values(cart).reduce((sum, item) => sum + item.qty, 0);
+      
+      const order = {
+        number: orderNumber,
+        items: items.map(([id, item]) => ({ ...item, id })),
+        total,
+        status: 'pending',
+        timestamp: new Date(),
+        estimatedTime: itemCount <= 3 ? '10-15' : itemCount <= 6 ? '15-25' : '25-35'
+      };
+      
+      orders.push(order);
+      
+      // Limpiar carrito
+      Object.keys(cart).forEach(id => {
+        delete cart[id];
+        syncDishQty(id);
+      });
+      updateCart();
+      
+      // Cerrar modal y mostrar notificación
+      cartModal.classList.remove('active');
+      showNotification('success', 'Pedido Confirmado', `Tu pedido ${orderNumber} ha sido enviado a cocina`);
+      
+      // Actualizar vista de pedidos
+      renderOrders();
+      
+      // Simular cambios de estado
+      simulateOrderProgress(order);
+    });
+    
+    // ════════════════════════════════════════════════════════════════════════
+    // PEDIDOS ACTIVOS
+    // ════════════════════════════════════════════════════════════════════════
+    
+    function renderOrders() {
+      if (orders.length === 0) {
+        noOrdersMsg.style.display = 'block';
+        return;
+      }
+      
+      noOrdersMsg.style.display = 'none';
+      
+      const ordersHTML = orders.map(order => {
+        const statusClass = order.status;
+        const statusText = order.status === 'pending' ? 'Pendiente' :
+                          order.status === 'preparing' ? 'Preparando' : 'Listo';
+        const progressSteps = order.status === 'pending' ? [true, false, false] :
+                              order.status === 'preparing' ? [true, true, false] : [true, true, true];
+        
+        return `
+          <div class="order-status-card">
+            <div class="order-status-header">
+              <span class="order-number">Pedido ${order.number}</span>
+              <span class="order-status-badge ${statusClass}">${statusText}</span>
+            </div>
+            <div class="order-progress">
+              <div class="progress-step ${progressSteps[0] ? 'completed' : ''}"></div>
+              <div class="progress-step ${progressSteps[1] ? 'completed' : ''} ${order.status === 'preparing' ? 'active' : ''}"></div>
+              <div class="progress-step ${progressSteps[2] ? 'completed' : ''}"></div>
+            </div>
+            <div style="margin-bottom: 12px;">
+              ${order.items.map(item => `
+                <div style="font-size: 0.85rem; color: var(--text-muted); padding: 2px 0;">
+                  ${item.qty}x ${item.name}
+                </div>
+              `).join('')}
+            </div>
+            <div class="order-time-info">
+              <i class="fas fa-clock"></i>
+              <span>Tiempo estimado: ${order.estimatedTime} min</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+      
+      activeOrdersContainer.innerHTML = ordersHTML + `<div class="cart-empty" id="no-orders" style="display: none;">
+        <i class="fas fa-clipboard-list"></i>
+        <p>Aún no tienes pedidos activos</p>
+      </div>`;
+    }
+    
+    function simulateOrderProgress(order) {
+      // Simular: Pendiente -> Preparando (5s) -> Listo (15s)
+      setTimeout(() => {
+        order.status = 'preparing';
+        renderOrders();
+        showNotification('info', 'En Preparación', `Tu pedido ${order.number} está siendo preparado`);
+      }, 5000);
+      
+      setTimeout(() => {
+        order.status = 'ready';
+        renderOrders();
+        showNotification('success', '¡Pedido Listo!', `Tu pedido ${order.number} está listo para servir`);
+      }, 15000);
+    }
+    
+    // ════════════════════════════════════════════════════════════════════════
+    // NOTIFICACIONES
+    // ════════════════════════════════════════════════════════════════════════
+    
+    function showNotification(type, title, message) {
+      const icons = {
+        success: 'fa-check-circle',
+        warning: 'fa-exclamation-triangle',
+        error: 'fa-times-circle',
+        info: 'fa-info-circle'
+      };
+      
+      const notification = document.createElement('div');
+      notification.className = `notification ${type}`;
+      notification.innerHTML = `
+        <i class="fas ${icons[type]} notification-icon"></i>
+        <div class="notification-content">
+          <div class="notification-title">${title}</div>
+          <div class="notification-message">${message}</div>
+        </div>
+        <button class="notification-close">&times;</button>
+      `;
+      
+      notificationsContainer.appendChild(notification);
+      
+      notification.querySelector('.notification-close').addEventListener('click', () => {
+        notification.remove();
+      });
+      
+      // Auto-remove después de 5 segundos
+      setTimeout(() => {
+        if (notification.parentElement) {
+          notification.remove();
+        }
+      }, 5000);
+    }
+    
+    // Simular notificación de stock al cargar
+    setTimeout(() => {
+      showNotification('warning', 'Producto Agotado', 'La Ensaladilla Rusa no está disponible hoy');
+    }, 2000);
+    
+    // ════════════════════════════════════════════════════════════════════════
+    // RECONOCIMIENTO DE VOZ
+    // ════════════════════════════════════════════════════════════════════════
+    
+    let recognition = null;
+    
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognition = new SpeechRecognition();
+      recognition.lang = 'es-ES';
+      recognition.continuous = false;
+      recognition.interimResults = true;
+      
+      recognition.onstart = () => {
+        voiceModal.classList.add('active');
+        voiceBtn.classList.add('listening');
+        voiceTranscript.textContent = 'Escuchando...';
+      };
+      
+      recognition.onresult = (event) => {
+        const transcript = Array.from(event.results)
+          .map(result => result[0].transcript)
+          .join('');
+        voiceTranscript.textContent = `"${transcript}"`;
+        
+        if (event.results[0].isFinal) {
+          processVoiceCommand(transcript.toLowerCase());
+        }
+      };
+      
+      recognition.onerror = (event) => {
+        console.error('Error de reconocimiento:', event.error);
+        voiceModal.classList.remove('active');
+        voiceBtn.classList.remove('listening');
+        showNotification('error', 'Error de voz', 'No se pudo reconocer el comando');
+      };
+      
+      recognition.onend = () => {
+        voiceBtn.classList.remove('listening');
+        setTimeout(() => {
+          voiceModal.classList.remove('active');
+        }, 1500);
+      };
+    }
+    
+    voiceBtn.addEventListener('click', () => {
+      if (recognition) {
+        recognition.start();
+      } else {
+        showNotification('error', 'No disponible', 'El reconocimiento de voz no está disponible en este navegador');
+      }
+    });
+    
+    voiceCancel.addEventListener('click', () => {
+      if (recognition) {
+        recognition.stop();
+      }
+      voiceModal.classList.remove('active');
+    });
+    
+    function processVoiceCommand(text) {
+      // Diccionario de productos para búsqueda por voz
+      const products = {
+        'jamón': '1', 'jamon': '1', 'ibérico': '1', 'iberico': '1',
+        'queso': '2', 'quesos': '2', 'tabla': '2',
+        'paté': '3', 'pate': '3',
+        'croqueta': '4', 'croquetas': '4',
+        'papas': '6', 'patatas': '6', 'mojo': '6',
+        'huevos': '10', 'huevos rotos': '10',
+        'bacalao': '11',
+        'solomillo': '12',
+        'entrecot': '13', 'entrecote': '13',
+        'chuletón': '14', 'chuleton': '14',
+        'coca cola': '20', 'cocacola': '20', 'cola': '20',
+        'fanta': '21', 'naranja': '21',
+        'agua': '22',
+        'cerveza': '25', 'caña': '25',
+        'tercio': '26',
+        'vino': '30', 'copa de vino': '30',
+        'botella de vino': '31',
+        'coulant': '40', 'chocolate': '40',
+        'tarta': '41', 'tarta de queso': '41',
+        'flan': '42',
+        'crema catalana': '43', 'catalana': '43'
+      };
+      
+      // Buscar cantidad en el texto
+      const numberMatch = text.match(/(\d+|un|una|dos|tres|cuatro|cinco)/);
+      let quantity = 1;
+      if (numberMatch) {
+        const numWords = { 'un': 1, 'una': 1, 'dos': 2, 'tres': 3, 'cuatro': 4, 'cinco': 5 };
+        quantity = numWords[numberMatch[1]] || parseInt(numberMatch[1]) || 1;
+      }
+      
+      // Buscar producto
+      let foundProduct = null;
+      for (const [keyword, id] of Object.entries(products)) {
+        if (text.includes(keyword)) {
+          foundProduct = id;
+          break;
+        }
+      }
+      
+      if (foundProduct) {
+        const dish = document.querySelector(`.dish[data-id="${foundProduct}"]`);
+        if (dish && !dish.classList.contains('out-of-stock')) {
+          const name = dish.dataset.name;
+          const price = parseFloat(dish.dataset.price);
+          
+          if (!cart[foundProduct]) {
+            cart[foundProduct] = { name, price, qty: 0 };
+          }
+          cart[foundProduct].qty += quantity;
+          syncDishQty(foundProduct);
+          updateCart();
+          
+          showNotification('success', 'Añadido por voz', `${quantity}x ${name} añadido al pedido`);
+        } else {
+          showNotification('warning', 'No disponible', 'Este producto no está disponible');
+        }
+      } else {
+        showNotification('warning', 'No encontrado', 'No se encontró el producto. Intenta de nuevo.');
+      }
+    }
+    
+    // Inicializar
+    updateCart();
+    
+    // Verificar si viene de landing con voz activada
+    if (sessionStorage.getItem('activateVoice') === 'true') {
+      sessionStorage.removeItem('activateVoice');
+      setTimeout(() => {
+        if (recognition) {
+          recognition.start();
+        }
+      }, 500);
+    }
+  </script>
+
+</body>
+</html>

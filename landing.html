@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#F7F7F7" />
+  <title>enmesa. — Bienvenido</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="landing.css" />
+</head>
+<body>
+
+  <!-- Header con logo -->
+  <header class="landing-header">
+    <a href="landing.html" class="header-logo-wrap">
+      <img src="Fotos/Logo3.png" alt="enmesa." class="header-logo" />
+    </a>
+  </header>
+
+  <div class="landing-container">
+    <div class="landing-content">
+
+      <!-- Badge Mesa -->
+      <div class="mesa-badge">
+        <i class="fas fa-utensils"></i>
+        <span>Mesa #12</span>
+      </div>
+
+      <!-- Ilustración -->
+      <div class="landing-illustration">
+        <div class="illustration-circle">
+          <i class="fas fa-concierge-bell illustration-icon"></i>
+        </div>
+        <div class="floating-element">🍽️</div>
+        <div class="floating-element">🍷</div>
+        <div class="floating-element">🥗</div>
+        <div class="floating-element">☕</div>
+      </div>
+
+      <!-- Texto principal -->
+      <h1 class="landing-title">
+        Aquí se viene a <span>disfrutar</span>, no a esperar 😉
+      </h1>
+      
+      <p class="landing-description">
+        Mira la carta tranquilamente y haz tu pedido desde la mesa. Puedes pedir hablando o seleccionar los platos a tu ritmo. 
+        <strong>Tú decides cómo hacerlo.</strong> Nosotros lo llevamos.
+      </p>
+
+      <!-- Botones -->
+      <div class="landing-buttons">
+        <a href="cliente.html#voice" class="btn btn-primary" id="voiceOrderBtn">
+          <i class="fas fa-microphone btn-icon"></i>
+          <span>Pedir por voz</span>
+        </a>
+        <a href="cliente.html" class="btn btn-secondary">
+          <i class="fas fa-book-open btn-icon"></i>
+          <span>Ver carta</span>
+        </a>
+      </div>
+
+      <!-- Features -->
+      <div class="features">
+        <div class="feature">
+          <i class="fas fa-clock"></i>
+          <span>Sin esperas</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-check-circle"></i>
+          <span>Pide cuando quieras</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-bell"></i>
+          <span>Notificaciones en tiempo real</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="landing-footer">
+    <p>Powered by <a href="#">enmesa.</a> — Tu restaurante digital</p>
+  </footer>
+
+  <script>
+    // Si viene del botón de voz, activar la voz automáticamente al llegar a cliente.html
+    document.getElementById('voiceOrderBtn').addEventListener('click', (e) => {
+      // Guardamos en sessionStorage que queremos activar la voz
+      sessionStorage.setItem('activateVoice', 'true');
+    });
+  </script>
+
+</body>
+</html>
