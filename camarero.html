@@ -1,0 +1,1965 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Módulo Sala - enmesa.</title>
+    <link rel="stylesheet" href="camarero.css">
+    <link rel="stylesheet" href="volver.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="header">
+            <div class="header-left">
+                <a href="index.html" class="demo-volver" title="Volver al selector de módulos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg><span>Módulos</span></a>
+                <a href="landing.html">
+                    <img src="Fotos/Logo3.png" alt="enmesa." class="header-logo">
+                </a>
+                <h1 class="header-title">Módulo <span>Sala</span></h1>
+            </div>
+            <div class="header-right">
+                <div class="user-badge">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Camarero 01</span>
+                </div>
+                <button class="btn-icon" id="btnResumen" title="Resumen del Turno">
+                    <i class="fas fa-chart-pie"></i>
+                </button>
+                <button class="btn-icon btn-voice" id="btnVoz" title="Comandos de Voz">
+                    <i class="fas fa-microphone"></i>
+                </button>
+                <button class="btn-icon" id="btnDarkMode" title="Modo Oscuro">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="btn-icon" id="btnNotificaciones" title="Notificaciones">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge" id="notifCount">3</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- NAVEGACIÓN POR TABS -->
+        <nav class="nav-tabs">
+            <button class="nav-tab active" data-section="mesas">
+                <i class="fas fa-chair"></i> Mesas
+                <span class="count" id="countMesas">12</span>
+            </button>
+            <button class="nav-tab" data-section="bebidas">
+                <i class="fas fa-glass-water"></i> Bebidas
+                <span class="count" id="countBebidas">4</span>
+            </button>
+            <button class="nav-tab" data-section="comandas">
+                <i class="fas fa-utensils"></i> Comandas
+                <span class="count" id="countComandas">6</span>
+            </button>
+            <button class="nav-tab" data-section="incidencias">
+                <i class="fas fa-exclamation-triangle"></i> Incidencias
+                <span class="count" id="countIncidencias">1</span>
+            </button>
+        </nav>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="main-content">
+            <!-- SECCIÓN MESAS -->
+            <section id="section-mesas" class="section active">
+                <div class="zona-tabs">
+                    <button class="zona-tab active" data-zona="todas">
+                        <i class="fas fa-border-all"></i> Todas
+                    </button>
+                    <button class="zona-tab" data-zona="interior">
+                        <i class="fas fa-home"></i> Interior
+                    </button>
+                    <button class="zona-tab" data-zona="terraza">
+                        <i class="fas fa-umbrella-beach"></i> Terraza
+                    </button>
+                </div>
+                
+                <div id="mesasContainer">
+                    <!-- Zona Interior -->
+                    <div class="zona-section" id="zonaInterior">
+                        <div class="zona-header">
+                            <h3><i class="fas fa-home"></i> Interior</h3>
+                            <span class="zona-count" id="countInterior">0 mesas</span>
+                        </div>
+                        <div class="mesas-grid" id="mesasGridInterior"></div>
+                    </div>
+                    
+                    <!-- Zona Terraza -->
+                    <div class="zona-section" id="zonaTerraza">
+                        <div class="zona-header">
+                            <h3><i class="fas fa-umbrella-beach"></i> Terraza</h3>
+                            <span class="zona-count" id="countTerraza">0 mesas</span>
+                        </div>
+                        <div class="mesas-grid" id="mesasGridTerraza"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN BEBIDAS -->
+            <section id="section-bebidas" class="section">
+                <div class="pedidos-header">
+                    <h2 class="pedidos-title">Pedidos de Bebidas</h2>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="todos">Todos</button>
+                        <button class="filter-btn" data-filter="pendiente">Pendientes</button>
+                        <button class="filter-btn" data-filter="listo">Listos</button>
+                    </div>
+                </div>
+                <div class="pedidos-list" id="bebidasList">
+                    <!-- Se genera dinámicamente -->
+                </div>
+            </section>
+
+            <!-- SECCIÓN COMANDAS -->
+            <section id="section-comandas" class="section">
+                <div class="pedidos-header">
+                    <h2 class="pedidos-title">Comandas de Cocina</h2>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="todos">Todos</button>
+                        <button class="filter-btn" data-filter="pendiente">Pendientes</button>
+                        <button class="filter-btn" data-filter="preparando">Preparando</button>
+                        <button class="filter-btn" data-filter="listo">Listos</button>
+                    </div>
+                </div>
+                <div class="pedidos-list" id="comandasList">
+                    <!-- Se genera dinámicamente -->
+                </div>
+            </section>
+
+            <!-- SECCIÓN INCIDENCIAS -->
+            <section id="section-incidencias" class="section">
+                <div class="pedidos-header">
+                    <h2 class="pedidos-title">Incidencias Activas</h2>
+                </div>
+                <div id="incidenciasList">
+                    <!-- Se genera dinámicamente -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- MODAL DETALLE MESA -->
+    <div class="modal-overlay" id="modalMesa">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Detalle de Mesa</h3>
+                <button class="modal-close" onclick="cerrarModal('modalMesa')">&times;</button>
+            </div>
+            <div class="modal-body" id="modalMesaBody">
+                <!-- Contenido dinámico -->
+            </div>
+            <div class="modal-footer">
+                <button class="pedido-btn secondary" onclick="cerrarModal('modalMesa')">Cerrar</button>
+                <button class="pedido-btn primary" onclick="liberarMesa()">
+                    <i class="fas fa-check-circle"></i> Liberar Mesa
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST CONTAINER -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- MODAL VOZ -->
+    <div class="modal-overlay" id="modalVoz">
+        <div class="modal modal-voz">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fas fa-microphone"></i> Comandos de Voz</h3>
+                <button class="modal-close" onclick="cerrarModal('modalVoz')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="voice-container">
+                    <div class="voice-status" id="voiceStatus">
+                        <div class="voice-icon" id="voiceIcon">
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                        <p class="voice-text" id="voiceText">Pulsa para hablar</p>
+                    </div>
+                    <div class="voice-transcript" id="voiceTranscript"></div>
+                    <button class="voice-btn" id="voiceBtn" onclick="toggleVoiceRecognition()">
+                        <i class="fas fa-microphone"></i>
+                        <span>Iniciar</span>
+                    </button>
+                </div>
+                <div class="voice-commands">
+                    <h4>Comandos disponibles:</h4>
+                    <ul>
+                        <li><strong>"Entregar bebidas mesa [N]"</strong> - Marca bebidas como entregadas</li>
+                        <li><strong>"Entregar comanda mesa [N]"</strong> - Marca comanda como entregada</li>
+                        <li><strong>"Eliminar bebidas mesa [N]"</strong> - Elimina pedido de bebidas</li>
+                        <li><strong>"Eliminar comanda mesa [N]"</strong> - Elimina comanda</li>
+                        <li><strong>"Liberar mesa [N]"</strong> - Libera una mesa</li>
+                        <li><strong>"Resolver incidencia mesa [N]"</strong> - Resuelve incidencia</li>
+                    </ul>
+                    <p style="margin-top: 12px; font-size: 0.8rem; color: #666;">
+                        <i class="fas fa-info-circle" style="color: #FF7A00;"></i>
+                        Terraza: di <strong>"terraza 1"</strong> o <strong>"T1"</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL RESUMEN DEL TURNO -->
+    <div class="modal-overlay" id="modalResumen">
+        <div class="modal modal-resumen">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fas fa-chart-pie"></i> Resumen del Turno</h3>
+                <button class="modal-close" onclick="cerrarModal('modalResumen')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="resumen-tiempo">
+                    <div class="resumen-reloj">
+                        <i class="fas fa-clock"></i>
+                        <span id="turnoTiempo">00:00:00</span>
+                    </div>
+                    <p>Tiempo de turno</p>
+                </div>
+                <div class="resumen-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-chair"></i></div>
+                        <div class="stat-value" id="statMesasAtendidas">0</div>
+                        <div class="stat-label">Mesas atendidas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-glass-water"></i></div>
+                        <div class="stat-value" id="statBebidasServidas">0</div>
+                        <div class="stat-label">Bebidas servidas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-utensils"></i></div>
+                        <div class="stat-value" id="statComandasServidas">0</div>
+                        <div class="stat-label">Comandas servidas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div class="stat-value" id="statIncidenciasResueltas">0</div>
+                        <div class="stat-label">Incidencias resueltas</div>
+                    </div>
+                </div>
+                <div class="resumen-tiempos">
+                    <h4><i class="fas fa-stopwatch"></i> Tiempos Medios</h4>
+                    <div class="tiempo-item">
+                        <span>Tiempo medio de atención</span>
+                        <strong id="tiempoMedioAtencion">--</strong>
+                    </div>
+                    <div class="tiempo-item">
+                        <span>Bebidas más servidas</span>
+                        <strong id="bebidaTop">--</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL TOMAR PEDIDO -->
+    <div class="modal-overlay" id="modalTomarPedido">
+        <div class="modal modal-pedido-grande">
+            <div class="modal-header">
+                <h3 class="modal-title"><i class="fas fa-clipboard-list"></i> Tomar Pedido - Mesa <span id="pedidoMesaNum"></span></h3>
+                <button class="modal-close" onclick="cerrarTomarPedido()">&times;</button>
+            </div>
+            <div class="modal-body modal-body-menu">
+                <!-- Layout de 2 columnas en desktop -->
+                <div class="pedido-layout">
+                    <!-- Columna izquierda: Catálogo -->
+                    <div class="pedido-catalogo-col">
+                        <!-- Control por voz -->
+                        <div class="pedido-voz-control">
+                            <button class="voice-btn-pedido" id="voiceBtnPedido" onclick="toggleVozPedido()">
+                                <i class="fas fa-microphone"></i>
+                                <span>Dictar Pedido</span>
+                            </button>
+                            <div class="voice-transcript-pedido" id="voiceTranscriptPedido"></div>
+                        </div>
+                        
+                        <!-- Tabs de categorías -->
+                        <div class="menu-tabs">
+                            <button class="menu-tab active" data-cat="entradas" onclick="mostrarCatalogo('entradas')">
+                                <i class="fas fa-bread-slice"></i> Entradas
+                            </button>
+                            <button class="menu-tab" data-cat="principales" onclick="mostrarCatalogo('principales')">
+                                <i class="fas fa-fire"></i> Principales
+                            </button>
+                            <button class="menu-tab" data-cat="bebidas" onclick="mostrarCatalogo('bebidas')">
+                                <i class="fas fa-glass-water"></i> Bebidas
+                            </button>
+                            <button class="menu-tab" data-cat="postres" onclick="mostrarCatalogo('postres')">
+                                <i class="fas fa-ice-cream"></i> Postres
+                            </button>
+                        </div>
+                        
+                        <!-- Lista de productos -->
+                        <div class="menu-items-scroll" id="catalogoItems">
+                            <!-- Se genera dinámicamente -->
+                        </div>
+                    </div>
+                    
+                    <!-- Columna derecha: Pedido actual -->
+                    <div class="pedido-resumen-col">
+                        <h4 class="resumen-titulo"><i class="fas fa-shopping-cart"></i> Pedido Actual</h4>
+                        
+                        <div class="pedido-items-scroll">
+                            <div class="pedido-items-list" id="pedidoBebidasList">
+                                <!-- Items de bebidas -->
+                            </div>
+                            <div class="pedido-items-list" id="pedidoComidaList">
+                                <!-- Items de comida -->
+                            </div>
+                            <div class="pedido-empty" id="pedidoEmpty">
+                                <i class="fas fa-cart-plus"></i>
+                                <p>Selecciona productos del menú</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Total -->
+                        <div class="pedido-total-box">
+                            <div class="pedido-total-row">
+                                <span class="pedido-total-items" id="totalItemsPedido">0 items</span>
+                                <span class="pedido-total-precio" id="totalPrecioPedido">0.00 €</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Acciones -->
+                        <div class="pedido-acciones">
+                            <button class="btn-limpiar" onclick="limpiarPedidoTemporal()">
+                                <i class="fas fa-trash"></i> Limpiar
+                            </button>
+                            <button class="btn-confirmar" onclick="confirmarPedido()">
+                                <i class="fas fa-check"></i> Confirmar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AUDIO PARA NOTIFICACIONES -->
+    <audio id="audioNotificacion" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2teleBoLJJTI5NmKFAANPa7g7ceTGAAAHXfQ8+aie0AVABd52fvov30NCxNw3P/vxHkXDwte5f/30YMfDxJW5f/00YYVCQ==" type="audio/wav">
+    </audio>
+
+    <script>
+        // ════════════════════════════════════════════════════════════════════════
+        // DATOS SIMULADOS
+        // ════════════════════════════════════════════════════════════════════════
+        
+        const mesas = [
+            // Interior (mesas 1-8)
+            { id: 1, zona: 'interior', estado: 'ocupada', pedidos: 2, tiempo: '25 min' },
+            { id: 2, zona: 'interior', estado: 'libre', pedidos: 0 },
+            { id: 3, zona: 'interior', estado: 'ocupada', pedidos: 1, tiempo: '10 min' },
+            { id: 4, zona: 'interior', estado: 'pendiente', pedidos: 3, tiempo: '45 min' },
+            { id: 5, zona: 'interior', estado: 'libre', pedidos: 0 },
+            { id: 6, zona: 'interior', estado: 'ocupada', pedidos: 1, tiempo: '15 min' },
+            { id: 7, zona: 'interior', estado: 'ocupada', pedidos: 2, tiempo: '30 min' },
+            { id: 8, zona: 'interior', estado: 'libre', pedidos: 0 },
+            // Terraza (mesas T1-T6)
+            { id: 'T1', zona: 'terraza', estado: 'ocupada', pedidos: 1, tiempo: '20 min' },
+            { id: 'T2', zona: 'terraza', estado: 'libre', pedidos: 0 },
+            { id: 'T3', zona: 'terraza', estado: 'ocupada', pedidos: 2, tiempo: '15 min' },
+            { id: 'T4', zona: 'terraza', estado: 'pendiente', pedidos: 2, tiempo: '35 min' },
+            { id: 'T5', zona: 'terraza', estado: 'libre', pedidos: 0 },
+            { id: 'T6', zona: 'terraza', estado: 'ocupada', pedidos: 1, tiempo: '10 min' }
+        ];
+        
+        let zonaActual = 'todas';
+
+        let pedidosBebidas = [
+            { 
+                id: 1, mesa: 4, tiempo: '3 min', estado: 'pendiente',
+                items: [
+                    { nombre: 'Coca-Cola', cantidad: 2, precio: 2.50, entregado: false },
+                    { nombre: 'Agua mineral', cantidad: 1, precio: 1.80, entregado: false },
+                    { nombre: 'Cerveza Mahou', cantidad: 3, precio: 2.80, entregado: false }
+                ]
+            },
+            { 
+                id: 2, mesa: 1, tiempo: '5 min', estado: 'listo',
+                items: [
+                    { nombre: 'Vino tinto copa', cantidad: 2, precio: 3.50, entregado: false },
+                    { nombre: 'Tinto de verano', cantidad: 1, precio: 3.00, entregado: false }
+                ]
+            },
+            { 
+                id: 3, mesa: 7, tiempo: '1 min', estado: 'pendiente',
+                items: [
+                    { nombre: 'Café solo', cantidad: 2, precio: 1.40, entregado: false },
+                    { nombre: 'Cortado', cantidad: 1, precio: 1.50, entregado: false }
+                ]
+            },
+            { 
+                id: 4, mesa: 10, tiempo: '2 min', estado: 'pendiente',
+                items: [
+                    { nombre: 'Zumo de naranja', cantidad: 2, precio: 3.00, entregado: false }
+                ]
+            }
+        ];
+
+        let pedidosComanda = [
+            { 
+                id: 1, mesa: 4, tiempo: '15 min', estado: 'preparando',
+                items: [
+                    { nombre: 'Croquetas caseras', cantidad: 2, precio: 8.50, entregado: false },
+                    { nombre: 'Tortilla española', cantidad: 1, precio: 9.00, entregado: false }
+                ]
+            },
+            { 
+                id: 2, mesa: 1, tiempo: '20 min', estado: 'listo',
+                items: [
+                    { nombre: 'Pulpo a la gallega', cantidad: 1, precio: 18.50, entregado: false },
+                    { nombre: 'Jamón ibérico', cantidad: 1, precio: 22.00, entregado: false }
+                ]
+            },
+            { 
+                id: 3, mesa: 7, tiempo: '10 min', estado: 'pendiente',
+                items: [
+                    { nombre: 'Ensalada César', cantidad: 1, precio: 10.50, entregado: false },
+                    { nombre: 'Patatas bravas', cantidad: 2, precio: 6.50, entregado: false }
+                ]
+            },
+            { 
+                id: 4, mesa: 9, tiempo: '25 min', estado: 'preparando',
+                items: [
+                    { nombre: 'Paella valenciana', cantidad: 1, precio: 14.00, entregado: false }
+                ]
+            },
+            { 
+                id: 5, mesa: 12, tiempo: '8 min', estado: 'pendiente',
+                items: [
+                    { nombre: 'Gambas al ajillo', cantidad: 1, precio: 14.50, entregado: false },
+                    { nombre: 'Pan con tomate', cantidad: 2, precio: 3.50, entregado: false }
+                ]
+            },
+            { 
+                id: 6, mesa: 3, tiempo: '5 min', estado: 'listo',
+                items: [
+                    { nombre: 'Tarta de queso', cantidad: 2, precio: 6.00, entregado: false }
+                ]
+            }
+        ];
+
+        let incidencias = [
+            {
+                id: 1, mesa: 4, tipo: 'Reclamación',
+                descripcion: 'El cliente indica que las croquetas llegaron frías. Solicita cambio.',
+                tiempo: '5 min'
+            }
+        ];
+
+        // ════════════════════════════════════════════════════════════════════════
+        // CATÁLOGO DE PRODUCTOS (igual que cliente.html)
+        // ════════════════════════════════════════════════════════════════════════
+        
+        const catalogoMenu = {
+            entradas: [
+                { nombre: 'Jamón Ibérico de Bellota', precio: 18.50, sub: 'Loncheado al momento · D.O. Guijuelo' },
+                { nombre: 'Tabla de Quesos Artesanos', precio: 14.00, sub: 'Curados, semicurados y cremosos' },
+                { nombre: 'Paté de la Casa', precio: 9.50, sub: 'Con reducción de Oporto · tostadas' },
+                { nombre: 'Croquetas de la Abuela', precio: 9.00, sub: 'Bechamel de jamón ibérico · 8 uds' },
+                { nombre: 'Ensaladilla Rusa', precio: 8.50, sub: 'Atún de almadraba · mayonesa casera' },
+                { nombre: 'Papas Arrugadas con Mojo', precio: 7.50, sub: 'Mojo rojo picón y mojo verde' }
+            ],
+            principales: [
+                { nombre: 'Huevos Rotos con Jamón', precio: 14.00, sub: 'Huevos de corral · patatas · jamón' },
+                { nombre: 'Bacalao Dorado', precio: 17.50, sub: 'Patata paja · huevo · aceitunas' },
+                { nombre: 'Solomillo al Ajo Tostado', precio: 24.00, sub: 'Salsa de ajo · guarnición' },
+                { nombre: 'Entrecot a la Brasa', precio: 22.00, sub: 'Añojo · sal gruesa · chimichurri' },
+                { nombre: 'Chuletón de Buey', precio: 38.00, sub: 'Madurado 30 días · sal en escamas' }
+            ],
+            bebidas: [
+                { nombre: 'Coca-Cola', precio: 2.50, sub: '' },
+                { nombre: 'Fanta Naranja', precio: 2.50, sub: '' },
+                { nombre: 'Agua Mineral', precio: 2.00, sub: '50cl' },
+                { nombre: 'Victoria Caña', precio: 2.00, sub: 'Barril · 20 cl' },
+                { nombre: 'Victoria Tercio', precio: 2.80, sub: 'Botella · 33 cl' },
+                { nombre: 'Vino de la Casa Copa', precio: 3.50, sub: 'Tinto · Blanco · Rosado' },
+                { nombre: 'Vino de la Casa Botella', precio: 12.00, sub: 'Tinto · Blanco · Rosado' }
+            ],
+            postres: [
+                { nombre: 'Coulant de Chocolate', precio: 7.50, sub: 'Corazón fundente · helado vainilla' },
+                { nombre: 'Tarta de Queso al Horno', precio: 6.50, sub: 'Receta vasca · mermelada frutos rojos' },
+                { nombre: 'Flan Casero', precio: 5.50, sub: 'Caramelo tostado · nata montada' },
+                { nombre: 'Crema Catalana', precio: 6.00, sub: 'Azúcar quemado · naranja confitada' }
+            ]
+        };
+        
+        // Para compatibilidad con voz
+        const catalogoBebidas = catalogoMenu.bebidas;
+        const catalogoComida = [...catalogoMenu.entradas, ...catalogoMenu.principales, ...catalogoMenu.postres];
+        
+        // Pedido temporal mientras se toma
+        let pedidoTemporal = {
+            mesa: null,
+            bebidas: [],
+            comida: []
+        };
+
+        // ════════════════════════════════════════════════════════════════════════
+        // NAVEGACIÓN POR TABS
+        // ════════════════════════════════════════════════════════════════════════
+        
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Desactivar todos
+                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                
+                // Activar seleccionado
+                tab.classList.add('active');
+                const section = tab.dataset.section;
+                document.getElementById(`section-${section}`).classList.add('active');
+            });
+        });
+
+        // ════════════════════════════════════════════════════════════════════════
+        // RENDERIZADO DE MESAS POR ZONAS
+        // ════════════════════════════════════════════════════════════════════════
+        
+        function renderMesas() {
+            const mesasInterior = mesas.filter(m => m.zona === 'interior');
+            const mesasTerraza = mesas.filter(m => m.zona === 'terraza');
+            
+            const gridInterior = document.getElementById('mesasGridInterior');
+            const gridTerraza = document.getElementById('mesasGridTerraza');
+            const zonaInterior = document.getElementById('zonaInterior');
+            const zonaTerraza = document.getElementById('zonaTerraza');
+            
+            // Renderizar Interior
+            gridInterior.innerHTML = mesasInterior.map(mesa => renderMesaCard(mesa)).join('');
+            
+            // Renderizar Terraza
+            gridTerraza.innerHTML = mesasTerraza.map(mesa => renderMesaCard(mesa)).join('');
+            
+            // Actualizar contadores de zona
+            const ocupadasInterior = mesasInterior.filter(m => m.estado !== 'libre').length;
+            const ocupadasTerraza = mesasTerraza.filter(m => m.estado !== 'libre').length;
+            document.getElementById('countInterior').textContent = `${ocupadasInterior}/${mesasInterior.length} ocupadas`;
+            document.getElementById('countTerraza').textContent = `${ocupadasTerraza}/${mesasTerraza.length} ocupadas`;
+            
+            // Mostrar/ocultar zonas según filtro
+            if (zonaActual === 'todas') {
+                zonaInterior.style.display = 'block';
+                zonaTerraza.style.display = 'block';
+            } else if (zonaActual === 'interior') {
+                zonaInterior.style.display = 'block';
+                zonaTerraza.style.display = 'none';
+            } else {
+                zonaInterior.style.display = 'none';
+                zonaTerraza.style.display = 'block';
+            }
+        }
+        
+        function renderMesaCard(mesa) {
+            const mesaIdStr = typeof mesa.id === 'string' ? `'${mesa.id}'` : mesa.id;
+            return `
+                <div class="mesa-card ${mesa.estado} ${mesa.zona}" onclick="verDetalleMesa(${mesaIdStr})">
+                    <div class="mesa-number">${mesa.id}</div>
+                    <span class="mesa-status ${mesa.estado}">
+                        ${mesa.estado === 'libre' ? 'Libre' : mesa.estado === 'ocupada' ? 'Ocupada' : 'Atención'}
+                    </span>
+                    ${mesa.estado !== 'libre' ? `
+                        <div class="mesa-info">
+                            <i class="fas fa-receipt"></i> ${mesa.pedidos} pedidos · ${mesa.tiempo}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+        
+        // Navegación por zonas
+        document.querySelectorAll('.zona-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.zona-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                zonaActual = tab.dataset.zona;
+                renderMesas();
+            });
+        });
+
+        // ════════════════════════════════════════════════════════════════════════
+        // RENDERIZADO DE BEBIDAS
+        // ════════════════════════════════════════════════════════════════════════
+        
+        function renderBebidas(filtro = 'todos') {
+            const list = document.getElementById('bebidasList');
+            let pedidos = [...pedidosBebidas];
+            
+            if (filtro !== 'todos') {
+                pedidos = pedidos.filter(p => p.estado === filtro);
+            }
+            
+            if (pedidos.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-glass-water"></i>
+                        <p>No hay pedidos de bebidas ${filtro !== 'todos' ? filtro + 's' : ''}</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            list.innerHTML = pedidos.map(pedido => `
+                <div class="pedido-card bebidas ${pedido.estado}" data-id="${pedido.id}">
+                    <div class="pedido-header">
+                        <div class="pedido-mesa">
+                            <span class="pedido-mesa-num">Mesa ${pedido.mesa}</span>
+                            <span class="pedido-time"><i class="fas fa-clock"></i> ${pedido.tiempo}</span>
+                        </div>
+                        <span class="pedido-type bebidas">Bebidas</span>
+                    </div>
+                    <div class="pedido-items">
+                        ${pedido.items.map((item, idx) => `
+                            <div class="pedido-item">
+                                <span class="pedido-item-qty">${item.cantidad}x</span>
+                                <span class="pedido-item-name">${item.nombre}</span>
+                                <button class="pedido-item-check ${item.entregado ? 'checked' : ''}" 
+                                        onclick="toggleItemBebida(${pedido.id}, ${idx})">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="pedido-actions">
+                        ${pedido.estado === 'listo' ? `
+                            <button class="pedido-btn success" onclick="entregarBebidas(${pedido.id})">
+                                <i class="fas fa-check-double"></i> Entregar a Mesa
+                            </button>
+                        ` : `
+                            <span class="estado-esperando">
+                                <i class="fas fa-hourglass-half"></i> Preparando...
+                            </span>
+                        `}
+                        <button class="pedido-btn danger" onclick="reportarIncidencia(${pedido.mesa}, 'bebidas')">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ════════════════════════════════════════════════════════════════════════
+        // RENDERIZADO DE COMANDAS
+        // ════════════════════════════════════════════════════════════════════════
+        
+        function renderComandas(filtro = 'todos') {
+            const list = document.getElementById('comandasList');
+            let pedidos = [...pedidosComanda];
+            
+            if (filtro !== 'todos') {
+                pedidos = pedidos.filter(p => p.estado === filtro);
+            }
+            
+            if (pedidos.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-utensils"></i>
+                        <p>No hay comandas ${filtro !== 'todos' ? filtro + 's' : ''}</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            list.innerHTML = pedidos.map(pedido => `
+                <div class="pedido-card comida ${pedido.estado}" data-id="${pedido.id}">
+                    <div class="pedido-header">
+                        <div class="pedido-mesa">
+                            <span class="pedido-mesa-num">Mesa ${pedido.mesa}</span>
+                            <span class="pedido-time"><i class="fas fa-clock"></i> ${pedido.tiempo}</span>
+                        </div>
+                        <span class="pedido-type comida">${pedido.estado}</span>
+                    </div>
+                    <div class="pedido-items">
+                        ${pedido.items.map((item, idx) => `
+                            <div class="pedido-item">
+                                <span class="pedido-item-qty">${item.cantidad}x</span>
+                                <span class="pedido-item-name">${item.nombre}</span>
+                                <button class="pedido-item-check ${item.entregado ? 'checked' : ''}" 
+                                        onclick="toggleItemComanda(${pedido.id}, ${idx})">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="pedido-actions">
+                        ${pedido.estado === 'listo' ? `
+                            <button class="pedido-btn success" onclick="entregarComanda(${pedido.id})">
+                                <i class="fas fa-check-double"></i> Entregar a Mesa
+                            </button>
+                        ` : pedido.estado === 'preparando' ? `
+                            <span class="estado-esperando">
+                                <i class="fas fa-fire"></i> En cocina...
+                            </span>
+                        ` : `
+                            <button class="pedido-btn secondary" onclick="enviarACocina(${pedido.id})">
+                                <i class="fas fa-fire"></i> Enviar a Cocina
+                            </button>
+                        `}
+                        <button class="pedido-btn danger" onclick="reportarIncidencia(${pedido.mesa}, 'comanda')">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ════════════════════════════════════════════════════════════════════════
+        // RENDERIZADO DE INCIDENCIAS
+        // ════════════════════════════════════════════════════════════════════════
+        
+        function renderIncidencias() {
+            const list = document.getElementById('incidenciasList');
+            
+            if (incidencias.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-check-circle"></i>
+                        <p>No hay incidencias activas</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            list.innerHTML = incidencias.map(inc => `
+                <div class="incidencia-card">
+                    <div class="incidencia-header">
+                        <div class="incidencia-mesa">
+                            <span class="pedido-mesa-num">Mesa ${inc.mesa}</span>
+                            <span class="pedido-time"><i class="fas fa-clock"></i> ${inc.tiempo}</span>
+                        </div>
+                        <span class="incidencia-type">${inc.tipo}</span>
+                    </div>
+                    <div class="incidencia-desc">
+                        ${inc.descripcion}
+                    </div>
+                    <div class="incidencia-actions">
+                        <button class="pedido-btn primary" onclick="resolverIncidencia(${inc.id})">
+                            <i class="fas fa-check"></i> Resolver
+                        </button>
+                        <button class="pedido-btn secondary" onclick="escalarIncidencia(${inc.id})">
+                            <i class="fas fa-arrow-up"></i> Escalar
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ════════════════════════════════════════════════════════════════════════
+        // ACCIONES
+        // ════════════════════════════════════════════════════════════════════════
+        
+        let mesaSeleccionada = null;
+
+        function verDetalleMesa(mesaId) {
+            mesaSeleccionada = mesaId;
+            const mesa = mesas.find(m => m.id == mesaId);
+            const modal = document.getElementById('modalMesa');
+            const body = document.getElementById('modalMesaBody');
+            
+            // Si la mesa está libre, mostrar opción de tomar pedido
+            if (mesa.estado === 'libre') {
+                body.innerHTML = `
+                    <div class="mesa-detail-header">
+                        <div class="mesa-detail-number">Mesa ${mesa.id}</div>
+                        <div class="mesa-detail-status libre">
+                            <i class="fas fa-check-circle"></i> Disponible
+                        </div>
+                    </div>
+                    
+                    <div class="mesa-libre-opciones">
+                        <div class="mesa-libre-info">
+                            <i class="fas fa-info-circle"></i>
+                            <p>Mesa libre. ¿El cliente no puede usar el QR? Toma el pedido manualmente.</p>
+                        </div>
+                        
+                        <button class="btn-tomar-pedido" onclick="abrirTomarPedido(${typeof mesaId === 'string' ? `'${mesaId}'` : mesaId})">
+                            <div class="btn-tomar-icon">
+                                <i class="fas fa-microphone"></i>
+                            </div>
+                            <div class="btn-tomar-text">
+                                <span class="btn-tomar-title">Tomar Pedido</span>
+                                <span class="btn-tomar-subtitle">Por voz o selección manual</span>
+                            </div>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        
+                        <div class="mesa-libre-qr">
+                            <i class="fas fa-qrcode"></i>
+                            <p>O el cliente puede escanear el QR de la mesa</p>
+                        </div>
+                    </div>
+                `;
+                modal.classList.add('active');
+                return;
+            }
+            
+            // Buscar pedidos de esta mesa
+            const bebidasMesa = pedidosBebidas.filter(p => p.mesa === mesaId);
+            const comandasMesa = pedidosComanda.filter(p => p.mesa === mesaId);
+            
+            // Calcular totales
+            let totalBebidas = 0;
+            let totalComida = 0;
+            
+            bebidasMesa.forEach(p => {
+                p.items.forEach(i => {
+                    totalBebidas += i.cantidad * (i.precio || 0);
+                });
+            });
+            
+            comandasMesa.forEach(p => {
+                p.items.forEach(i => {
+                    totalComida += i.cantidad * (i.precio || 0);
+                });
+            });
+            
+            const totalCuenta = totalBebidas + totalComida;
+            const mesaIdParam = typeof mesaId === 'string' ? `'${mesaId}'` : mesaId;
+            
+            body.innerHTML = `
+                <div class="mesa-detail-header">
+                    <div class="mesa-detail-number">Mesa ${mesa.id}</div>
+                    <div class="mesa-detail-status">
+                        Ocupada · ${mesa.tiempo || '0 min'}
+                    </div>
+                </div>
+                
+                <!-- Botón añadir más pedidos -->
+                <button class="btn-anadir-pedido" onclick="abrirTomarPedido(${mesaIdParam})">
+                    <i class="fas fa-plus-circle"></i> Añadir más al pedido
+                </button>
+                
+                ${bebidasMesa.length > 0 ? `
+                    <div class="mesa-detail-section">
+                        <h4><i class="fas fa-glass-water"></i> Bebidas</h4>
+                        ${bebidasMesa.map(p => `
+                            <div class="mesa-pedido-mini">
+                                <div class="mesa-pedido-mini-header">
+                                    <span class="estado-badge ${p.estado}">${p.estado.toUpperCase()}</span>
+                                    <span>${p.tiempo}</span>
+                                </div>
+                                <div class="mesa-pedido-items">
+                                    ${p.items.map(i => `${i.cantidad}x ${i.nombre}`).join(', ')}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+                
+                ${comandasMesa.length > 0 ? `
+                    <div class="mesa-detail-section">
+                        <h4><i class="fas fa-utensils"></i> Comida</h4>
+                        ${comandasMesa.map(p => `
+                            <div class="mesa-pedido-mini">
+                                <div class="mesa-pedido-mini-header">
+                                    <span class="estado-badge ${p.estado}">${p.estado.toUpperCase()}</span>
+                                    <span>${p.tiempo}</span>
+                                </div>
+                                <div class="mesa-pedido-items">
+                                    ${p.items.map(i => `${i.cantidad}x ${i.nombre}`).join(', ')}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+                
+                ${(bebidasMesa.length > 0 || comandasMesa.length > 0) ? `
+                    <div class="cuenta-resumen">
+                        <div class="cuenta-header">
+                            <i class="fas fa-receipt"></i>
+                            <h4>Resumen de Cuenta</h4>
+                        </div>
+                        <div class="cuenta-items">
+                            ${bebidasMesa.map(p => 
+                                p.items.map(i => `
+                                    <div class="cuenta-item">
+                                        <span class="cuenta-item-qty">${i.cantidad}x</span>
+                                        <span class="cuenta-item-name">${i.nombre}</span>
+                                        <span class="cuenta-item-price">${(i.cantidad * i.precio).toFixed(2)} €</span>
+                                    </div>
+                                `).join('')
+                            ).join('')}
+                            ${comandasMesa.map(p => 
+                                p.items.map(i => `
+                                    <div class="cuenta-item">
+                                        <span class="cuenta-item-qty">${i.cantidad}x</span>
+                                        <span class="cuenta-item-name">${i.nombre}</span>
+                                        <span class="cuenta-item-price">${(i.cantidad * i.precio).toFixed(2)} €</span>
+                                    </div>
+                                `).join('')
+                            ).join('')}
+                        </div>
+                        <div class="cuenta-subtotales">
+                            ${totalBebidas > 0 ? `
+                                <div class="cuenta-subtotal">
+                                    <span>Bebidas</span>
+                                    <span>${totalBebidas.toFixed(2)} €</span>
+                                </div>
+                            ` : ''}
+                            ${totalComida > 0 ? `
+                                <div class="cuenta-subtotal">
+                                    <span>Comida</span>
+                                    <span>${totalComida.toFixed(2)} €</span>
+                                </div>
+                            ` : ''}
+                        </div>
+                        <div class="cuenta-total">
+                            <span>TOTAL</span>
+                            <span class="cuenta-total-precio">${totalCuenta.toFixed(2)} €</span>
+                        </div>
+                        <div class="cuenta-actions">
+                            <button class="pedido-btn secondary" onclick="imprimirCuenta(${mesaIdParam})">
+                                <i class="fas fa-print"></i> Imprimir
+                            </button>
+                            <button class="pedido-btn primary" onclick="cobrarMesa(${mesaIdParam})">
+                                <i class="fas fa-credit-card"></i> Cobrar
+                            </button>
+                        </div>
+                    </div>
+                ` : `
+                    <div class="empty-state" style="padding: 30px;">
+                        <i class="fas fa-inbox"></i>
+                        <p>No hay pedidos activos</p>
+                    </div>
+                `}
+            `;
+            
+            modal.classList.add('active');
+        }
+        
+        function imprimirCuenta(mesaId) {
+            showToast(`Imprimiendo cuenta de Mesa ${mesaId}...`, 'success');
+            // Aquí iría la lógica de impresión real
+        }
+        
+        function cobrarMesa(mesaId) {
+            // Calcular total
+            const bebidasMesa = pedidosBebidas.filter(p => p.mesa == mesaId);
+            const comandasMesa = pedidosComanda.filter(p => p.mesa == mesaId);
+            
+            let total = 0;
+            bebidasMesa.forEach(p => p.items.forEach(i => total += i.cantidad * (i.precio || 0)));
+            comandasMesa.forEach(p => p.items.forEach(i => total += i.cantidad * (i.precio || 0)));
+            
+            if (total > 0) {
+                showToast(`Mesa ${mesaId} cobrada: ${total.toFixed(2)} €`, 'success');
+                
+                // Eliminar pedidos de esta mesa
+                pedidosBebidas = pedidosBebidas.filter(p => p.mesa != mesaId);
+                pedidosComanda = pedidosComanda.filter(p => p.mesa != mesaId);
+                
+                // Liberar la mesa
+                const mesa = mesas.find(m => m.id == mesaId);
+                if (mesa) {
+                    mesa.estado = 'libre';
+                    mesa.pedidos = 0;
+                    delete mesa.tiempo;
+                    estadisticas.mesasAtendidas++;
+                }
+                
+                renderMesas();
+                renderBebidas();
+                renderComandas();
+                actualizarContadores();
+                cerrarModal('modalMesa');
+            } else {
+                showToast('No hay nada que cobrar', 'warning');
+            }
+        }
+
+        function cerrarModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function liberarMesa() {
+            if (mesaSeleccionada) {
+                const mesa = mesas.find(m => m.id == mesaSeleccionada);
+                mesa.estado = 'libre';
+                mesa.pedidos = 0;
+                delete mesa.tiempo;
+                estadisticas.mesasAtendidas++;
+                renderMesas();
+                actualizarContadores();
+                cerrarModal('modalMesa');
+                showToast('Mesa liberada correctamente', 'success');
+            }
+        }
+
+        function toggleItemBebida(pedidoId, itemIdx) {
+            const pedido = pedidosBebidas.find(p => p.id === pedidoId);
+            if (pedido) {
+                pedido.items[itemIdx].entregado = !pedido.items[itemIdx].entregado;
+                renderBebidas(getCurrentFilter('bebidas'));
+            }
+        }
+
+        function toggleItemComanda(pedidoId, itemIdx) {
+            const pedido = pedidosComanda.find(p => p.id === pedidoId);
+            if (pedido) {
+                pedido.items[itemIdx].entregado = !pedido.items[itemIdx].entregado;
+                renderComandas(getCurrentFilter('comandas'));
+            }
+        }
+
+        function getCurrentFilter(seccion) {
+            const container = seccion === 'bebidas' ? 
+                document.querySelector('#section-bebidas .filter-buttons') : 
+                document.querySelector('#section-comandas .filter-buttons');
+            const activeBtn = container?.querySelector('.filter-btn.active');
+            return activeBtn?.dataset.filter || 'todos';
+        }
+
+        function enviarACocina(pedidoId) {
+            const pedido = pedidosComanda.find(p => p.id === pedidoId);
+            if (pedido) {
+                pedido.estado = 'preparando';
+                renderComandas(getCurrentFilter('comandas'));
+                showToast(`Comanda Mesa ${pedido.mesa} enviada a cocina`, 'warning');
+                actualizarContadores();
+            }
+        }
+
+        function entregarBebidas(pedidoId) {
+            const idx = pedidosBebidas.findIndex(p => p.id === pedidoId);
+            if (idx !== -1) {
+                const pedido = pedidosBebidas[idx];
+                const mesa = pedido.mesa;
+                const tiempo = parseInt(pedido.tiempo) || 5;
+                
+                // Actualizar estadísticas
+                estadisticas.bebidasServidas += pedido.items.reduce((acc, i) => acc + i.cantidad, 0);
+                estadisticas.tiemposAtencion.push(tiempo);
+                
+                pedidosBebidas.splice(idx, 1);
+                renderBebidas(getCurrentFilter('bebidas'));
+                showToast(`Bebidas entregadas en Mesa ${mesa}`, 'success');
+                actualizarContadores();
+            }
+        }
+
+        function entregarComanda(pedidoId) {
+            const idx = pedidosComanda.findIndex(p => p.id === pedidoId);
+            if (idx !== -1) {
+                const pedido = pedidosComanda[idx];
+                const mesa = pedido.mesa;
+                const tiempo = parseInt(pedido.tiempo) || 10;
+                
+                // Actualizar estadísticas
+                estadisticas.comandasServidas += pedido.items.length;
+                estadisticas.tiemposAtencion.push(tiempo);
+                
+                pedidosComanda.splice(idx, 1);
+                renderComandas(getCurrentFilter('comandas'));
+                showToast(`Comanda entregada en Mesa ${mesa}`, 'success');
+                actualizarContadores();
+            }
+        }
+
+        function reportarIncidencia(mesaId, tipo) {
+            incidencias.push({
+                id: Date.now(),
+                mesa: mesaId,
+                tipo: 'Nueva incidencia',
+                descripcion: `Incidencia reportada desde ${tipo} - Mesa ${mesaId}`,
+                tiempo: 'Ahora'
+            });
+            renderIncidencias();
+            actualizarContadores();
+            showToast('Incidencia reportada', 'warning');
+        }
+
+        function resolverIncidencia(incId) {
+            const idx = incidencias.findIndex(i => i.id === incId);
+            if (idx !== -1) {
+                incidencias.splice(idx, 1);
+                estadisticas.incidenciasResueltas++;
+                renderIncidencias();
+                actualizarContadores();
+                showToast('Incidencia resuelta', 'success');
+            }
+        }
+
+        function escalarIncidencia(incId) {
+            showToast('Incidencia escalada al encargado', 'warning');
+        }
+
+        // ════════════════════════════════════════════════════════════════════════
+        // FILTROS
+        // ════════════════════════════════════════════════════════════════════════
+        
+        document.querySelectorAll('#section-bebidas .filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#section-bebidas .filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderBebidas(btn.dataset.filter);
+            });
+        });
+
+        document.querySelectorAll('#section-comandas .filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#section-comandas .filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderComandas(btn.dataset.filter);
+            });
+        });
+
+        // ════════════════════════════════════════════════════════════════════════
+        // CONTADORES
+        // ════════════════════════════════════════════════════════════════════════
+        
+        function actualizarContadores() {
+            const ocupadas = mesas.filter(m => m.estado !== 'libre').length;
+            document.getElementById('countMesas').textContent = `${ocupadas}/${mesas.length}`;
+            document.getElementById('countBebidas').textContent = pedidosBebidas.length;
+            document.getElementById('countComandas').textContent = pedidosComanda.length;
+            document.getElementById('countIncidencias').textContent = incidencias.length;
+            document.getElementById('notifCount').textContent = 
+                pedidosBebidas.filter(p => p.estado === 'listo').length + 
+                pedidosComanda.filter(p => p.estado === 'listo').length +
+                incidencias.length;
+        }
+
+        // ════════════════════════════════════════════════════════════════════════
+        // TOAST NOTIFICATIONS
+        // ════════════════════════════════════════════════════════════════════════
+        
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icon = type === 'success' ? 'check-circle' : 
+                         type === 'warning' ? 'exclamation-triangle' : 
+                         type === 'error' ? 'times-circle' : 'info-circle';
+            
+            toast.innerHTML = `<i class="fas fa-${icon}"></i><span>${message}</span>`;
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(20px)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // ════════════════════════════════════════════════════════════════════════
+        // ESTADÍSTICAS DEL TURNO
+        // ════════════════════════════════════════════════════════════════════════
+        
+        let estadisticas = {
+            mesasAtendidas: 0,
+            bebidasServidas: 0,
+            comandasServidas: 0,
+            incidenciasResueltas: 0,
+            tiemposAtencion: []
+        };
+        
+        let turnoInicio = Date.now();
+        let turnoInterval = null;
+
+        // ════════════════════════════════════════════════════════════════════════
+        // INICIALIZACIÓN
+        // ════════════════════════════════════════════════════════════════════════
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMesas();
+            renderBebidas();
+            renderComandas();
+            renderIncidencias();
+            actualizarContadores();
+            iniciarTemporizadores();
+            iniciarRelojTurno();
+            inicializarModoOscuro();
+            iniciarSimulacionCocina();
+        });
+
+        // ════════════════════════════════════════════════════════════════════════
+        // SIMULACIÓN COCINA (marca pedidos como listos automáticamente)
+        // En producción, esto sería reemplazado por WebSocket o polling al servidor
+        // ════════════════════════════════════════════════════════════════════════
+        
+        function iniciarSimulacionCocina() {
+            // Simular que la cocina/barra marca pedidos como listos cada 15-30 segundos
+            setInterval(() => {
+                // Buscar bebidas pendientes y marcar una como lista aleatoriamente
+                const bebidasPendientes = pedidosBebidas.filter(p => p.estado === 'pendiente');
+                if (bebidasPendientes.length > 0 && Math.random() > 0.5) {
+                    const pedido = bebidasPendientes[Math.floor(Math.random() * bebidasPendientes.length)];
+                    listoParaServir('bebidas', pedido.id);
+                }
+                
+                // Buscar comandas preparándose y marcar una como lista aleatoriamente
+                const comandasPreparando = pedidosComanda.filter(p => p.estado === 'preparando');
+                if (comandasPreparando.length > 0 && Math.random() > 0.5) {
+                    const pedido = comandasPreparando[Math.floor(Math.random() * comandasPreparando.length)];
+                    listoParaServir('comanda', pedido.id);
+                }
+            }, 15000); // Cada 15 segundos
+        }
+        
+        // Función llamada cuando cocina marca algo como listo (o simulación)
+        function listoParaServir(tipo, pedidoId) {
+            if (tipo === 'bebidas') {
+                const pedido = pedidosBebidas.find(p => p.id === pedidoId);
+                if (pedido) {
+                    pedido.estado = 'listo';
+                    renderBebidas(getCurrentFilter('bebidas'));
+                    notificarPedidoListo(pedido.mesa, 'Bebidas');
+                }
+            } else {
+                const pedido = pedidosComanda.find(p => p.id === pedidoId);
+                if (pedido) {
+                    pedido.estado = 'listo';
+                    renderComandas(getCurrentFilter('comandas'));
+                    notificarPedidoListo(pedido.mesa, 'Comanda');
+                }
+            }
+            actualizarContadores();
+        }
+
+        // ════════════════════════════════════════════════════════════════════════
+        // MODO OSCURO
+        // ════════════════════════════════════════════════════════════════════════
+        
+        function inicializarModoOscuro() {
+            const btnDarkMode = document.getElementById('btnDarkMode');
+            const savedMode = localStorage.getItem('darkMode');
+            
+            if (savedMode === 'true') {
+                document.body.classList.add('dark-mode');
+                btnDarkMode.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+            
+            btnDarkMode.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                const isDark = document.body.classList.contains('dark-mode');
+                localStorage.setItem('darkMode', isDark);
+                btnDarkMode.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+                showToast(isDark ? 'Modo oscuro activado' : 'Modo claro activado', 'success');
+            });
+        }
+
+        // ════════════════════════════════════════════════════════════════════════
+        // TEMPORIZADORES Y ALERTAS
+        // ════════════════════════════════════════════════════════════════════════
+        
+        const TIEMPO_ALERTA_BEBIDAS = 5; // minutos
+        const TIEMPO_ALERTA_COMANDA = 15; // minutos
+        const TIEMPO_CRITICO_BEBIDAS = 8; // minutos
+        const TIEMPO_CRITICO_COMANDA = 25; // minutos
+        
+        function iniciarTemporizadores() {
+            // Actualizar cada 30 segundos
+            setInterval(() => {
+                actualizarTemporizadores();
+            }, 30000);
+            
+            actualizarTemporizadores();
+        }
+        
+        function actualizarTemporizadores() {
+            // Revisar pedidos de bebidas
+            pedidosBebidas.forEach(pedido => {
+                const minutos = parseInt(pedido.tiempo) || 0;
+                if (minutos >= TIEMPO_CRITICO_BEBIDAS && pedido.estado !== 'listo') {
+                    notificarAlerta(`¡URGENTE! Bebidas Mesa ${pedido.mesa} esperando ${minutos} min`, 'error');
+                } else if (minutos >= TIEMPO_ALERTA_BEBIDAS && pedido.estado !== 'listo') {
+                    // Marcar visualmente
+                    marcarPedidoUrgente('bebidas', pedido.id);
+                }
+            });
+            
+            // Revisar comandas
+            pedidosComanda.forEach(pedido => {
+                const minutos = parseInt(pedido.tiempo) || 0;
+                if (minutos >= TIEMPO_CRITICO_COMANDA && pedido.estado !== 'listo') {
+                    notificarAlerta(`¡URGENTE! Comanda Mesa ${pedido.mesa} esperando ${minutos} min`, 'error');
+                } else if (minutos >= TIEMPO_ALERTA_COMANDA && pedido.estado !== 'listo') {
+                    marcarPedidoUrgente('comandas', pedido.id);
+                }
+            });
+        }
+        
+        function marcarPedidoUrgente(tipo, pedidoId) {
+            const selector = tipo === 'bebidas' ? '#bebidasList' : '#comandasList';
+            const card = document.querySelector(`${selector} .pedido-card[data-id="${pedidoId}"]`);
+            if (card && !card.classList.contains('urgente')) {
+                card.classList.add('urgente');
+            }
+        }
+
+        // ════════════════════════════════════════════════════════════════════════
+        // NOTIFICACIONES CON SONIDO/VIBRACIÓN
+        // ════════════════════════════════════════════════════════════════════════
+        
+        let notificacionesActivas = true;
+        
+        function notificarAlerta(mensaje, tipo = 'warning') {
+            showToast(mensaje, tipo);
+            reproducirSonido();
+            vibrar();
+        }
+        
+        function notificarPedidoListo(mesa, tipoPedido) {
+            const mensaje = `${tipoPedido} Mesa ${mesa} listo para servir`;
+            showToast(mensaje, 'success');
+            reproducirSonido();
+            vibrar();
+        }
+        
+        function reproducirSonido() {
+            if (!notificacionesActivas) return;
+            try {
+                const audio = document.getElementById('audioNotificacion');
+                if (audio) {
+                    audio.currentTime = 0;
+                    audio.play().catch(() => {});
+                }
+            } catch(e) {}
+        }
+        
+        function vibrar() {
+            if (!notificacionesActivas) return;
+            if ('vibrate' in navigator) {
+                navigator.vibrate([200, 100, 200]);
+            }
+        }
+
+        // ════════════════════════════════════════════════════════════════════════
+        // RELOJ Y RESUMEN DEL TURNO
+        // ════════════════════════════════════════════════════════════════════════
+        
+        function iniciarRelojTurno() {
+            turnoInterval = setInterval(() => {
+                actualizarRelojTurno();
+            }, 1000);
+        }
+        
+        function actualizarRelojTurno() {
+            const ahora = Date.now();
+            const diff = ahora - turnoInicio;
+            const horas = Math.floor(diff / 3600000);
+            const minutos = Math.floor((diff % 3600000) / 60000);
+            const segundos = Math.floor((diff % 60000) / 1000);
+            
+            const tiempo = `${String(horas).padStart(2, '0')}:${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
+            document.getElementById('turnoTiempo').textContent = tiempo;
+        }
+        
+        function abrirResumen() {
+            actualizarEstadisticas();
+            document.getElementById('modalResumen').classList.add('active');
+        }
+        
+        function actualizarEstadisticas() {
+            document.getElementById('statMesasAtendidas').textContent = estadisticas.mesasAtendidas;
+            document.getElementById('statBebidasServidas').textContent = estadisticas.bebidasServidas;
+            document.getElementById('statComandasServidas').textContent = estadisticas.comandasServidas;
+            document.getElementById('statIncidenciasResueltas').textContent = estadisticas.incidenciasResueltas;
+            
+            // Tiempo medio de atención
+            if (estadisticas.tiemposAtencion.length > 0) {
+                const media = estadisticas.tiemposAtencion.reduce((a, b) => a + b, 0) / estadisticas.tiemposAtencion.length;
+                document.getElementById('tiempoMedioAtencion').textContent = `${Math.round(media)} min`;
+            }
+            
+            // Bebida más servida (simulado)
+            document.getElementById('bebidaTop').textContent = 'Cerveza';
+        }
+        
+        // Evento para abrir resumen
+        document.getElementById('btnResumen').addEventListener('click', abrirResumen);
+
+        // Cerrar modal clickeando fuera
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    if (modal.id === 'modalVoz' && isListening) {
+                        stopVoiceRecognition();
+                    }
+                }
+            });
+        });
+
+        // ════════════════════════════════════════════════════════════════════════
+        // MÓDULO DE RECONOCIMIENTO DE VOZ
+        // ════════════════════════════════════════════════════════════════════════
+        
+        let recognition = null;
+        let isListening = false;
+        
+        // Verificar soporte de Web Speech API
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        
+        if (SpeechRecognition) {
+            recognition = new SpeechRecognition();
+            recognition.lang = 'es-ES';
+            recognition.continuous = false;
+            recognition.interimResults = true;
+            
+            recognition.onstart = function() {
+                isListening = true;
+                updateVoiceUI(true);
+            };
+            
+            recognition.onend = function() {
+                isListening = false;
+                updateVoiceUI(false);
+            };
+            
+            recognition.onresult = function(event) {
+                let transcript = '';
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    transcript += event.results[i][0].transcript;
+                }
+                
+                const transcriptEl = document.getElementById('voiceTranscript');
+                transcriptEl.innerHTML = `<i class="fas fa-quote-left"></i> "${transcript}"`;
+                
+                // Si es resultado final, procesar comando
+                if (event.results[event.resultIndex].isFinal) {
+                    processVoiceCommand(transcript.toLowerCase().trim());
+                }
+            };
+            
+            recognition.onerror = function(event) {
+                console.error('Error de reconocimiento:', event.error);
+                isListening = false;
+                updateVoiceUI(false);
+                
+                if (event.error === 'no-speech') {
+                    showToast('No se detectó voz. Intenta de nuevo.', 'warning');
+                } else if (event.error === 'not-allowed') {
+                    showToast('Permiso de micrófono denegado', 'error');
+                } else {
+                    showToast('Error en reconocimiento de voz', 'error');
+                }
+            };
+        }
+        
+        function updateVoiceUI(listening) {
+            const voiceIcon = document.getElementById('voiceIcon');
+            const voiceText = document.getElementById('voiceText');
+            const voiceBtn = document.getElementById('voiceBtn');
+            const btnVoz = document.getElementById('btnVoz');
+            
+            if (listening) {
+                voiceIcon.classList.add('listening');
+                voiceText.textContent = 'Escuchando...';
+                voiceBtn.innerHTML = '<i class="fas fa-stop"></i><span>Detener</span>';
+                voiceBtn.classList.add('listening');
+                btnVoz.classList.add('listening');
+            } else {
+                voiceIcon.classList.remove('listening');
+                voiceText.textContent = 'Pulsa para hablar';
+                voiceBtn.innerHTML = '<i class="fas fa-microphone"></i><span>Iniciar</span>';
+                voiceBtn.classList.remove('listening');
+                btnVoz.classList.remove('listening');
+            }
+        }
+        
+        function toggleVoiceRecognition() {
+            if (!SpeechRecognition) {
+                showToast('Tu navegador no soporta reconocimiento de voz', 'error');
+                return;
+            }
+            
+            if (isListening) {
+                stopVoiceRecognition();
+            } else {
+                startVoiceRecognition();
+            }
+        }
+        
+        function startVoiceRecognition() {
+            if (recognition && !isListening) {
+                document.getElementById('voiceTranscript').innerHTML = '';
+                recognition.start();
+            }
+        }
+        
+        function stopVoiceRecognition() {
+            if (recognition && isListening) {
+                recognition.stop();
+            }
+        }
+        
+        function processVoiceCommand(command) {
+            console.log('Comando recibido:', command);
+            
+            // Extraer número de mesa del comando (soporta mesa 1, mesa T1, terraza 1, etc.)
+            let mesaId = null;
+            
+            // Buscar mesa de terraza (T1, T2, etc. o "terraza 1", "terraza 2")
+            const terrazaMatch = command.match(/(?:terraza|t)\s*(\d+)/i);
+            if (terrazaMatch) {
+                mesaId = 'T' + terrazaMatch[1];
+            } else {
+                // Buscar mesa interior normal
+                const mesaMatch = command.match(/mesa\s*(\d+)/);
+                const numeroMatch = command.match(/(\d+)/);
+                mesaId = mesaMatch ? parseInt(mesaMatch[1]) : (numeroMatch ? parseInt(numeroMatch[1]) : null);
+            }
+            
+            const mesaNum = mesaId; // Para mensajes
+            
+            // Comandos para ENTREGAR
+            if (command.includes('entregar') || command.includes('entregado') || command.includes('entrega')) {
+                if (command.includes('bebida') && mesaNum) {
+                    const pedido = pedidosBebidas.find(p => p.mesa === mesaNum);
+                    if (pedido) {
+                        entregarBebidas(pedido.id);
+                        showToast(`✓ Bebidas mesa ${mesaNum} entregadas por voz`, 'success');
+                    } else {
+                        showToast(`No hay bebidas pendientes en mesa ${mesaNum}`, 'warning');
+                    }
+                    return;
+                }
+                
+                if ((command.includes('comanda') || command.includes('comida') || command.includes('plato')) && mesaNum) {
+                    const pedido = pedidosComanda.find(p => p.mesa === mesaNum);
+                    if (pedido) {
+                        entregarComanda(pedido.id);
+                        showToast(`✓ Comanda mesa ${mesaNum} entregada por voz`, 'success');
+                    } else {
+                        showToast(`No hay comandas pendientes en mesa ${mesaNum}`, 'warning');
+                    }
+                    return;
+                }
+            }
+            
+            // Comandos para ELIMINAR
+            if (command.includes('eliminar') || command.includes('borrar') || command.includes('quitar') || command.includes('cancelar')) {
+                if (command.includes('bebida') && mesaNum) {
+                    const idx = pedidosBebidas.findIndex(p => p.mesa === mesaNum);
+                    if (idx !== -1) {
+                        pedidosBebidas.splice(idx, 1);
+                        renderBebidas(getCurrentFilter('bebidas'));
+                        actualizarContadores();
+                        showToast(`✓ Bebidas mesa ${mesaNum} eliminadas por voz`, 'success');
+                    } else {
+                        showToast(`No hay bebidas en mesa ${mesaNum}`, 'warning');
+                    }
+                    return;
+                }
+                
+                if ((command.includes('comanda') || command.includes('comida') || command.includes('plato')) && mesaNum) {
+                    const idx = pedidosComanda.findIndex(p => p.mesa === mesaNum);
+                    if (idx !== -1) {
+                        pedidosComanda.splice(idx, 1);
+                        renderComandas(getCurrentFilter('comandas'));
+                        actualizarContadores();
+                        showToast(`✓ Comanda mesa ${mesaNum} eliminada por voz`, 'success');
+                    } else {
+                        showToast(`No hay comandas en mesa ${mesaNum}`, 'warning');
+                    }
+                    return;
+                }
+                
+                if (command.includes('incidencia') && mesaNum) {
+                    const inc = incidencias.find(i => i.mesa === mesaNum);
+                    if (inc) {
+                        resolverIncidencia(inc.id);
+                        showToast(`✓ Incidencia mesa ${mesaNum} resuelta por voz`, 'success');
+                    } else {
+                        showToast(`No hay incidencias en mesa ${mesaNum}`, 'warning');
+                    }
+                    return;
+                }
+            }
+            
+            // Comando para LIBERAR MESA
+            if ((command.includes('liberar') || command.includes('libre') || command.includes('vaciar')) && mesaId) {
+                const mesa = mesas.find(m => m.id == mesaId);
+                if (mesa && mesa.estado !== 'libre') {
+                    mesa.estado = 'libre';
+                    mesa.pedidos = 0;
+                    delete mesa.tiempo;
+                    renderMesas();
+                    actualizarContadores();
+                    showToast(`✓ Mesa ${mesaId} liberada por voz`, 'success');
+                } else if (mesa && mesa.estado === 'libre') {
+                    showToast(`Mesa ${mesaId} ya está libre`, 'warning');
+                } else {
+                    showToast(`Mesa ${mesaId} no encontrada`, 'error');
+                }
+                return;
+            }
+            
+            // Comando para RESOLVER INCIDENCIA
+            if ((command.includes('resolver') || command.includes('solucionar')) && command.includes('incidencia') && mesaId) {
+                const inc = incidencias.find(i => i.mesa == mesaId);
+                if (inc) {
+                    resolverIncidencia(inc.id);
+                    showToast(`✓ Incidencia mesa ${mesaId} resuelta por voz`, 'success');
+                } else {
+                    showToast(`No hay incidencias en mesa ${mesaId}`, 'warning');
+                }
+                return;
+            }
+            
+            // Comando no reconocido
+            showToast('Comando no reconocido. Intenta de nuevo.', 'warning');
+        }
+        
+        // Abrir modal de voz
+        document.getElementById('btnVoz').addEventListener('click', () => {
+            if (!SpeechRecognition) {
+                showToast('Tu navegador no soporta reconocimiento de voz. Usa Chrome o Edge.', 'error');
+                return;
+            }
+            document.getElementById('modalVoz').classList.add('active');
+        });
+
+        // ════════════════════════════════════════════════════════════════════════
+        // SISTEMA DE TOMAR PEDIDO POR VOZ
+        // ════════════════════════════════════════════════════════════════════════
+        
+        let recognitionPedido = null;
+        let isListeningPedido = false;
+        
+        if (SpeechRecognition) {
+            recognitionPedido = new SpeechRecognition();
+            recognitionPedido.lang = 'es-ES';
+            recognitionPedido.continuous = true;
+            recognitionPedido.interimResults = true;
+            
+            recognitionPedido.onstart = function() {
+                isListeningPedido = true;
+                updateVozPedidoUI(true);
+            };
+            
+            recognitionPedido.onend = function() {
+                isListeningPedido = false;
+                updateVozPedidoUI(false);
+            };
+            
+            recognitionPedido.onresult = function(event) {
+                let transcript = '';
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    transcript += event.results[i][0].transcript;
+                }
+                
+                const transcriptEl = document.getElementById('voiceTranscriptPedido');
+                transcriptEl.innerHTML = `<i class="fas fa-quote-left"></i> "${transcript}"`;
+                
+                if (event.results[event.resultIndex].isFinal) {
+                    procesarComandoPedido(transcript.toLowerCase().trim());
+                }
+            };
+            
+            recognitionPedido.onerror = function(event) {
+                console.error('Error:', event.error);
+                if (event.error !== 'no-speech') {
+                    isListeningPedido = false;
+                    updateVozPedidoUI(false);
+                }
+            };
+        }
+        
+        function updateVozPedidoUI(listening) {
+            const btn = document.getElementById('voiceBtnPedido');
+            if (listening) {
+                btn.classList.add('listening');
+                btn.innerHTML = '<i class="fas fa-stop"></i><span>Detener</span>';
+            } else {
+                btn.classList.remove('listening');
+                btn.innerHTML = '<i class="fas fa-microphone"></i><span>Dictar Pedido</span>';
+            }
+        }
+        
+        function toggleVozPedido() {
+            if (!SpeechRecognition) {
+                showToast('Navegador no compatible con voz', 'error');
+                return;
+            }
+            
+            if (isListeningPedido) {
+                recognitionPedido.stop();
+            } else {
+                document.getElementById('voiceTranscriptPedido').innerHTML = '';
+                recognitionPedido.start();
+            }
+        }
+        
+        function procesarComandoPedido(comando) {
+            console.log('Comando pedido:', comando);
+            
+            // Extraer cantidad (por defecto 1)
+            let cantidad = 1;
+            const numMatch = comando.match(/(\d+|un|una|dos|tres|cuatro|cinco|seis)/i);
+            if (numMatch) {
+                const numeros = {
+                    'un': 1, 'una': 1, 'uno': 1,
+                    'dos': 2, 'tres': 3, 'cuatro': 4, 'cinco': 5, 'seis': 6
+                };
+                cantidad = parseInt(numMatch[1]) || numeros[numMatch[1].toLowerCase()] || 1;
+            }
+            
+            // Buscar en catálogo de bebidas
+            let encontrado = false;
+            for (const bebida of catalogoBebidas) {
+                const nombreNorm = bebida.nombre.toLowerCase();
+                const palabras = nombreNorm.split(' ');
+                
+                // Buscar coincidencia
+                if (comando.includes(nombreNorm) || 
+                    palabras.some(p => p.length > 3 && comando.includes(p))) {
+                    agregarItemPedido('bebidas', bebida, cantidad);
+                    encontrado = true;
+                    break;
+                }
+            }
+            
+            // Si no encontró en bebidas, buscar en comida
+            if (!encontrado) {
+                for (const comida of catalogoComida) {
+                    const nombreNorm = comida.nombre.toLowerCase();
+                    const palabras = nombreNorm.split(' ');
+                    
+                    if (comando.includes(nombreNorm) || 
+                        palabras.some(p => p.length > 3 && comando.includes(p))) {
+                        agregarItemPedido('comida', comida, cantidad);
+                        encontrado = true;
+                        break;
+                    }
+                }
+            }
+            
+            // Comando especial: quitar/eliminar último
+            if (comando.includes('quitar') || comando.includes('eliminar') || comando.includes('borrar')) {
+                if (comando.includes('último') || comando.includes('ultima')) {
+                    quitarUltimoItem();
+                    return;
+                }
+            }
+            
+            if (!encontrado && !comando.includes('quitar') && !comando.includes('eliminar')) {
+                showToast('Producto no encontrado. Selecciónalo del catálogo.', 'warning');
+            }
+        }
+        
+        function abrirTomarPedido(mesaId) {
+            pedidoTemporal = {
+                mesa: mesaId,
+                bebidas: [],
+                comida: []
+            };
+            
+            cerrarModal('modalMesa');
+            document.getElementById('pedidoMesaNum').textContent = mesaId;
+            renderPedidoTemporal();
+            mostrarCatalogo('entradas');
+            document.getElementById('modalTomarPedido').classList.add('active');
+        }
+        
+        function cerrarTomarPedido() {
+            if (isListeningPedido) {
+                recognitionPedido.stop();
+            }
+            document.getElementById('modalTomarPedido').classList.remove('active');
+        }
+        
+        function mostrarCatalogo(tipo) {
+            document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`.menu-tab[data-cat="${tipo}"]`).classList.add('active');
+            
+            const catalogo = catalogoMenu[tipo] || [];
+            const container = document.getElementById('catalogoItems');
+            const tipoDestino = tipo === 'bebidas' ? 'bebidas' : 'comida';
+            
+            container.innerHTML = catalogo.map(item => `
+                <div class="menu-item" onclick="agregarItemPedido('${tipoDestino}', {nombre: '${item.nombre}', precio: ${item.precio}}, 1)">
+                    <div class="menu-item-info">
+                        <span class="menu-item-name">${item.nombre}</span>
+                        ${item.sub ? `<span class="menu-item-sub">${item.sub}</span>` : ''}
+                    </div>
+                    <div class="menu-item-right">
+                        <span class="menu-item-price">${item.precio.toFixed(2)} €</span>
+                        <button class="menu-item-add">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function agregarItemPedido(tipo, producto, cantidad) {
+            const lista = tipo === 'bebidas' ? pedidoTemporal.bebidas : pedidoTemporal.comida;
+            
+            // Verificar si ya existe
+            const existente = lista.find(i => i.nombre === producto.nombre);
+            if (existente) {
+                existente.cantidad += cantidad;
+            } else {
+                lista.push({
+                    nombre: producto.nombre,
+                    precio: producto.precio,
+                    cantidad: cantidad
+                });
+            }
+            
+            renderPedidoTemporal();
+            showToast(`${cantidad}x ${producto.nombre} añadido`, 'success');
+        }
+        
+        function quitarItemPedido(tipo, index) {
+            if (tipo === 'bebidas') {
+                pedidoTemporal.bebidas.splice(index, 1);
+            } else {
+                pedidoTemporal.comida.splice(index, 1);
+            }
+            renderPedidoTemporal();
+        }
+        
+        function quitarUltimoItem() {
+            if (pedidoTemporal.comida.length > 0) {
+                const ultimo = pedidoTemporal.comida.pop();
+                showToast(`${ultimo.nombre} eliminado`, 'warning');
+            } else if (pedidoTemporal.bebidas.length > 0) {
+                const ultimo = pedidoTemporal.bebidas.pop();
+                showToast(`${ultimo.nombre} eliminado`, 'warning');
+            }
+            renderPedidoTemporal();
+        }
+        
+        function renderPedidoTemporal() {
+            const bebidasList = document.getElementById('pedidoBebidasList');
+            const comidaList = document.getElementById('pedidoComidaList');
+            const emptyEl = document.getElementById('pedidoEmpty');
+            
+            const hayItems = pedidoTemporal.bebidas.length > 0 || pedidoTemporal.comida.length > 0;
+            
+            // Mostrar/ocultar mensaje vacío
+            if (emptyEl) {
+                emptyEl.style.display = hayItems ? 'none' : 'flex';
+            }
+            
+            // Bebidas
+            if (pedidoTemporal.bebidas.length > 0) {
+                bebidasList.innerHTML = `
+                    <div class="pedido-grupo-titulo"><i class="fas fa-glass-water"></i> Bebidas</div>
+                    ${pedidoTemporal.bebidas.map((item, idx) => `
+                        <div class="pedido-item-row">
+                            <span class="pedido-item-qty">${item.cantidad}x</span>
+                            <span class="pedido-item-name">${item.nombre}</span>
+                            <span class="pedido-item-price">${(item.cantidad * item.precio).toFixed(2)} €</span>
+                            <button class="pedido-item-remove" onclick="quitarItemPedido('bebidas', ${idx})">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    `).join('')}
+                `;
+            } else {
+                bebidasList.innerHTML = '';
+            }
+            
+            // Comida
+            if (pedidoTemporal.comida.length > 0) {
+                comidaList.innerHTML = `
+                    <div class="pedido-grupo-titulo"><i class="fas fa-utensils"></i> Comida</div>
+                    ${pedidoTemporal.comida.map((item, idx) => `
+                        <div class="pedido-item-row">
+                            <span class="pedido-item-qty">${item.cantidad}x</span>
+                            <span class="pedido-item-name">${item.nombre}</span>
+                            <span class="pedido-item-price">${(item.cantidad * item.precio).toFixed(2)} €</span>
+                            <button class="pedido-item-remove" onclick="quitarItemPedido('comida', ${idx})">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    `).join('')}
+                `;
+            } else {
+                comidaList.innerHTML = '';
+            }
+            
+            // Actualizar totales
+            const totalItems = pedidoTemporal.bebidas.reduce((acc, i) => acc + i.cantidad, 0) +
+                               pedidoTemporal.comida.reduce((acc, i) => acc + i.cantidad, 0);
+            const totalPrecio = pedidoTemporal.bebidas.reduce((acc, i) => acc + (i.cantidad * i.precio), 0) +
+                                pedidoTemporal.comida.reduce((acc, i) => acc + (i.cantidad * i.precio), 0);
+            
+            document.getElementById('totalItemsPedido').textContent = `${totalItems} item${totalItems !== 1 ? 's' : ''}`;
+            document.getElementById('totalPrecioPedido').textContent = `${totalPrecio.toFixed(2)} €`;
+        }
+        
+        function limpiarPedidoTemporal() {
+            pedidoTemporal.bebidas = [];
+            pedidoTemporal.comida = [];
+            renderPedidoTemporal();
+            showToast('Pedido limpiado', 'warning');
+        }
+        
+        function confirmarPedido() {
+            if (pedidoTemporal.bebidas.length === 0 && pedidoTemporal.comida.length === 0) {
+                showToast('Añade productos al pedido primero', 'warning');
+                return;
+            }
+            
+            const mesaId = pedidoTemporal.mesa;
+            
+            // Ocupar la mesa si estaba libre
+            const mesa = mesas.find(m => m.id == mesaId);
+            if (mesa && mesa.estado === 'libre') {
+                mesa.estado = 'ocupada';
+                mesa.tiempo = '0 min';
+                mesa.pedidos = 0;
+            }
+            
+            // Añadir bebidas
+            if (pedidoTemporal.bebidas.length > 0) {
+                const nuevoPedidoBebidas = {
+                    id: Date.now(),
+                    mesa: mesaId,
+                    tiempo: 'Ahora',
+                    estado: 'pendiente',
+                    items: pedidoTemporal.bebidas.map(i => ({
+                        nombre: i.nombre,
+                        cantidad: i.cantidad,
+                        precio: i.precio,
+                        entregado: false
+                    }))
+                };
+                pedidosBebidas.push(nuevoPedidoBebidas);
+                mesa.pedidos++;
+            }
+            
+            // Añadir comida
+            if (pedidoTemporal.comida.length > 0) {
+                const nuevoPedidoComida = {
+                    id: Date.now() + 1,
+                    mesa: mesaId,
+                    tiempo: 'Ahora',
+                    estado: 'pendiente',
+                    items: pedidoTemporal.comida.map(i => ({
+                        nombre: i.nombre,
+                        cantidad: i.cantidad,
+                        precio: i.precio,
+                        entregado: false
+                    }))
+                };
+                pedidosComanda.push(nuevoPedidoComida);
+                mesa.pedidos++;
+            }
+            
+            // Cerrar y actualizar
+            if (isListeningPedido) recognitionPedido.stop();
+            cerrarTomarPedido();
+            renderMesas();
+            renderBebidas();
+            renderComandas();
+            actualizarContadores();
+            
+            showToast(`✓ Pedido confirmado para Mesa ${mesaId}`, 'success');
+            reproducirSonido();
+        }
+    </script>
+</body>
+</html>

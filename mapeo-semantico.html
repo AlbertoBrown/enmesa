@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mapeo Semántico — enmesa.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="mapeo-semantico.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="landing.html" class="logo-wrap">
+        <img src="Fotos/Logo3.png" alt="enmesa." class="logo" />
+      </a>
+      <h1 class="header-title">Mapeo Semántico</h1>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main-content">
+    
+    <!-- SECCIÓN INTRO -->
+    <section class="intro-section">
+      <div class="intro-card">
+        <div class="intro-icon">
+          <i class="fas fa-brain"></i>
+        </div>
+        <h2>¿Qué es el Mapeo Semántico?</h2>
+        <p>
+          El <strong>mapeo semántico</strong> es una técnica de procesamiento de lenguaje natural (NLP) que permite 
+          <em>traducir</em> el lenguaje coloquial del usuario a datos estructurados del sistema.
+        </p>
+        <p>
+          En lugar de que el cliente diga exactamente "2x Victoria — Caña (Barril · 20 cl)", puede decir 
+          <span class="highlight">"ponme dos cañitas frías"</span> y el sistema entiende qué producto y cantidad quiere.
+        </p>
+      </div>
+    </section>
+
+    <!-- DIAGRAMA DEL FLUJO -->
+    <section class="flow-section">
+      <h2 class="section-title"><i class="fas fa-project-diagram"></i> Flujo del Mapeo</h2>
+      <div class="flow-diagram">
+        <div class="flow-step">
+          <div class="flow-icon input"><i class="fas fa-comment-dots"></i></div>
+          <div class="flow-label">Entrada del Usuario</div>
+          <div class="flow-example">"ponme dos cañitas frías"</div>
+        </div>
+        <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+        <div class="flow-step">
+          <div class="flow-icon process"><i class="fas fa-cogs"></i></div>
+          <div class="flow-label">Tokenización</div>
+          <div class="flow-example">["dos", "cañitas", "frias"]</div>
+        </div>
+        <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+        <div class="flow-step">
+          <div class="flow-icon match"><i class="fas fa-search"></i></div>
+          <div class="flow-label">Búsqueda Semántica</div>
+          <div class="flow-example">cañitas → caña, dos → 2</div>
+        </div>
+        <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+        <div class="flow-step">
+          <div class="flow-icon output"><i class="fas fa-check-circle"></i></div>
+          <div class="flow-label">Producto Mapeado</div>
+          <div class="flow-example">2x Victoria — Caña = 4,00€</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEMO INTERACTIVA -->
+    <section class="demo-section">
+      <h2 class="section-title"><i class="fas fa-flask"></i> Prueba el Mapeo</h2>
+      
+      <div class="demo-container">
+        <div class="input-area">
+          <label for="userQuery">Escribe como pedirías en un restaurante:</label>
+          <div class="input-wrapper">
+            <input type="text" id="userQuery" placeholder="ej: ponme dos cañitas frías, quiero jamón..." autocomplete="off" value="ponme dos cañitas frías" />
+            <button id="processBtn" class="process-btn">
+              <i class="fas fa-magic"></i> Mapear
+            </button>
+          </div>
+          <div class="quick-examples">
+            <span class="example-label">Ejemplos rápidos:</span>
+            <button class="example-btn" data-query="quiero una caña">🍺 una caña</button>
+            <button class="example-btn" data-query="ponme un crianza">🍷 un crianza</button>
+            <button class="example-btn" data-query="dame jamón ibérico">🥓 jamón ibérico</button>
+            <button class="example-btn" data-query="tráeme croquetas">🍳 croquetas</button>
+            <button class="example-btn" data-query="quiero postre de chocolate">🍫 postre chocolate</button>
+            <button class="example-btn" data-query="una coca cola">🥤 coca cola</button>
+            <button class="example-btn" data-query="el solomillo con pimienta">🥩 solomillo pimienta</button>
+            <button class="example-btn" data-query="tarta de queso">🧀 tarta queso</button>
+          </div>
+        </div>
+
+        <!-- RESULTADOS -->
+        <div class="results-area" id="resultsArea">
+          <div class="results-placeholder">
+            <i class="fas fa-search"></i>
+            <p>Escribe una consulta para ver el mapeo semántico</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPLICACIÓN TÉCNICA -->
+    <section class="tech-section">
+      <h2 class="section-title"><i class="fas fa-code"></i> Cómo Funciona</h2>
+      
+      <div class="tech-grid">
+        <!-- Paso 1: Estructura de Datos -->
+        <div class="tech-card">
+          <div class="tech-header">
+            <span class="step-number">1</span>
+            <h3>Estructura del Menú</h3>
+          </div>
+          <p>Cada producto tiene múltiples <strong>keywords</strong> y <strong>sinónimos</strong> asociados:</p>
+          <pre class="code-block"><code>{
+  id: "cerveza-cana",
+  nombre: "Victoria — Caña",
+  precio: 2.00,
+  categoria: "bebidas",
+  <span class="code-highlight">keywords</span>: [
+    "caña", "cerveza", "victoria"
+  ],
+  <span class="code-highlight">sinonimos</span>: [
+    "cañita", "<span class="code-highlight">cañitas</span>", "birra",
+    "rubia", "cervecita"
+  ],
+  <span class="code-highlight">modificadores</span>: [
+    "fría", "<span class="code-highlight">frías</span>", "fresquita"
+  ]
+}</code></pre>
+        </div>
+
+        <!-- Paso 2: Normalización -->
+        <div class="tech-card">
+          <div class="tech-header">
+            <span class="step-number">2</span>
+            <h3>Normalización del Texto</h3>
+          </div>
+          <p>El texto del usuario se <strong>normaliza</strong> para facilitar la búsqueda:</p>
+          <pre class="code-block"><code><span class="code-comment">// Entrada original</span>
+"ponme dos cañitas frías"
+
+<span class="code-comment">// Después de normalizar:</span>
+→ Minúsculas: "ponme dos cañitas frías"
+→ Sin tildes: "ponme dos canitas frias"
+→ <span class="code-highlight">Tokens</span>: ["dos", "canitas", "frias"]
+→ <span class="code-highlight">Cantidad</span>: "dos" → 2</code></pre>
+        </div>
+
+        <!-- Paso 3: Scoring -->
+        <div class="tech-card">
+          <div class="tech-header">
+            <span class="step-number">3</span>
+            <h3>Sistema de Puntuación</h3>
+          </div>
+          <p>Cada coincidencia recibe una <strong>puntuación</strong> según su relevancia:</p>
+          <pre class="code-block"><code><span class="code-comment">// Pesos de puntuación</span>
+const SCORES = {
+  <span class="code-highlight">nombre_exacto</span>:    100,
+  <span class="code-highlight">keyword_exacto</span>:    80, // "caña"
+  <span class="code-highlight">sinonimo</span>:          60, // "<span class="code-highlight">cañitas</span>"
+  <span class="code-highlight">categoria</span>:         40, // "bebida"
+  <span class="code-highlight">parcial</span>:           25,
+  <span class="code-highlight">modificador</span>:       15  // "<span class="code-highlight">frías</span>"
+}</code></pre>
+        </div>
+
+        <!-- Paso 4: Resultado -->
+        <div class="tech-card">
+          <div class="tech-header">
+            <span class="step-number">4</span>
+            <h3>Selección del Mejor Match</h3>
+          </div>
+          <p>Se selecciona el producto con <strong>mayor puntuación</strong>:</p>
+          <pre class="code-block"><code><span class="code-comment">// Query: "ponme dos cañitas frías"</span>
+
+Resultados ordenados:
+┌─────────────────────┬───────┬─────┐
+│ Producto            │ Score │ Qty │
+├─────────────────────┼───────┼─────┤
+│ <span class="code-highlight">Victoria — Caña</span>     │  <span class="code-highlight">135</span>  │ <span class="code-highlight">2</span>   │ ✓
+│ Victoria — Tercio   │  45   │ 2   │
+│ Mahou Clásica       │  30   │ 2   │
+└─────────────────────┴───────┴─────┘
+<span class="code-highlight">Total: 2 x 2,00€ = 4,00€</span></code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- DICCIONARIO SEMÁNTICO -->
+    <section class="dictionary-section">
+      <h2 class="section-title"><i class="fas fa-book"></i> Diccionario Semántico del Menú</h2>
+      <p class="section-subtitle">
+        Este es el mapeo de términos coloquiales a productos de la carta
+      </p>
+      
+      <div class="dictionary-tabs">
+        <button class="dict-tab active" data-category="entradas">Entradas</button>
+        <button class="dict-tab" data-category="principales">Principales</button>
+        <button class="dict-tab" data-category="bebidas">Bebidas</button>
+        <button class="dict-tab" data-category="postres">Postres</button>
+      </div>
+
+      <div class="dictionary-content" id="dictionaryContent">
+        <!-- Se llena dinámicamente -->
+      </div>
+    </section>
+
+    <!-- CASOS DE USO -->
+    <section class="cases-section">
+      <h2 class="section-title"><i class="fas fa-lightbulb"></i> Casos de Uso Reales</h2>
+      
+      <div class="cases-grid">
+        <div class="case-card">
+          <div class="case-query">
+            <i class="fas fa-microphone"></i>
+            <span>"Ponme algo de picar"</span>
+          </div>
+          <div class="case-arrow"><i class="fas fa-arrow-down"></i></div>
+          <div class="case-result">
+            <span class="case-category">Categoría detectada:</span>
+            <span class="case-match">Entradas/Tapas</span>
+            <span class="case-products">→ Sugiere: Jamón, Croquetas, Quesos...</span>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-query">
+            <i class="fas fa-microphone"></i>
+            <span>"El vino tinto de la casa"</span>
+          </div>
+          <div class="case-arrow"><i class="fas fa-arrow-down"></i></div>
+          <div class="case-result">
+            <span class="case-category">Match exacto:</span>
+            <span class="case-match">Vino de la Casa — Tinto</span>
+            <span class="case-products">Copa: 3,50 € · Botella: 12,00 €</span>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-query">
+            <i class="fas fa-microphone"></i>
+            <span>"Una birra grande"</span>
+          </div>
+          <div class="case-arrow"><i class="fas fa-arrow-down"></i></div>
+          <div class="case-result">
+            <span class="case-category">Sinónimo + modificador:</span>
+            <span class="case-match">Victoria — Pinta de Barril</span>
+            <span class="case-products">birra→cerveza, grande→pinta (50cl)</span>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-query">
+            <i class="fas fa-microphone"></i>
+            <span>"Algo dulce para terminar"</span>
+          </div>
+          <div class="case-arrow"><i class="fas fa-arrow-down"></i></div>
+          <div class="case-result">
+            <span class="case-category">Intención detectada:</span>
+            <span class="case-match">Categoría Postres</span>
+            <span class="case-products">→ Sugiere: Coulant, Tarta, Flan...</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>Demo de Mapeo Semántico — <a href="cliente.html">Volver al Menú</a></p>
+  </footer>
+
+  <script>
+    // ════════════════════════════════════════════════════════════════════════
+    // BASE DE DATOS DEL MENÚ CON MAPEO SEMÁNTICO
+    // ════════════════════════════════════════════════════════════════════════
+    
+    const menuDatabase = {
+      entradas: [
+        {
+          id: 'jamon-iberico',
+          nombre: 'Jamón Ibérico de Bellota',
+          descripcion: 'Loncheado al momento · D.O. Guijuelo',
+          precio: 18.50,
+          keywords: ['jamón', 'jamon', 'ibérico', 'iberico', 'bellota', 'guijuelo', 'loncheado'],
+          sinonimos: ['jabugo', 'serrano', 'pata negra', 'jamoncito'],
+          modificadores: []
+        },
+        {
+          id: 'quesos',
+          nombre: 'Tabla de Quesos Artesanos',
+          descripcion: 'Curados, semicurados y cremosos · mermelada artesana',
+          precio: 14.00,
+          keywords: ['queso', 'quesos', 'tabla', 'artesano', 'curado', 'semicurado', 'cremoso'],
+          sinonimos: ['quesito', 'tablita', 'surtido de quesos'],
+          modificadores: ['con mermelada']
+        },
+        {
+          id: 'pate',
+          nombre: 'Paté de la Casa',
+          descripcion: 'Con reducción de Oporto · tostadas crujientes',
+          precio: 9.50,
+          keywords: ['paté', 'pate', 'casa', 'oporto', 'tostadas'],
+          sinonimos: ['foie', 'mousse', 'untable'],
+          modificadores: []
+        },
+        {
+          id: 'ensaladilla',
+          nombre: 'Ensaladilla Rusa',
+          descripcion: 'Atún de almadraba · mayonesa casera',
+          precio: 8.50,
+          keywords: ['ensaladilla', 'rusa', 'atún', 'atun', 'mayonesa', 'almadraba'],
+          sinonimos: ['ensalada rusa', 'ensaladiya'],
+          modificadores: []
+        },
+        {
+          id: 'papas',
+          nombre: 'Papas Arrugadas con Mojo',
+          descripcion: 'Mojo rojo picón y mojo verde',
+          precio: 7.50,
+          keywords: ['papas', 'arrugadas', 'mojo', 'canarias', 'picón', 'picon'],
+          sinonimos: ['patatas canarias', 'papitas', 'patatas arrugadas'],
+          modificadores: ['rojo', 'verde', 'picante']
+        },
+        {
+          id: 'croquetas',
+          nombre: 'Croquetas de la Abuela',
+          descripcion: 'Bechamel de jamón ibérico · ocho unidades',
+          precio: 9.00,
+          keywords: ['croquetas', 'croqueta', 'abuela', 'bechamel', 'jamón', 'jamon'],
+          sinonimos: ['croquetitas', 'croquetones', 'croques'],
+          modificadores: ['de jamón', 'caseras']
+        },
+        {
+          id: 'pan-anchoas',
+          nombre: 'Pan con Tomate y Anchoas',
+          descripcion: 'Pan de masa madre · anchoas del Cantábrico',
+          precio: 8.00,
+          keywords: ['pan', 'tomate', 'anchoas', 'cantábrico', 'cantabrico', 'masa madre'],
+          sinonimos: ['pa amb tomaquet', 'tostada', 'pan tumaca'],
+          modificadores: []
+        }
+      ],
+      principales: [
+        {
+          id: 'huevos-rotos',
+          nombre: 'Huevos Rotos con Jamón',
+          descripcion: 'Huevos de corral · patatas fritas · jamón ibérico',
+          precios: { tapa: 8.00, plato: 14.00 },
+          keywords: ['huevos', 'rotos', 'jamón', 'jamon', 'patatas', 'fritos'],
+          sinonimos: ['huevos estrellados', 'huevos con patatas'],
+          modificadores: ['tapa', 'plato', 'ración']
+        },
+        {
+          id: 'bacalao-dorado',
+          nombre: 'Bacalao Dorado',
+          descripcion: 'Patata paja · huevo revuelto · aceitunas negras',
+          precios: { tapa: 10.00, plato: 17.50 },
+          keywords: ['bacalao', 'dorado', 'patata paja', 'aceitunas'],
+          sinonimos: ['bacalao a la portuguesa', 'bacalhau'],
+          modificadores: ['tapa', 'plato']
+        },
+        {
+          id: 'bacalao-nata',
+          nombre: 'Bacalao a la Nata',
+          descripcion: 'Bacalao · nata · patatas · queso gratinado',
+          precios: { tapa: 10.50, plato: 18.00 },
+          keywords: ['bacalao', 'nata', 'gratinado', 'queso'],
+          sinonimos: ['bacalao con nata', 'bacalao gratinado'],
+          modificadores: ['tapa', 'plato']
+        },
+        {
+          id: 'solomillo-ajo',
+          nombre: 'Solomillo al Ajo Tostado',
+          descripcion: 'Salsa de ajo tostado · guarnición de temporada',
+          precios: { tapa: 14.00, plato: 24.00 },
+          keywords: ['solomillo', 'ajo', 'tostado', 'salsa'],
+          sinonimos: ['solomillito', 'filete', 'carne'],
+          modificadores: ['tapa', 'plato', 'al ajo']
+        },
+        {
+          id: 'solomillo-pimienta',
+          nombre: 'Solomillo a la Pimienta',
+          descripcion: 'Salsa de pimienta verde · patatas asadas',
+          precios: { tapa: 14.00, plato: 24.00 },
+          keywords: ['solomillo', 'pimienta', 'verde', 'patatas'],
+          sinonimos: ['solomillito', 'filete a la pimienta'],
+          modificadores: ['tapa', 'plato', 'con pimienta']
+        },
+        {
+          id: 'solomillo-roquefort',
+          nombre: 'Solomillo al Roquefort',
+          descripcion: 'Crema de queso Roquefort · nueces caramelizadas',
+          precios: { tapa: 15.00, plato: 25.00 },
+          keywords: ['solomillo', 'roquefort', 'queso', 'nueces'],
+          sinonimos: ['solomillo con queso azul', 'filete al roquefort'],
+          modificadores: ['tapa', 'plato']
+        },
+        {
+          id: 'entrecot',
+          nombre: 'Entrecot a la Brasa',
+          descripcion: 'Entrecot de añojo · sal gruesa · chimichurri de la casa',
+          precios: { tapa: 13.00, plato: 22.00 },
+          keywords: ['entrecot', 'entrecote', 'brasa', 'añojo', 'chimichurri'],
+          sinonimos: ['entrecotte', 'filete de lomo', 'carne a la brasa'],
+          modificadores: ['tapa', 'plato', 'poco hecho', 'muy hecho', 'al punto']
+        },
+        {
+          id: 'chuleton',
+          nombre: 'Chuletón de Buey',
+          descripcion: 'Madurado 30 días · sal en escamas · pimientos del piquillo',
+          precios: { tapa: 22.00, plato: 38.00 },
+          keywords: ['chuletón', 'chuleton', 'buey', 'madurado', 'pimientos'],
+          sinonimos: ['chuletilla', 'txuleton', 'carne de buey'],
+          modificadores: ['tapa', 'plato', 'poco hecho', 'muy hecho']
+        },
+        {
+          id: 'lagarto',
+          nombre: 'Lagarto Ibérico a la Brasa',
+          descripcion: 'Brasa de encina · alioli de ajo negro',
+          precios: { tapa: 11.50, plato: 19.50 },
+          keywords: ['lagarto', 'ibérico', 'iberico', 'brasa', 'encina', 'alioli'],
+          sinonimos: ['lagartito', 'secreto', 'carne iberica'],
+          modificadores: ['tapa', 'plato']
+        }
+      ],
+      bebidas: [
+        {
+          id: 'coca-cola',
+          nombre: 'Coca-Cola',
+          precio: 2.50,
+          keywords: ['coca', 'cola', 'coca-cola', 'cocacola', 'refresco'],
+          sinonimos: ['coke', 'cola'],
+          modificadores: ['fría', 'con hielo', 'sin hielo']
+        },
+        {
+          id: 'coca-cola-light',
+          nombre: 'Coca-Cola Light',
+          precio: 2.50,
+          keywords: ['coca', 'cola', 'light', 'zero', 'sin azúcar'],
+          sinonimos: ['coca light', 'cola light', 'coca zero'],
+          modificadores: ['fría']
+        },
+        {
+          id: 'fanta-naranja',
+          nombre: 'Fanta Naranja',
+          precio: 2.50,
+          keywords: ['fanta', 'naranja', 'refresco'],
+          sinonimos: ['naranjada', 'fanta de naranja'],
+          modificadores: ['fría']
+        },
+        {
+          id: 'fanta-limon',
+          nombre: 'Fanta Limón',
+          precio: 2.50,
+          keywords: ['fanta', 'limón', 'limon', 'refresco'],
+          sinonimos: ['limonada', 'fanta de limón'],
+          modificadores: ['fría']
+        },
+        {
+          id: 'nestea-maracuya',
+          nombre: 'Nestea Maracuyá',
+          precio: 2.80,
+          keywords: ['nestea', 'maracuyá', 'maracuya', 'té', 'te'],
+          sinonimos: ['té frío', 'ice tea'],
+          modificadores: []
+        },
+        {
+          id: 'nestea-original',
+          nombre: 'Nestea Original',
+          precio: 2.80,
+          keywords: ['nestea', 'original', 'té', 'te', 'limón'],
+          sinonimos: ['té frío', 'ice tea'],
+          modificadores: []
+        },
+        {
+          id: 'victoria-cana',
+          nombre: 'Victoria — Caña',
+          descripcion: 'Barril · 20 cl',
+          precio: 2.00,
+          keywords: ['caña', 'cana', 'victoria', 'cerveza', 'barril'],
+          sinonimos: ['cañita', 'cañitas', 'birra', 'rubia', 'una fría', 'cervecita', 'dos cañas'],
+          modificadores: ['fría', 'bien fría', 'fresquita', 'frias']
+        },
+        {
+          id: 'victoria-tercio',
+          nombre: 'Victoria — Tercio',
+          descripcion: 'Botella · 33 cl',
+          precio: 2.80,
+          keywords: ['tercio', 'victoria', 'botella', 'cerveza'],
+          sinonimos: ['botellín', 'mediana'],
+          modificadores: ['fría']
+        },
+        {
+          id: 'victoria-pinta',
+          nombre: 'Victoria — Pinta de Barril',
+          descripcion: 'Barril · 50 cl',
+          precio: 4.50,
+          keywords: ['pinta', 'victoria', 'grande', 'barril'],
+          sinonimos: ['jarra', 'cerveza grande', 'birra grande'],
+          modificadores: ['fría']
+        },
+        {
+          id: 'mahou',
+          nombre: 'Mahou Clásica',
+          descripcion: 'Botella · 33 cl',
+          precio: 2.80,
+          keywords: ['mahou', 'clásica', 'clasica', 'botella'],
+          sinonimos: ['mahou clasica'],
+          modificadores: ['fría']
+        },
+        {
+          id: 'estrella',
+          nombre: 'Estrella Galicia',
+          descripcion: 'Botella · 33 cl',
+          precio: 3.00,
+          keywords: ['estrella', 'galicia', 'botella'],
+          sinonimos: ['estrelita', 'estrella de galicia'],
+          modificadores: ['fría']
+        },
+        {
+          id: 'voll-damm',
+          nombre: 'Voll-Damm',
+          descripcion: 'Doble Malta · botella 33 cl',
+          precio: 3.50,
+          keywords: ['voll', 'damm', 'doble', 'malta'],
+          sinonimos: ['voldam', 'doble malta'],
+          modificadores: ['fría']
+        },
+        {
+          id: 'palacios-remondo',
+          nombre: 'Palacios Remondo',
+          descripcion: 'D.O.Ca. Rioja · Tinto Crianza',
+          precios: { copa: 4.50, botella: 18.00 },
+          keywords: ['palacios', 'remondo', 'rioja', 'crianza', 'tinto'],
+          sinonimos: ['vino crianza', 'rioja tinto', 'el crianza'],
+          modificadores: ['copa', 'botella']
+        },
+        {
+          id: 'albur',
+          nombre: 'Albur de Marqués de Palacio',
+          descripcion: 'D.O.Ca. Rioja · Blanco en Barrica',
+          precios: { copa: 4.00, botella: 16.00 },
+          keywords: ['albur', 'marqués', 'marques', 'blanco', 'barrica', 'rioja'],
+          sinonimos: ['blanco de rioja', 'vino blanco'],
+          modificadores: ['copa', 'botella']
+        },
+        {
+          id: 'porto',
+          nombre: 'Porto Cruz',
+          descripcion: 'Oporto Tinto · D.O.C. Porto',
+          precios: { copa: 5.00, botella: 18.00 },
+          keywords: ['porto', 'oporto', 'cruz', 'dulce'],
+          sinonimos: ['vino de oporto', 'oporto tinto'],
+          modificadores: ['copa', 'botella']
+        },
+        {
+          id: 'faustino',
+          nombre: 'Faustino I Gran Reserva',
+          descripcion: 'D.O.Ca. Rioja · Tempranillo · Graciano',
+          precios: { copa: 6.00, botella: 28.00 },
+          keywords: ['faustino', 'gran reserva', 'reserva', 'tempranillo'],
+          sinonimos: ['el faustino', 'reserva de rioja'],
+          modificadores: ['copa', 'botella']
+        },
+        {
+          id: 'vino-casa',
+          nombre: 'Vino de la Casa',
+          descripcion: 'Tinto · Blanco · Rosado',
+          precios: { copa: 3.50, botella: 12.00 },
+          keywords: ['vino', 'casa', 'tinto', 'blanco', 'rosado'],
+          sinonimos: ['vinito', 'vino del día'],
+          modificadores: ['copa', 'botella', 'tinto', 'blanco', 'rosado']
+        }
+      ],
+      postres: [
+        {
+          id: 'coulant',
+          nombre: 'Coulant de Chocolate',
+          descripcion: 'Corazón fundente · helado de vainilla · frambuesas',
+          precio: 7.50,
+          keywords: ['coulant', 'chocolate', 'fundente', 'helado', 'vainilla'],
+          sinonimos: ['volcán de chocolate', 'lava cake', 'postre de chocolate'],
+          modificadores: []
+        },
+        {
+          id: 'tarta-queso',
+          nombre: 'Tarta de Queso al Horno',
+          descripcion: 'Receta vasca · mermelada de frutos rojos',
+          precio: 6.50,
+          keywords: ['tarta', 'queso', 'vasca', 'horno', 'frutos rojos'],
+          sinonimos: ['cheesecake', 'tarta de queso vasca', 'la tarta'],
+          modificadores: []
+        },
+        {
+          id: 'flan',
+          nombre: 'Flan Casero',
+          descripcion: 'Caramelo tostado · nata montada',
+          precio: 5.50,
+          keywords: ['flan', 'casero', 'caramelo', 'nata'],
+          sinonimos: ['flanito', 'flan de huevo'],
+          modificadores: ['con nata']
+        },
+        {
+          id: 'arroz-leche',
+          nombre: 'Arroz con Leche',
+          descripcion: 'Receta asturiana · canela · azúcar tostada',
+          precio: 5.50,
+          keywords: ['arroz', 'leche', 'asturiano', 'canela'],
+          sinonimos: ['arrocito con leche'],
+          modificadores: []
+        },
+        {
+          id: 'crema-catalana',
+          nombre: 'Crema Catalana',
+          descripcion: 'Costra de azúcar quemado · naranja confitada',
+          precio: 6.00,
+          keywords: ['crema', 'catalana', 'azúcar', 'quemado', 'naranja'],
+          sinonimos: ['crema quemada', 'crème brûlée'],
+          modificadores: []
+        }
+      ]
+    };
+
+    // ════════════════════════════════════════════════════════════════════════
+    // MOTOR DE MAPEO SEMÁNTICO
+    // ════════════════════════════════════════════════════════════════════════
+    
+    const SCORES = {
+      NOMBRE_EXACTO: 100,
+      KEYWORD_EXACTO: 80,
+      SINONIMO: 60,
+      CATEGORIA: 40,
+      PARCIAL: 25,
+      MODIFICADOR: 15
+    };
+
+    // Normalizar texto
+    function normalizeText(text) {
+      return text
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '') // Quitar tildes
+        .replace(/[^\w\s]/g, '') // Quitar puntuación
+        .trim();
+    }
+
+    // Tokenizar
+    function tokenize(text) {
+      const stopWords = ['el', 'la', 'los', 'las', 'un', 'una', 'unos', 'unas', 'de', 'del', 
+                         'al', 'a', 'con', 'para', 'por', 'me', 'te', 'se', 'nos', 
+                         'quiero', 'dame', 'ponme', 'traeme', 'trae', 'pon', 'da',
+                         'otro', 'otra', 'mas', 'y', 'o', 'pero'];
+      
+      return normalizeText(text)
+        .split(/\s+/)
+        .filter(word => word.length > 1 && !stopWords.includes(word));
+    }
+
+    // Buscar coincidencias en un producto
+    function scoreProduct(product, tokens, originalQuery) {
+      let score = 0;
+      let matches = [];
+      const normalizedQuery = normalizeText(originalQuery);
+
+      // Verificar nombre exacto
+      const normalizedName = normalizeText(product.nombre);
+      if (normalizedQuery.includes(normalizedName) || normalizedName.includes(normalizedQuery)) {
+        score += SCORES.NOMBRE_EXACTO;
+        matches.push({ type: 'nombre_exacto', value: product.nombre, score: SCORES.NOMBRE_EXACTO });
+      }
+
+      // Verificar keywords
+      tokens.forEach(token => {
+        product.keywords.forEach(keyword => {
+          const normalizedKeyword = normalizeText(keyword);
+          if (normalizedKeyword === token) {
+            score += SCORES.KEYWORD_EXACTO;
+            matches.push({ type: 'keyword', value: keyword, score: SCORES.KEYWORD_EXACTO });
+          } else if (normalizedKeyword.includes(token) || token.includes(normalizedKeyword)) {
+            score += SCORES.PARCIAL;
+            matches.push({ type: 'keyword_parcial', value: keyword, score: SCORES.PARCIAL });
+          }
+        });
+
+        // Verificar sinónimos
+        product.sinonimos.forEach(sinonimo => {
+          const normalizedSinonimo = normalizeText(sinonimo);
+          if (normalizedSinonimo.includes(token) || token.includes(normalizedSinonimo)) {
+            score += SCORES.SINONIMO;
+            matches.push({ type: 'sinonimo', value: sinonimo, score: SCORES.SINONIMO });
+          }
+        });
+
+        // Verificar modificadores
+        if (product.modificadores) {
+          product.modificadores.forEach(mod => {
+            if (normalizeText(mod).includes(token)) {
+              score += SCORES.MODIFICADOR;
+              matches.push({ type: 'modificador', value: mod, score: SCORES.MODIFICADOR });
+            }
+          });
+        }
+      });
+
+      return { product, score, matches };
+    }
+
+    // Buscar en toda la base de datos
+    function semanticSearch(query) {
+      const tokens = tokenize(query);
+      const results = [];
+      const normalizedQuery = normalizeText(query);
+
+      // Detectar cantidad
+      const numWords = { 
+        'un': 1, 'una': 1, 'uno': 1,
+        'dos': 2, 
+        'tres': 3, 
+        'cuatro': 4, 
+        'cinco': 5,
+        'seis': 6,
+        'siete': 7,
+        'ocho': 8,
+        'nueve': 9,
+        'diez': 10
+      };
+      let quantity = 1;
+      let quantityWord = null;
+      
+      // Buscar número en texto
+      const numberMatch = normalizedQuery.match(/(\d+)/);
+      if (numberMatch) {
+        quantity = parseInt(numberMatch[1]);
+        quantityWord = numberMatch[1];
+      } else {
+        // Buscar palabra de número
+        for (const [word, num] of Object.entries(numWords)) {
+          if (normalizedQuery.includes(word)) {
+            quantity = num;
+            quantityWord = word;
+            break;
+          }
+        }
+      }
+
+      // Detectar categoría por intención
+      const categoryKeywords = {
+        entradas: ['picar', 'entrante', 'para empezar', 'tapa', 'tapita', 'aperitivo'],
+        principales: ['carne', 'pescado', 'plato', 'principal', 'segundo'],
+        bebidas: ['beber', 'bebida', 'sed', 'refresco', 'alcohol', 'cerveza', 'vino'],
+        postres: ['postre', 'dulce', 'terminar', 'final', 'algo dulce']
+      };
+
+      let detectedCategory = null;
+      
+      for (const [category, keywords] of Object.entries(categoryKeywords)) {
+        for (const keyword of keywords) {
+          if (normalizedQuery.includes(normalizeText(keyword))) {
+            detectedCategory = category;
+            break;
+          }
+        }
+        if (detectedCategory) break;
+      }
+
+      // Buscar en todas las categorías
+      for (const [category, products] of Object.entries(menuDatabase)) {
+        products.forEach(product => {
+          const result = scoreProduct(product, tokens, query);
+          if (result.score > 0) {
+            result.category = category;
+            // Bonus si coincide con categoría detectada
+            if (detectedCategory === category) {
+              result.score += SCORES.CATEGORIA;
+              result.matches.push({ type: 'categoria', value: category, score: SCORES.CATEGORIA });
+            }
+            results.push(result);
+          }
+        });
+      }
+
+      // Ordenar por puntuación
+      results.sort((a, b) => b.score - a.score);
+
+      return {
+        query,
+        tokens,
+        detectedCategory,
+        quantity,
+        quantityWord,
+        results: results.slice(0, 5) // Top 5
+      };
+    }
+
+    // ════════════════════════════════════════════════════════════════════════
+    // UI - DEMO INTERACTIVA
+    // ════════════════════════════════════════════════════════════════════════
+    
+    const userQueryInput = document.getElementById('userQuery');
+    const processBtn = document.getElementById('processBtn');
+    const resultsArea = document.getElementById('resultsArea');
+    const exampleBtns = document.querySelectorAll('.example-btn');
+
+    function renderResults(searchResult) {
+      const { query, tokens, detectedCategory, quantity, quantityWord, results } = searchResult;
+
+      if (results.length === 0) {
+        resultsArea.innerHTML = `
+          <div class="no-results">
+            <i class="fas fa-search-minus"></i>
+            <p>No se encontraron coincidencias para: "${query}"</p>
+            <p class="hint">Intenta con términos más específicos</p>
+          </div>
+        `;
+        return;
+      }
+
+      const topResult = results[0];
+      const precioUnitario = topResult.product.precio 
+        ? topResult.product.precio
+        : topResult.product.precios?.tapa || topResult.product.precios?.copa || 0;
+      
+      const precioTotal = precioUnitario * quantity;
+      
+      const precioText = topResult.product.precio 
+        ? `${topResult.product.precio.toFixed(2).replace('.', ',')} €`
+        : topResult.product.precios 
+          ? `Tapa: ${topResult.product.precios.tapa?.toFixed(2).replace('.', ',')} € · Plato: ${topResult.product.precios.plato?.toFixed(2).replace('.', ',')} €`
+          : `Copa: ${topResult.product.precios?.copa?.toFixed(2).replace('.', ',')} € · Botella: ${topResult.product.precios?.botella?.toFixed(2).replace('.', ',')} €`;
+
+      resultsArea.innerHTML = `
+        <div class="result-breakdown">
+          <!-- Paso 1: Query Original -->
+          <div class="result-step">
+            <div class="step-header">
+              <span class="step-num">1</span>
+              <span class="step-title">Query Original</span>
+            </div>
+            <div class="step-content query-original">
+              <i class="fas fa-comment-dots"></i>
+              <span>"${query}"</span>
+            </div>
+          </div>
+
+          <!-- Paso 2: Tokenización -->
+          <div class="result-step">
+            <div class="step-header">
+              <span class="step-num">2</span>
+              <span class="step-title">Tokenización y Análisis</span>
+            </div>
+            <div class="step-content">
+              <div class="tokens-list">
+                ${tokens.map(t => `<span class="token">${t}</span>`).join('')}
+              </div>
+              <div class="analysis-info">
+                ${quantityWord ? `
+                  <div class="detected-quantity">
+                    <i class="fas fa-sort-numeric-up"></i>
+                    Cantidad detectada: <strong>"${quantityWord}" → ${quantity}</strong>
+                  </div>
+                ` : ''}
+                ${detectedCategory ? `
+                  <div class="detected-category">
+                    <i class="fas fa-tag"></i>
+                    Categoría detectada: <strong>${detectedCategory}</strong>
+                  </div>
+                ` : ''}
+              </div>
+            </div>
+          </div>
+
+          <!-- Paso 3: Coincidencias -->
+          <div class="result-step">
+            <div class="step-header">
+              <span class="step-num">3</span>
+              <span class="step-title">Coincidencias Encontradas</span>
+            </div>
+            <div class="step-content">
+              <div class="matches-breakdown">
+                ${topResult.matches.map(m => `
+                  <div class="match-item ${m.type}">
+                    <span class="match-type">${m.type.replace('_', ' ')}</span>
+                    <span class="match-value">"${m.value}"</span>
+                    <span class="match-score">+${m.score}</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+
+          <!-- Paso 4: Resultado -->
+          <div class="result-step final">
+            <div class="step-header">
+              <span class="step-num">4</span>
+              <span class="step-title">Producto Mapeado</span>
+            </div>
+            <div class="step-content">
+              <div class="final-product">
+                <div class="product-main">
+                  <span class="product-quantity">${quantity}x</span>
+                  <span class="product-name">${topResult.product.nombre}</span>
+                  <span class="product-score">Score: ${topResult.score}</span>
+                </div>
+                ${topResult.product.descripcion ? `
+                  <span class="product-desc">${topResult.product.descripcion}</span>
+                ` : ''}
+                <div class="product-pricing">
+                  <span class="product-price-unit">Precio unitario: ${precioText}</span>
+                  ${quantity > 1 && precioUnitario > 0 ? `
+                    <span class="product-price-total">Total (${quantity}x): <strong>${precioTotal.toFixed(2).replace('.', ',')} €</strong></span>
+                  ` : ''}
+                </div>
+                <span class="product-category">${topResult.category}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Otras opciones -->
+          ${results.length > 1 ? `
+            <div class="other-results">
+              <h4><i class="fas fa-list-ul"></i> Otras coincidencias:</h4>
+              <div class="other-list">
+                ${results.slice(1).map(r => `
+                  <div class="other-item">
+                    <span class="other-name">${r.product.nombre}</span>
+                    <span class="other-score">Score: ${r.score}</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }
+
+    processBtn.addEventListener('click', () => {
+      const query = userQueryInput.value.trim();
+      if (query) {
+        const result = semanticSearch(query);
+        renderResults(result);
+      }
+    });
+
+    userQueryInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        processBtn.click();
+      }
+    });
+
+    exampleBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        userQueryInput.value = btn.dataset.query;
+        processBtn.click();
+      });
+    });
+
+    // ════════════════════════════════════════════════════════════════════════
+    // UI - DICCIONARIO
+    // ════════════════════════════════════════════════════════════════════════
+    
+    const dictTabs = document.querySelectorAll('.dict-tab');
+    const dictionaryContent = document.getElementById('dictionaryContent');
+
+    function renderDictionary(category) {
+      const products = menuDatabase[category];
+      
+      dictionaryContent.innerHTML = `
+        <div class="dictionary-grid">
+          ${products.map(p => `
+            <div class="dict-item">
+              <div class="dict-item-header">
+                <span class="dict-item-name">${p.nombre}</span>
+                <span class="dict-item-price">${
+                  p.precio 
+                    ? p.precio.toFixed(2).replace('.', ',') + ' €' 
+                    : p.precios?.tapa 
+                      ? 'Desde ' + p.precios.tapa.toFixed(2).replace('.', ',') + ' €'
+                      : 'Desde ' + p.precios?.copa?.toFixed(2).replace('.', ',') + ' €'
+                }</span>
+              </div>
+              <div class="dict-keywords">
+                <span class="dict-label">Keywords:</span>
+                <div class="dict-tags">
+                  ${p.keywords.slice(0, 5).map(k => `<span class="dict-tag keyword">${k}</span>`).join('')}
+                </div>
+              </div>
+              <div class="dict-sinonimos">
+                <span class="dict-label">Sinónimos:</span>
+                <div class="dict-tags">
+                  ${p.sinonimos.map(s => `<span class="dict-tag sinonimo">${s}</span>`).join('')}
+                </div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    dictTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        dictTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        renderDictionary(tab.dataset.category);
+      });
+    });
+
+    // Inicializar con ejemplo
+    renderDictionary('entradas');
+    
+    // Ejecutar el ejemplo al cargar
+    setTimeout(() => {
+      processBtn.click();
+    }, 300);
+
+  </script>
+
+</body>
+</html>

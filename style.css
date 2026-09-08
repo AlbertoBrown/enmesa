@@ -1,7 +1,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --green: #2DCE89;
+  --green: hsl(154, 91%, 23%);
   --green-dark: #25b575;
   --bg: #f4f4f4;
   --white: #ffffff;
@@ -52,7 +52,7 @@ body {
 }
 
 .top-bar-logo {
-  height: 55px;
+  height: 80px;
   width: auto;
   display: block;
   filter: brightness(3);

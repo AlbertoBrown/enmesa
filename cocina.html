@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#FF7A00">
+    <title>enmesa. — Cocina</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="cocina.css">
+    <link rel="stylesheet" href="volver.css">
+</head>
+<body>
+    <!-- ══════════════════════════════════════════════════════════════════════
+         HEADER
+         ══════════════════════════════════════════════════════════════════════ -->
+    <header class="header">
+        <div class="header-left">
+            <a href="index.html" class="demo-volver" title="Volver al selector de módulos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg><span>Módulos</span></a>
+            <img src="Fotos/Logo3.png" alt="enmesa." class="header-logo">
+            <div class="header-info">
+                <h1 class="header-title">Módulo Cocina</h1>
+                <span class="header-time" id="currentTime">--:--</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="stats-badge active">
+                <i class="fas fa-utensils"></i>
+                <span id="statsPreparando">0</span>
+                <small>Preparando</small>
+            </div>
+            <div class="stats-badge completed">
+                <i class="fas fa-check"></i>
+                <span id="statsCompletados">0</span>
+                <small>Hoy</small>
+            </div>
+            <button class="btn-icon" id="btnSonido" title="Sonido">
+                <i class="fas fa-volume-up"></i>
+            </button>
+            <button class="btn-icon" id="btnConfig" title="Configuración">
+                <i class="fas fa-cog"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         FILTROS Y ORDENACIÓN
+         ══════════════════════════════════════════════════════════════════════ -->
+    <nav class="filters-bar">
+        <div class="filter-tabs">
+            <button class="filter-tab active" data-filter="todos">
+                <i class="fas fa-layer-group"></i> Todos
+            </button>
+            <button class="filter-tab" data-filter="preparando">
+                <i class="fas fa-fire-burner"></i> En cocina
+            </button>
+            <button class="filter-tab" data-filter="listo">
+                <i class="fas fa-bell"></i> Listos
+            </button>
+        </div>
+        <div class="sort-options">
+            <span class="sort-label">Ordenar:</span>
+            <button class="sort-btn active" data-sort="tiempo">
+                <i class="fas fa-clock"></i> Tiempo
+            </button>
+            <button class="sort-btn" data-sort="prioridad">
+                <i class="fas fa-exclamation"></i> Prioridad
+            </button>
+            <button class="sort-btn" data-sort="mesa">
+                <i class="fas fa-hashtag"></i> Mesa
+            </button>
+        </div>
+    </nav>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         CONTENIDO PRINCIPAL - COLA DE PEDIDOS
+         ══════════════════════════════════════════════════════════════════════ -->
+    <main class="main-content">
+        <div class="pedidos-grid" id="pedidosGrid">
+            <!-- Los pedidos se generan dinámicamente -->
+        </div>
+        
+        <!-- Estado vacío -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <i class="fas fa-check-circle"></i>
+            <h3>¡Todo al día!</h3>
+            <p>No hay pedidos pendientes en este momento</p>
+        </div>
+    </main>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         MODAL - DETALLE DE PEDIDO
+         ══════════════════════════════════════════════════════════════════════ -->
+    <div class="modal-overlay" id="modalPedido">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-receipt"></i> 
+                    Pedido Mesa <span id="modalMesaNum"></span>
+                </h3>
+                <button class="modal-close" onclick="cerrarModal('modalPedido')">&times;</button>
+            </div>
+            <div class="modal-body" id="modalPedidoBody">
+                <!-- Contenido dinámico -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         MODAL - FALTA DE STOCK
+         ══════════════════════════════════════════════════════════════════════ -->
+    <div class="modal-overlay" id="modalStock">
+        <div class="modal modal-stock">
+            <div class="modal-header danger">
+                <h3 class="modal-title">
+                    <i class="fas fa-exclamation-triangle"></i> 
+                    Reportar Falta de Stock
+                </h3>
+                <button class="modal-close" onclick="cerrarModal('modalStock')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="stock-info">Selecciona el producto sin stock para notificar a sala:</p>
+                <input type="text" class="search-input" id="searchStock" placeholder="Buscar producto...">
+                <div class="stock-list" id="stockList">
+                    <!-- Lista de productos -->
+                </div>
+                <div class="stock-selected" id="stockSelected" style="display: none;">
+                    <h4>Producto seleccionado:</h4>
+                    <div class="selected-product" id="selectedProduct"></div>
+                    <textarea id="stockNotas" placeholder="Notas adicionales (opcional)..." rows="2"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary" onclick="cerrarModal('modalStock')">Cancelar</button>
+                <button class="btn danger" id="btnConfirmarStock" onclick="confirmarFaltaStock()" disabled>
+                    <i class="fas fa-exclamation-circle"></i> Confirmar Falta
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         TOAST NOTIFICATIONS
+         ══════════════════════════════════════════════════════════════════════ -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ══════════════════════════════════════════════════════════════════════
+         BOTÓN FLOTANTE - FALTA DE STOCK
+         ══════════════════════════════════════════════════════════════════════ -->
+    <button class="fab-stock" id="fabStock" onclick="abrirModalStock()">
+        <i class="fas fa-box-open"></i>
+        <span>Sin Stock</span>
+    </button>
+
+    <!-- AUDIO NOTIFICACIÓN -->
+    <audio id="audioNuevoPedido" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2teleBoLJJTI5NmKFAANPa7g7ceTGAAAHXfQ8+aie0AVABd52fvov30NCxNw3P/vxHkXDwte5f/30YMfDxJW5f/00YYVCQ==" type="audio/wav">
+    </audio>
+
+    <script>
+        // ════════════════════════════════════════════════════════════════════════
+        // DATOS SIMULADOS
+        // ════════════════════════════════════════════════════════════════════════
+        
+        let pedidos = [
+            {
+                id: 1001,
+                mesa: 5,
+                estado: 'preparando',
+                prioridad: 'normal',
+                horaEntrada: new Date(Date.now() - 12 * 60000), // hace 12 min
+                tiempoEstimado: 15,
+                items: [
+                    { nombre: 'Solomillo al Ajo Tostado', cantidad: 2, notas: 'Uno poco hecho' },
+                    { nombre: 'Ensalada César', cantidad: 1, notas: '' }
+                ]
+            },
+            {
+                id: 1002,
+                mesa: 3,
+                estado: 'preparando',
+                prioridad: 'alta',
+                horaEntrada: new Date(Date.now() - 18 * 60000), // hace 18 min
+                tiempoEstimado: 20,
+                items: [
+                    { nombre: 'Chuletón de Buey', cantidad: 1, notas: 'Al punto' },
+                    { nombre: 'Patatas Bravas', cantidad: 2, notas: 'Extra picante' }
+                ]
+            },
+            {
+                id: 1003,
+                mesa: 8,
+                estado: 'preparando',
+                prioridad: 'normal',
+                horaEntrada: new Date(Date.now() - 5 * 60000), // hace 5 min
+                tiempoEstimado: 12,
+                items: [
+                    { nombre: 'Croquetas de la Abuela', cantidad: 1, notas: '' },
+                    { nombre: 'Tortilla Española', cantidad: 1, notas: 'Bien cuajada' }
+                ]
+            },
+            {
+                id: 1004,
+                mesa: 12,
+                estado: 'preparando',
+                prioridad: 'urgente',
+                horaEntrada: new Date(Date.now() - 25 * 60000), // hace 25 min
+                tiempoEstimado: 25,
+                items: [
+                    { nombre: 'Bacalao Dorado', cantidad: 2, notas: '' },
+                    { nombre: 'Huevos Rotos con Jamón', cantidad: 1, notas: '' }
+                ]
+            },
+            {
+                id: 1005,
+                mesa: 1,
+                estado: 'listo',
+                prioridad: 'normal',
+                horaEntrada: new Date(Date.now() - 22 * 60000),
+                tiempoEstimado: 15,
+                items: [
+                    { nombre: 'Entrecot a la Brasa', cantidad: 2, notas: 'Muy hecho' }
+                ]
+            },
+            {
+                id: 1006,
+                mesa: 7,
+                estado: 'preparando',
+                prioridad: 'alta',
+                horaEntrada: new Date(Date.now() - 8 * 60000),
+                tiempoEstimado: 18,
+                items: [
+                    { nombre: 'Paella Valenciana', cantidad: 1, notas: '2 personas' },
+                    { nombre: 'Gambas al Ajillo', cantidad: 1, notas: '' }
+                ]
+            }
+        ];
+
+        const catalogoProductos = [
+            'Solomillo al Ajo Tostado', 'Chuletón de Buey', 'Entrecot a la Brasa',
+            'Bacalao Dorado', 'Huevos Rotos con Jamón', 'Paella Valenciana',
+            'Croquetas de la Abuela', 'Tortilla Española', 'Patatas Bravas',
+            'Ensalada César', 'Gambas al Ajillo', 'Pulpo a la Gallega',
+            'Jamón Ibérico', 'Queso Manchego', 'Pan con Tomate',
+            'Tarta de Queso', 'Flan Casero', 'Coulant de Chocolate'
+        ];
+
+        let filtroActual = 'todos';
+        let ordenActual = 'tiempo';
+        let sonidoActivo = true;
+        let completadosHoy = 12;
+        let productoStockSeleccionado = null;
+
+        // ════════════════════════════════════════════════════════════════════════
+        // INICIALIZACIÓN
+        // ════════════════════════════════════════════════════════════════════════
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            actualizarReloj();
+            setInterval(actualizarReloj, 1000);
+            
+            renderPedidos();
+            actualizarEstadisticas();
+            renderListaStock();
+            
+            // Actualizar tiempos cada 30 segundos
+            setInterval(() => {
+                renderPedidos();
+            }, 30000);
+
+            // Event listeners para filtros
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    filtroActual = tab.dataset.filter;
+                    renderPedidos();
+                });
+            });
+
+            // Event listeners para ordenación
+            document.querySelectorAll('.sort-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    ordenActual = btn.dataset.sort;
+                    renderPedidos();
+                });
+            });
+
+            // Toggle sonido
+            document.getElementById('btnSonido').addEventListener('click', () => {
+                sonidoActivo = !sonidoActivo;
+                const icon = document.querySelector('#btnSonido i');
+                icon.className = sonidoActivo ? 'fas fa-volume-up' : 'fas fa-volume-mute';
+                showToast(sonidoActivo ? 'Sonido activado' : 'Sonido silenciado', 'info');
+            });
+
+            // Búsqueda de stock
+            document.getElementById('searchStock').addEventListener('input', (e) => {
+                renderListaStock(e.target.value);
+            });
+        });
+
+        // ════════════════════════════════════════════════════════════════════════
+        // RELOJ
+        // ════════════════════════════════════════════════════════════════════════
+        
+        function actualizarReloj() {
+            const now = new Date();
+            document.getElementById('currentTime').textContent = 
+                now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        // ════════════════════════════════════════════════════════════════════════
+        // RENDER PEDIDOS
+        // ════════════════════════════════════════════════════════════════════════
+        
+        function renderPedidos() {
+            const container = document.getElementById('pedidosGrid');
+            const emptyState = document.getElementById('emptyState');
+            
+            // Filtrar
+            let pedidosFiltrados = pedidos.filter(p => {
+                if (filtroActual === 'todos') return p.estado !== 'completado';
+                return p.estado === filtroActual;
+            });
+            
+            // Ordenar
+            pedidosFiltrados.sort((a, b) => {
+                if (ordenActual === 'tiempo') {
+                    return a.horaEntrada - b.horaEntrada; // Más antiguos primero
+                } else if (ordenActual === 'prioridad') {
+                    const prioridadOrden = { urgente: 0, alta: 1, normal: 2 };
+                    return prioridadOrden[a.prioridad] - prioridadOrden[b.prioridad];
+                } else if (ordenActual === 'mesa') {
+                    return a.mesa - b.mesa;
+                }
+            });
+            
+            if (pedidosFiltrados.length === 0) {
+                container.innerHTML = '';
+                emptyState.style.display = 'flex';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            
+            container.innerHTML = pedidosFiltrados.map(pedido => {
+                const tiempoTranscurrido = Math.floor((Date.now() - pedido.horaEntrada) / 60000);
+                const tiempoRestante = pedido.tiempoEstimado - tiempoTranscurrido;
+                const porcentaje = Math.min(100, (tiempoTranscurrido / pedido.tiempoEstimado) * 100);
+                
+                let tiempoClass = '';
+                if (tiempoTranscurrido > pedido.tiempoEstimado) {
+                    tiempoClass = 'critical';
+                } else if (porcentaje > 75) {
+                    tiempoClass = 'warning';
+                }
+                
+                const estadoClasses = {
+                    pendiente: 'estado-pendiente',
+                    preparando: 'estado-preparando',
+                    listo: 'estado-listo'
+                };
+                
+                const estadoTextos = {
+                    pendiente: 'Pendiente',
+                    preparando: 'En preparación',
+                    listo: '¡Listo para servir!'
+                };
+                
+                const estadoIconos = {
+                    pendiente: 'fa-clock',
+                    preparando: 'fa-fire-burner',
+                    listo: 'fa-bell'
+                };
+
+                return `
+                    <div class="pedido-card ${estadoClasses[pedido.estado]} ${pedido.prioridad === 'urgente' ? 'urgente' : ''} ${pedido.prioridad === 'alta' ? 'alta' : ''}" 
+                         data-id="${pedido.id}">
+                        
+                        <div class="pedido-header">
+                            <div class="pedido-mesa">
+                                <span class="mesa-num">Mesa ${pedido.mesa}</span>
+                                ${pedido.prioridad !== 'normal' ? `
+                                    <span class="prioridad-badge ${pedido.prioridad}">
+                                        <i class="fas fa-${pedido.prioridad === 'urgente' ? 'fire' : 'exclamation'}"></i>
+                                        ${pedido.prioridad === 'urgente' ? 'URGENTE' : 'PRIORIDAD'}
+                                    </span>
+                                ` : ''}
+                            </div>
+                            <div class="pedido-estado">
+                                <i class="fas ${estadoIconos[pedido.estado]}"></i>
+                                <span>${estadoTextos[pedido.estado]}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="pedido-tiempo ${tiempoClass}">
+                            <div class="tiempo-info">
+                                <span class="tiempo-transcurrido">${tiempoTranscurrido} min</span>
+                                <span class="tiempo-estimado">/ ${pedido.tiempoEstimado} min</span>
+                            </div>
+                            <div class="tiempo-barra">
+                                <div class="tiempo-progreso" style="width: ${porcentaje}%"></div>
+                            </div>
+                            ${tiempoRestante <= 0 ? `
+                                <div class="tiempo-alerta">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    ¡${Math.abs(tiempoRestante)} min de retraso!
+                                </div>
+                            ` : ''}
+                        </div>
+                        
+                        <div class="pedido-items">
+                            ${pedido.items.map(item => `
+                                <div class="item-row">
+                                    <span class="item-qty">${item.cantidad}x</span>
+                                    <span class="item-name">${item.nombre}</span>
+                                    ${item.notas ? `<span class="item-nota" title="${item.notas}"><i class="fas fa-sticky-note"></i></span>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <div class="pedido-actions">
+                            ${pedido.estado === 'preparando' ? `
+                                <button class="action-btn success" onclick="marcarListo(${pedido.id})">
+                                    <i class="fas fa-check"></i> ¡Listo!
+                                </button>
+                            ` : `
+                                <button class="action-btn completed" onclick="marcarRecogido(${pedido.id})">
+                                    <i class="fas fa-hand-holding"></i> Recogido
+                                </button>
+                            `}
+                            <button class="action-btn secondary" onclick="verDetalle(${pedido.id})">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ════════════════════════════════════════════════════════════════════════
+        // ACCIONES DE PEDIDOS
+        // ════════════════════════════════════════════════════════════════════════
+        
+        function marcarListo(id) {
+            const pedido = pedidos.find(p => p.id === id);
+            if (pedido) {
+                pedido.estado = 'listo';
+                renderPedidos();
+                actualizarEstadisticas();
+                showToast(`Mesa ${pedido.mesa} - ¡Pedido listo!`, 'success');
+                if (sonidoActivo) {
+                    document.getElementById('audioNuevoPedido').play().catch(() => {});
+                }
+            }
+        }
+        
+        function marcarRecogido(id) {
+            const pedido = pedidos.find(p => p.id === id);
+            if (pedido) {
+                pedido.estado = 'completado';
+                completadosHoy++;
+                renderPedidos();
+                actualizarEstadisticas();
+                showToast(`Mesa ${pedido.mesa} - Pedido completado`, 'success');
+            }
+        }
+        
+        function verDetalle(id) {
+            const pedido = pedidos.find(p => p.id === id);
+            if (!pedido) return;
+            
+            document.getElementById('modalMesaNum').textContent = pedido.mesa;
+            
+            const tiempoTranscurrido = Math.floor((Date.now() - pedido.horaEntrada) / 60000);
+            
+            document.getElementById('modalPedidoBody').innerHTML = `
+                <div class="detalle-info">
+                    <div class="detalle-row">
+                        <span class="label">Hora de entrada:</span>
+                        <span class="value">${pedido.horaEntrada.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
+                    </div>
+                    <div class="detalle-row">
+                        <span class="label">Tiempo transcurrido:</span>
+                        <span class="value ${tiempoTranscurrido > pedido.tiempoEstimado ? 'text-danger' : ''}">${tiempoTranscurrido} minutos</span>
+                    </div>
+                    <div class="detalle-row">
+                        <span class="label">Tiempo estimado:</span>
+                        <span class="value">${pedido.tiempoEstimado} minutos</span>
+                    </div>
+                    <div class="detalle-row">
+                        <span class="label">Prioridad:</span>
+                        <span class="value prioridad-${pedido.prioridad}">${pedido.prioridad.toUpperCase()}</span>
+                    </div>
+                </div>
+                
+                <h4 class="detalle-titulo"><i class="fas fa-list"></i> Items del pedido</h4>
+                <div class="detalle-items">
+                    ${pedido.items.map(item => `
+                        <div class="detalle-item">
+                            <div class="detalle-item-main">
+                                <span class="detalle-qty">${item.cantidad}x</span>
+                                <span class="detalle-name">${item.nombre}</span>
+                            </div>
+                            ${item.notas ? `
+                                <div class="detalle-notas">
+                                    <i class="fas fa-comment"></i> ${item.notas}
+                                </div>
+                            ` : ''}
+                        </div>
+                    `).join('')}
+                </div>
+                
+                <div class="detalle-actions">
+                    ${pedido.estado === 'preparando' ? `
+                        <button class="btn success" onclick="marcarListo(${pedido.id}); cerrarModal('modalPedido');">
+                            <i class="fas fa-check"></i> Marcar como Listo
+                        </button>
+                    ` : `
+                        <button class="btn completed" onclick="marcarRecogido(${pedido.id}); cerrarModal('modalPedido');">
+                            <i class="fas fa-hand-holding"></i> Marcar Recogido
+                        </button>
+                    `}
+                </div>
+            `;
+            
+            document.getElementById('modalPedido').classList.add('active');
+        }
+
+        // ════════════════════════════════════════════════════════════════════════
+        // ESTADÍSTICAS
+        // ════════════════════════════════════════════════════════════════════════
+        
+        function actualizarEstadisticas() {
+            const preparando = pedidos.filter(p => p.estado === 'preparando').length;
+            
+            document.getElementById('statsPreparando').textContent = preparando;
+            document.getElementById('statsCompletados').textContent = completadosHoy;
+        }
+
+        // ════════════════════════════════════════════════════════════════════════
+        // FALTA DE STOCK
+        // ════════════════════════════════════════════════════════════════════════
+        
+        function abrirModalStock() {
+            productoStockSeleccionado = null;
+            document.getElementById('searchStock').value = '';
+            document.getElementById('stockNotas').value = '';
+            document.getElementById('stockSelected').style.display = 'none';
+            document.getElementById('btnConfirmarStock').disabled = true;
+            renderListaStock();
+            document.getElementById('modalStock').classList.add('active');
+        }
+        
+        function renderListaStock(busqueda = '') {
+            const lista = document.getElementById('stockList');
+            const productos = catalogoProductos.filter(p => 
+                p.toLowerCase().includes(busqueda.toLowerCase())
+            );
+            
+            lista.innerHTML = productos.map(producto => `
+                <button class="stock-item ${productoStockSeleccionado === producto ? 'selected' : ''}" 
+                        onclick="seleccionarProductoStock('${producto}')">
+                    <i class="fas fa-utensils"></i>
+                    <span>${producto}</span>
+                </button>
+            `).join('');
+        }
+        
+        function seleccionarProductoStock(producto) {
+            productoStockSeleccionado = producto;
+            document.getElementById('stockSelected').style.display = 'block';
+            document.getElementById('selectedProduct').innerHTML = `
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>${producto}</span>
+            `;
+            document.getElementById('btnConfirmarStock').disabled = false;
+            renderListaStock(document.getElementById('searchStock').value);
+        }
+        
+        function confirmarFaltaStock() {
+            if (!productoStockSeleccionado) return;
+            
+            const notas = document.getElementById('stockNotas').value;
+            
+            // Aquí se enviaría la notificación al módulo de sala
+            showToast(`⚠️ Falta de stock: ${productoStockSeleccionado} - Notificado a sala`, 'warning');
+            
+            cerrarModal('modalStock');
+        }
+
+        // ════════════════════════════════════════════════════════════════════════
+        // UTILIDADES
+        // ════════════════════════════════════════════════════════════════════════
+        
+        function cerrarModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+        
+        // Cerrar modales al hacer clic fuera
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+
+        function showToast(mensaje, tipo = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${tipo}`;
+            
+            const iconos = {
+                success: 'fa-check-circle',
+                warning: 'fa-exclamation-triangle',
+                error: 'fa-times-circle',
+                info: 'fa-info-circle'
+            };
+            
+            toast.innerHTML = `
+                <i class="fas ${iconos[tipo]}"></i>
+                <span>${mensaje}</span>
+            `;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.add('fade-out');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // ════════════════════════════════════════════════════════════════════════
+        // SIMULACIÓN: Nuevo pedido cada 45 segundos
+        // ════════════════════════════════════════════════════════════════════════
+        
+        setInterval(() => {
+            const nuevosPedidos = [
+                { items: [{ nombre: 'Croquetas de la Abuela', cantidad: 2, notas: '' }], tiempo: 10 },
+                { items: [{ nombre: 'Paella Valenciana', cantidad: 1, notas: '2 personas' }], tiempo: 25 },
+                { items: [{ nombre: 'Solomillo al Ajo Tostado', cantidad: 1, notas: 'Poco hecho' }], tiempo: 18 }
+            ];
+            
+            const random = nuevosPedidos[Math.floor(Math.random() * nuevosPedidos.length)];
+            
+            const nuevoPedido = {
+                id: Date.now(),
+                mesa: Math.floor(Math.random() * 15) + 1,
+                estado: 'preparando',
+                prioridad: Math.random() > 0.85 ? 'alta' : 'normal',
+                horaEntrada: new Date(),
+                tiempoEstimado: random.tiempo,
+                items: random.items
+            };
+            
+            pedidos.push(nuevoPedido);
+            renderPedidos();
+            actualizarEstadisticas();
+            
+            if (sonidoActivo) {
+                document.getElementById('audioNuevoPedido').play().catch(() => {});
+            }
+            showToast(`🍳 Nuevo pedido: Mesa ${nuevoPedido.mesa}`, 'info');
+            
+        }, 45000);
+    </script>
+</body>
+</html>
