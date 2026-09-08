@@ -65,6 +65,18 @@ body.dark-mode .demo-volver:focus-visible {
   color: #FF9A2E;
 }
 
+/* ── Logotipo enmesa ──
+   Logo_enmesa.png viene recortado a su contenido, por lo que a igual altura
+   se ve mucho mayor pero tambien es mas ancho (proporcion 3,16:1 frente a
+   1,67:1). Esta salvaguarda hace que se encoja antes que desbordar una
+   cabecera estrecha, en lugar de empujar al resto de elementos. */
+.header-logo,
+.top-bar-logo {
+  max-width: 100%;
+  min-width: 0;
+  object-fit: contain;
+}
+
 /* ── Ajustes de colocación por módulo ── */
 
 /* landing.html — cabecera a ancho completo: logo a la izquierda, botón a la derecha */
