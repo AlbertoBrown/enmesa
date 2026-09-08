@@ -2316,6 +2316,11 @@ body {
 @media (min-width: 1200px) {
   .main-content {
     padding: 24px 40px;
+    /* width: 100% es imprescindible: .main-content es un flex item de
+       .app-container (flex en columna) y "margin: 0 auto" anula el stretch
+       del eje transversal, dejando el ancho a contenido. Sin esto la rejilla
+       de mesas colapsa a una sola columna en escritorio. */
+    width: 100%;
     max-width: 1600px;
     margin: 0 auto;
   }

@@ -990,4 +990,25 @@ body {
   .bottom-bar {
     padding: 16px 32px 24px;
   }
+
+  /* ── Carrito en escritorio ──
+     En movil es una hoja inferior (pegada abajo, esquinas rectas).
+     En pantalla grande queda encajada contra el borde de la ventana,
+     asi que pasa a ser un dialogo centrado y flotante. */
+  .modal-overlay {
+    align-items: center;
+    padding: 32px 24px;
+  }
+
+  .modal {
+    max-width: 480px;
+    max-height: calc(100vh - 64px);
+    border-radius: 20px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, .28);
+  }
+
+  .cart-empty {
+    padding: 40px 24px;
+    box-shadow: none;
+  }
 }
