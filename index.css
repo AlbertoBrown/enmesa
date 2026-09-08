@@ -1,0 +1,499 @@
+/* ════════════════════════════════════════════════════════════════════════
+   ENMESA — SELECTOR DE MÓDULOS (pantalla de demostración)
+   Estilos AISLADOS: todos los selectores usan el prefijo .sel-
+   Este archivo solo lo carga index.html. No afecta a cliente / camarero / cocina.
+   ════════════════════════════════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Paleta de marca (coherente con landing.css y cliente.css) */
+  --sel-primary: #FF7A00;
+  --sel-accent: #FFC247;
+
+  --sel-bg: #F7F7F7;
+  --sel-surface: #FFFFFF;
+  --sel-border: #ECE9E4;
+  --sel-border-strong: #DBD6CF;
+
+  --sel-text: #16181D;
+  --sel-text-soft: #5B6068;
+  --sel-text-muted: #8A9099;
+
+  --sel-shadow-sm: 0 1px 2px rgba(22, 24, 29, .05);
+  --sel-shadow-md: 0 4px 16px rgba(22, 24, 29, .06), 0 1px 3px rgba(22, 24, 29, .04);
+  --sel-shadow-lg: 0 22px 48px rgba(22, 24, 29, .13), 0 6px 14px rgba(22, 24, 29, .06);
+  --sel-shadow-glow: 0 22px 48px rgba(255, 122, 0, .18);
+
+  --sel-radius: 22px;
+  --sel-gap: 28px;
+  --sel-ease: cubic-bezier(.22, .78, .35, 1);
+}
+
+html { -webkit-text-size-adjust: 100%; }
+
+body.sel-body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: var(--sel-bg);
+  color: var(--sel-text);
+  min-height: 100vh;
+  min-height: 100dvh; /* evita el salto por la barra del navegador móvil */
+  -webkit-tap-highlight-color: transparent;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ── Halos de fondo: cálidos y muy sutiles, seguros en proyector ── */
+.sel-glow {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+.sel-glow--a {
+  top: -320px; right: -220px;
+  width: 780px; height: 780px;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 194, 71, .30), rgba(255, 194, 71, 0) 68%);
+}
+.sel-glow--b {
+  bottom: -380px; left: -260px;
+  width: 720px; height: 720px;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 122, 0, .15), rgba(255, 122, 0, 0) 68%);
+}
+
+/* ════════════════════ CABECERA ════════════════════ */
+.sel-topbar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px clamp(20px, 5vw, 56px) 0;
+}
+
+.sel-topbar-logo {
+  height: 46px;
+  width: auto;
+  display: block;
+}
+
+.sel-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 16px 8px 13px;
+  background: var(--sel-surface);
+  border: 1px solid var(--sel-border);
+  border-radius: 999px;
+  box-shadow: var(--sel-shadow-sm);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .01em;
+  color: var(--sel-text-soft);
+  white-space: nowrap;
+}
+
+.sel-tag-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sel-primary);
+  box-shadow: 0 0 0 4px rgba(255, 122, 0, .16);
+  animation: sel-pulse 2.4s var(--sel-ease) infinite;
+}
+
+@keyframes sel-pulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(255, 122, 0, .16); }
+  50%      { box-shadow: 0 0 0 7px rgba(255, 122, 0, .05); }
+}
+
+/* ════════════════════ CUERPO ════════════════════ */
+.sel-main {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  width: 100%;
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: clamp(30px, 5vh, 58px) clamp(20px, 5vw, 56px) 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Hero ── */
+.sel-hero {
+  text-align: center;
+  margin-bottom: clamp(34px, 5vh, 58px);
+}
+
+.sel-wordmark {
+  font-size: clamp(44px, 6.2vw, 74px);
+  font-weight: 700;
+  letter-spacing: -.035em;
+  line-height: 1.02;
+  color: var(--sel-text);
+}
+.sel-wordmark span { color: var(--sel-primary); }
+
+.sel-tagline {
+  margin-top: 12px;
+  font-size: clamp(16px, 1.5vw, 19px);
+  font-weight: 400;
+  color: var(--sel-text-soft);
+}
+
+.sel-rule {
+  width: 56px;
+  height: 3px;
+  margin: clamp(24px, 3.4vh, 36px) auto 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--sel-accent), var(--sel-primary));
+}
+
+/* ── Pregunta principal ── */
+.sel-lead {
+  text-align: center;
+  margin-bottom: clamp(30px, 4.4vh, 46px);
+}
+
+.sel-lead h2 {
+  font-size: clamp(25px, 2.9vw, 36px);
+  font-weight: 700;
+  letter-spacing: -.022em;
+  line-height: 1.2;
+  color: var(--sel-text);
+}
+
+.sel-lead p {
+  margin: 14px auto 0;
+  max-width: 660px;
+  font-size: clamp(15px, 1.25vw, 17px);
+  color: var(--sel-text-soft);
+}
+
+/* ════════════════════ TARJETAS ════════════════════ */
+.sel-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sel-gap);
+  align-items: stretch;
+}
+
+/* Recorrido Cliente → Sala → Cocina: la línea solo asoma por los huecos */
+.sel-grid::before {
+  content: '';
+  position: absolute;
+  top: 92px;
+  left: 6%;
+  right: 6%;
+  height: 2px;
+  z-index: 0;
+  background-image: linear-gradient(90deg, var(--sel-border-strong) 0 8px, transparent 8px 16px);
+  background-size: 16px 2px;
+}
+
+.sel-link {
+  position: absolute;
+  top: 92px;
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--sel-surface);
+  border: 1px solid var(--sel-border);
+  box-shadow: var(--sel-shadow-sm);
+  color: var(--sel-primary);
+  transform: translate(-50%, -50%);
+}
+.sel-link svg { width: 14px; height: 14px; display: block; }
+
+/* Centro exacto de cada hueco de la rejilla */
+.sel-link--1 { left: calc((100% - 2 * var(--sel-gap)) / 3 + var(--sel-gap) / 2); }
+.sel-link--2 { left: calc(2 * (100% - 2 * var(--sel-gap)) / 3 + var(--sel-gap) * 1.5); }
+
+/* ── Tarjeta ── */
+.sel-card {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 34px 30px 30px;
+  background: var(--sel-surface);
+  border: 1px solid var(--sel-border);
+  border-radius: var(--sel-radius);
+  box-shadow: var(--sel-shadow-md);
+  text-decoration: none;
+  color: inherit;
+  transition: transform .32s var(--sel-ease),
+              box-shadow .32s var(--sel-ease),
+              border-color .32s var(--sel-ease);
+}
+
+/* Filo superior degradado */
+.sel-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px -1px auto;
+  height: 4px;
+  border-radius: var(--sel-radius) var(--sel-radius) 0 0;
+  background: var(--card-grad);
+  opacity: 0;
+  transition: opacity .32s var(--sel-ease);
+}
+
+.sel-card:hover,
+.sel-card:focus-visible {
+  transform: translateY(-8px);
+  border-color: rgba(255, 122, 0, .34);
+  box-shadow: var(--sel-shadow-lg), var(--sel-shadow-glow);
+}
+.sel-card:hover::before,
+.sel-card:focus-visible::before { opacity: 1; }
+
+.sel-card:focus-visible {
+  outline: 3px solid rgba(255, 122, 0, .45);
+  outline-offset: 4px;
+}
+.sel-card:active { transform: translateY(-3px); }
+
+/* Número de paso, discreto en la esquina superior derecha */
+.sel-step {
+  position: absolute;
+  top: 22px;
+  right: 24px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  color: var(--sel-text-muted);
+}
+
+/* Logotipo del módulo: sustituye a icono + título (ya lleva el nombre) */
+/* El nombre del módulo lo aporta el propio logotipo.
+   Se conserva un tamaño de texto legible por si la imagen no cargara:
+   en ese caso se muestra el alt ("Módulo Cliente") como título. */
+.sel-card-title {
+  margin: 0 0 20px;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  line-height: 1.3;
+  color: var(--sel-text);
+  text-align: center; /* centra también el alt si la imagen no cargara */
+}
+
+.sel-logo {
+  display: block;
+  width: 100%;
+  max-width: 196px;
+  height: auto;
+  margin-left: auto;   /* logotipo centrado en la tarjeta */
+  margin-right: auto;
+  transition: transform .32s var(--sel-ease);
+}
+.sel-card:hover .sel-logo { transform: scale(1.04); }
+
+.sel-card-desc {
+  font-size: 15.5px;
+  color: var(--sel-text-soft);
+  flex: 1; /* iguala la altura de las tres tarjetas */
+}
+
+.sel-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 26px;
+  padding: 14px 20px;
+  border-radius: 14px;
+  background: #F4F2EF;
+  border: 1px solid var(--sel-border);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--sel-text);
+  transition: background .3s var(--sel-ease), color .3s var(--sel-ease),
+              border-color .3s var(--sel-ease), box-shadow .3s var(--sel-ease);
+}
+.sel-cta svg { width: 16px; height: 16px; transition: transform .3s var(--sel-ease); }
+
+.sel-card:hover .sel-cta,
+.sel-card:focus-visible .sel-cta {
+  background: var(--card-grad);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 8px 18px var(--card-shadow);
+}
+.sel-card:hover .sel-cta svg { transform: translateX(4px); }
+
+/* Degradado continuo a lo largo de las tres tarjetas: un mismo ecosistema */
+.sel-card--cliente { --card-grad: linear-gradient(135deg, #FFC247, #FF9A2E); --card-shadow: rgba(255, 154, 46, .34); }
+.sel-card--sala    { --card-grad: linear-gradient(135deg, #FF9A2E, #FF7A00); --card-shadow: rgba(255, 122, 0, .34); }
+.sel-card--cocina  { --card-grad: linear-gradient(135deg, #FF7A00, #E5561F); --card-shadow: rgba(229, 86, 31, .34); }
+
+/* ════════════════════ PIE ════════════════════ */
+.sel-footer {
+  position: relative;
+  z-index: 1;
+  margin-top: clamp(32px, 5vh, 52px);
+  padding-top: 22px;
+  border-top: 1px solid var(--sel-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--sel-text-muted);
+}
+.sel-footer strong { color: var(--sel-text-soft); font-weight: 600; }
+
+/* ════════════════════ ENTRADA SUAVE ════════════════════ */
+.sel-rise {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: sel-rise .62s var(--sel-ease) forwards;
+}
+.sel-rise--1 { animation-delay: .05s; }
+.sel-rise--2 { animation-delay: .13s; }
+.sel-rise--3 { animation-delay: .21s; }
+.sel-rise--4 { animation-delay: .29s; }
+.sel-rise--5 { animation-delay: .37s; }
+.sel-rise--6 { animation-delay: .45s; }
+
+@keyframes sel-rise {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ════════════════════ RESPONSIVE ════════════════════ */
+
+/* Tablet horizontal: tres columnas más ajustadas */
+@media (max-width: 1080px) {
+  :root { --sel-gap: 20px; }
+  .sel-card { padding: 28px 24px 26px; }
+  .sel-logo { max-width: 168px; }
+  .sel-card-title { margin-bottom: 16px; }
+  .sel-step { top: 18px; right: 20px; }
+  .sel-card-desc { font-size: 15px; }
+  /* el conector se recoloca al nuevo centro del logotipo */
+  .sel-grid::before, .sel-link { top: 78px; }
+}
+
+/* Tablet vertical y móvil: apilado */
+@media (max-width: 860px) {
+  .sel-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* El recorrido pasa a ser vertical */
+  .sel-grid::before, .sel-link { display: none; }
+  .sel-card { padding: 26px 24px; }
+  .sel-card:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -18px;
+    width: 2px;
+    height: 18px;
+    transform: translateX(-50%);
+    background-image: linear-gradient(180deg, var(--sel-border-strong) 0 6px, transparent 6px 12px);
+    background-size: 2px 12px;
+  }
+  .sel-card:hover, .sel-card:focus-visible { transform: translateY(-4px); }
+  .sel-card-desc { flex: 0 0 auto; }
+  .sel-cta { margin-top: 20px; }
+  .sel-topbar { padding-top: 18px; }
+  .sel-topbar-logo { height: 38px; }
+
+  /* La tarjeta ocupa todo el ancho: el logotipo puede respirar más */
+  .sel-logo { max-width: 184px; }
+  .sel-card-title { margin-bottom: 14px; }
+}
+
+/* Móvil */
+@media (max-width: 480px) {
+  .sel-tag { font-size: 12px; padding: 7px 13px 7px 11px; }
+  .sel-main { padding-bottom: 30px; }
+  .sel-footer { font-size: 12.5px; }
+
+  .sel-card { padding: 24px 20px; }
+  .sel-logo { max-width: 168px; }
+  .sel-step { top: 16px; right: 18px; font-size: 11px; }
+  .sel-card-desc { font-size: 14.5px; }
+  .sel-cta { padding: 13px 18px; font-size: 14.5px; }
+  .sel-lead p { font-size: 15px; }
+}
+
+/* Móviles pequeños (iPhone SE y similares) */
+@media (max-width: 380px) {
+  .sel-topbar { padding-left: 16px; padding-right: 16px; }
+  .sel-topbar-logo { height: 32px; }
+  .sel-tag { font-size: 11.5px; padding: 6px 11px 6px 9px; gap: 7px; }
+  .sel-main { padding-left: 16px; padding-right: 16px; }
+  .sel-card { padding: 22px 18px; }
+  .sel-logo { max-width: 152px; }
+  .sel-grid { gap: 16px; }
+  .sel-card:not(:last-child)::after { bottom: -16px; height: 16px; }
+}
+
+/* Móvil en horizontal: cabecera más compacta para no comerse el alto */
+@media (max-height: 460px) and (orientation: landscape) {
+  .sel-hero { margin-bottom: 22px; }
+  .sel-rule { margin-top: 16px; }
+  .sel-lead { margin-bottom: 22px; }
+  .sel-topbar-logo { height: 32px; }
+}
+
+/* ════════════════════ DISPOSITIVOS TÁCTILES ════════════════════
+   Sin ratón no hay :hover, así que el color de cada módulo debe verse
+   siempre; además se evita que el :hover se quede "pegado" tras tocar. */
+@media (hover: none) {
+  .sel-card::before { opacity: 1; }
+
+  .sel-cta {
+    background: var(--card-grad);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 8px 18px var(--card-shadow);
+  }
+
+  .sel-card:hover {
+    transform: none;
+    border-color: var(--sel-border);
+    box-shadow: var(--sel-shadow-md);
+  }
+  .sel-card:hover .sel-logo { transform: none; }
+  .sel-card:hover .sel-cta svg { transform: none; }
+
+  /* Respuesta táctil al pulsar */
+  .sel-card:active {
+    transform: scale(.985);
+    box-shadow: var(--sel-shadow-md);
+  }
+}
+
+/* Pantalla ancha / proyector: algo más de aire */
+@media (min-width: 1400px) {
+  .sel-main { max-width: 1280px; }
+}
+
+/* Respeto por quien reduce el movimiento */
+@media (prefers-reduced-motion: reduce) {
+  .sel-rise { opacity: 1; transform: none; animation: none; }
+  .sel-tag-dot { animation: none; }
+  .sel-card, .sel-logo, .sel-cta, .sel-cta svg { transition: none; }
+  .sel-card:hover, .sel-card:focus-visible { transform: none; }
+  .sel-card:hover .sel-logo { transform: none; }
+}

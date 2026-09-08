@@ -1,0 +1,102 @@
+/* ════════════════════════════════════════════════════════════════════════
+   ENMESA — BOTÓN "VOLVER AL SELECTOR" (index.html)
+   Hoja auxiliar para la demo. Se carga DESPUÉS del CSS de cada módulo,
+   por lo que las pocas reglas de layout de abajo actúan como ajuste local
+   sin necesidad de editar landing.css / cliente.css / camarero.css / cocina.css.
+   ════════════════════════════════════════════════════════════════════════ */
+
+.demo-volver {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding: 8px 14px 8px 11px;
+  border: 1px solid #E2DED8;
+  border-radius: 999px;
+  background: #FFFFFF;
+  color: #5B6068;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(22, 24, 29, .05);
+  transition: color .25s ease, border-color .25s ease,
+              background .25s ease, box-shadow .25s ease;
+}
+
+.demo-volver svg {
+  width: 15px;
+  height: 15px;
+  display: block;
+  flex-shrink: 0;
+  transition: transform .25s ease;
+}
+
+.demo-volver:hover,
+.demo-volver:focus-visible {
+  color: #FF7A00;
+  border-color: rgba(255, 122, 0, .45);
+  background: #FFF8F1;
+  box-shadow: 0 4px 12px rgba(255, 122, 0, .15);
+}
+
+.demo-volver:hover svg { transform: translateX(-3px); }
+
+.demo-volver:focus-visible {
+  outline: 3px solid rgba(255, 122, 0, .35);
+  outline-offset: 3px;
+}
+
+.demo-volver:active { transform: scale(.97); }
+
+/* ── Modo oscuro del módulo Sala (body.dark-mode en camarero.html) ── */
+body.dark-mode .demo-volver {
+  background: #2d2d44;
+  border-color: #3d3d54;
+  color: #d8d8e0;
+}
+body.dark-mode .demo-volver:hover,
+body.dark-mode .demo-volver:focus-visible {
+  background: #34344e;
+  border-color: rgba(255, 122, 0, .55);
+  color: #FF9A2E;
+}
+
+/* ── Ajustes de colocación por módulo ── */
+
+/* landing.html — cabecera a ancho completo: logo a la izquierda, botón a la derecha */
+.landing-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* cliente.html — el botón entra a la izquierda y "Mesa #12" se mantiene a la derecha */
+.top-bar-inner { justify-content: flex-start; }
+.top-bar-inner .mesa-info { margin-left: auto; }
+
+/* ── Pantallas estrechas: solo el icono, para no desbordar las cabeceras ── */
+@media (max-width: 600px) {
+  .demo-volver {
+    gap: 0;
+    padding: 8px;
+  }
+  .demo-volver span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-volver, .demo-volver svg { transition: none; }
+  .demo-volver:hover svg { transform: none; }
+  .demo-volver:active { transform: none; }
+}
